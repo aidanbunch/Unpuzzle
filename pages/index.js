@@ -1,6 +1,4 @@
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import React from "react";
 import {
@@ -14,11 +12,13 @@ import {
 } from "@chakra-ui/react";
 
 export default function Home() {
+  const router = useRouter;
+
   const [userToken, setUserToken] = React.useState("");
 
   const handleClick = (event) => {
-    event.preventDefault();
-    console.log(userToken);
+    e.preventDefault();
+    router.push(`/classroom/${userToken}`);
   };
 
   const onChange = (e) => {
@@ -38,8 +38,11 @@ export default function Home() {
           width="200px"
           isDisabled={userToken === "" ? true : false}
         >
-          <Link href={`/classrooms/${userToken}`}>
-            <a>Go</a>
+          <Link
+            onClick={(e) => handleClick(e)}
+            href={`/classrooms/${userToken}`}
+          >
+            Go
           </Link>
         </Button>
       </VStack>

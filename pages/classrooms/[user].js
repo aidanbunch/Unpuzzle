@@ -143,6 +143,7 @@ export default function User({ userProfileData, classroomData, error }) {
           {classroomData.length > 0 &&
             classroomData.map((classroom, index) => (
               <ClassroomCard
+                key={index}
                 className={classroom.className}
                 teacherName={classroom.teacherName}
                 backgroundColorName={backgroundColors[index]}
