@@ -1,5 +1,4 @@
-import { useRouter } from "next/router";
-import Link from "next/link";
+import Router from "next/router";
 import React from "react";
 import {
   Flex,
@@ -12,13 +11,12 @@ import {
 } from "@chakra-ui/react";
 
 export default function Home() {
-  const router = useRouter;
-
   const [userToken, setUserToken] = React.useState("");
 
-  const handleClick = (event) => {
+  const handleClick = (e) => {
     e.preventDefault();
-    router.push(`/classroom/${userToken}`);
+    console.log("CLICKED");
+    Router.push(`/classrooms/${userToken}`);
   };
 
   const onChange = (e) => {
@@ -37,13 +35,15 @@ export default function Home() {
           size="lg"
           width="200px"
           isDisabled={userToken === "" ? true : false}
+          onClick={(e) => handleClick(e)}
         >
-          <Link
+          Go
+          {/* <Link
             onClick={(e) => handleClick(e)}
             href={`/classrooms/${userToken}`}
           >
             Go
-          </Link>
+          </Link> */}
         </Button>
       </VStack>
       {/* </Center> */}
