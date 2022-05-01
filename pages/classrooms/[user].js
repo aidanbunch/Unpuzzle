@@ -4,25 +4,6 @@ import { Box, Text, Flex, VStack, Heading } from "@chakra-ui/react";
 import ClassroomCard from "../../components/ClassroomCard";
 import Link from "next/link";
 
-// normal user
-// {
-//     "id": "5f3551369c89943f2c594629",
-//     "isOpenClassroomUser": false,
-//     "role": "student",
-//     "email": "297896@students.cnusd.k12.ca.us",
-//     "firstName": "Aidan",
-//     "lastName": "Bunch",
-// }
-
-// open classroom user
-// {
-//     "id": "6266eeeb3ae4b442df822216",
-//     "isOpenClassroomUser": true,
-//     "role": "student",
-//     "nickname": "aidan",
-//     "classroomId": "6266ea1cc7313a42a8b2c294",
-// }
-
 export async function getServerSideProps(context) {
   const userToken = context.params.user;
 
