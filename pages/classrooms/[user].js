@@ -146,7 +146,7 @@ export default function User({ userProfileData, classroomData, error }) {
                 className={classroom.className}
                 teacherName={classroom.teacherName}
                 backgroundColorName={backgroundColors[index]}
-                id={classroom.id}
+                id={classroom.classId}
               />
             ))}
         </VStack>
