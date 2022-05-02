@@ -5,10 +5,11 @@ import AssignmentCard from "../../components/AssignmentCard";
 import BackButton from "../../components/BackButton";
 
 export async function getServerSideProps(context) {
-  const classroomID = getDataFromSlug(context.params.classroom, "classroomID");
-  const userToken = getDataFromSlug(context.params.classroom, "userToken");
-  const className = getDataFromSlug(context.params.classroom, "className");
-  const color = getDataFromSlug(context.params.classroom, "color");
+
+  const classroomID = context.params.classroom;
+  const userToken = context.query.userToken;
+  const className = context.query.className;
+  const color = context.query.bgColor;
 
   try {
     const response = await axios.get(
@@ -58,32 +59,6 @@ export async function getServerSideProps(context) {
     };
   }
 }
-
-const getDataFromSlug = (param, portionReturned) => {
-  const userTokenParam = param.trim();
-  const splitParam = userTokenParam.split("---");
-
-  if (portionReturned === "userToken") {
-    return splitParam[0];
-  } else if (portionReturned === "className") {
-    return splitParam[1];
-  } else if (portionReturned === "classroomID") {
-    return splitParam[3];
-  } else if (portionReturned === "color") {
-    return splitParam[2];
-  }
-};
-
-// const getUserTokenAndClassroomID = (param) => {
-//   const cityParam = param.trim();
-//   const splitCity = cityParam.split("---");
-//   const classroomID = splitCity[splitCity.length - 1];
-//   const userToken = splitCity[0];
-//   return {
-//     classroomID: classroomID,
-//     userToken: userToken,
-//   };
-// };
 
 export default function Classroom({ assignmentsData, className, color }) {
   console.log(assignmentsData);

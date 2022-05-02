@@ -20,7 +20,12 @@ export default function ClassroomCard({
 }) {
   return (
     <Link
-      href={`/assignments/${userToken}---${className}---${backgroundColorName}---${id}`}
+      href={{
+        pathname: `/assignments/${id}`,
+        query: { userToken: `${userToken}`, 
+        className: `${className}`, 
+        bgColor: `${backgroundColorName}` },
+      }}
     >
       <Box w="100%">
         <Center py={6}>
