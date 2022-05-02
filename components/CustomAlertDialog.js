@@ -8,7 +8,7 @@ import {
   AlertDialogBody,
   AlertDialogContent,
   useDisclosure,
-  Spacer, 
+  Spacer,
   Flex
 } from "@chakra-ui/react";
 import Router from "next/router"
@@ -21,7 +21,7 @@ export default function CustomAlertDialog({
 
   React.useEffect(() => {
     // Update the document title using the browser API
-console.log("APPEARED")
+    console.log("APPEARED")
   }, []);
 
   const goBack = () => {
@@ -41,6 +41,7 @@ console.log("APPEARED")
         leastDestructiveRef={cancelRef}
         onClose={onClose}
         onCloseComplete={goBack}
+        isCentered
       >
         <AlertDialogOverlay>
           <AlertDialogContent>
@@ -58,7 +59,7 @@ console.log("APPEARED")
                 Ok
               </Button>
 
-            
+
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialogOverlay>

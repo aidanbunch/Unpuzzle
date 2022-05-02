@@ -128,15 +128,12 @@ export default function User({ userProfileData, classroomData, userToken, error 
 
   if (error) {
     return (
-      <Flex height="100vh" alignItems="center" justifyContent="center">
         <CustomAlertDialog
           color={"blue"}
           buttonText={"Error"}
           header={"Invalid token"}
           body={"The token you entered was invalid."}
         />
-      </Flex>
-
     );
   } else {
     return (
