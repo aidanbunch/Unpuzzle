@@ -119,7 +119,7 @@ export default function User({ userProfileData, classroomData, userToken }) {
           <Spacer />
 
           <Heading size="2xl">
-            {`Hello ${
+            {`Hello, ${
               userProfileData.isOpenClassroomUser
                 ? userProfileData.nickname
                 : userProfileData.firstName
