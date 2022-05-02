@@ -9,22 +9,22 @@ function replaceHTMLTags(string) {
 
 var questionJSON = [];
 
-const getOpenEndedAnswer = async (openEndedCount, callback) => {
-  var answerJSON = questionJSON;
+// const getOpenEndedAnswer = async (openEndedCount, callback) => {
+//   var answerJSON = questionJSON;
 
-  answerJSON.forEach((question) => {
-    if (question.type === "open-ended") {
-      returnOpenEndedAnswer(question.body).then(function (ans) {
-        question.openEndedAnswer = ans;
-        openEndedCount -= 1;
+//   answerJSON.forEach((question) => {
+//     if (question.type === "open-ended") {
+//       returnOpenEndedAnswer(question.body).then(function (ans) {
+//         question.openEndedAnswer = ans;
+//         openEndedCount -= 1;
 
-        if (openEndedCount == 0) {
-          callback(answerJSON);
-        }
-      });
-    }
-  });
-};
+//         if (openEndedCount == 0) {
+//           callback(answerJSON);
+//         }
+//       });
+//     }
+//   });
+// };
 
 // const getQuestions = async (assignmentId, teacherToken) => {
 //   try {
@@ -172,27 +172,31 @@ export default function Assignment({ answers }) {
 
 const [questionAnswerData, setQuestionAnswerData] = React.useState(answers)
 
+async function getOpenEndedAnswer(question, index) {
+  if(question.type === "open-ended") {
+
+    const response = await fetch('/api/getAns/', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ prompt: question.body }),
+    })
+
+    const newAnswers = questionAnswerData
+      const data = await response.json();
+      newAnswers[index].openEndedAnswer = data.answer
+      console.log(JSON.stringify(newAnswers))
+      setQuestionAnswerData(newAnswers)
+  }
+}
+
 React.useEffect(() => {
 
   if(answers.length > 0) {
 
     questionAnswerData.map((question, index) => {
-        if(question.type === "open-ended") {
-
-          fetch('/api/getAns/', {
-            method: "POST",
-            body: {
-              prompt: question.body
-            }
-          })
-          .then((response) => {
-            const newAnswers = questionAnswerData
-            console.log(response)
-            newAnswers[index].openEndedAnswer = response
-            console.log(newAnswers)
-            setQuestionAnswerData(newAnswers)
-          })
-        }
+       getOpenEndedAnswer(question, index)
     })
   }
   
