@@ -13,11 +13,12 @@ import {
 
 export default function Home() {
   const [userToken, setUserToken] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const handleClick = (e) => {
     e.preventDefault();
-    console.log("CLICKED");
     Router.push(`/classrooms/${userToken}`);
+    setIsLoading(true);
   };
 
   const onChange = (e) => {
@@ -32,7 +33,7 @@ export default function Home() {
         <Heading fontSize="4xl">Type your Edpuzzle User Token</Heading>
         <Input value={userToken} onChange={onChange} placeholder="User token" />
         <Button
-          isLoading={false}
+          isLoading={isLoading}
           loadingText='Logging you in...'
           colorScheme="blue"
           size="lg"
