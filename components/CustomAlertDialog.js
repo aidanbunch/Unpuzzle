@@ -14,7 +14,6 @@ import {
 import Router from "next/router"
 export default function CustomAlertDialog({
   color,
-  buttonText,
   header,
   body,
 }) {
@@ -27,7 +26,7 @@ export default function CustomAlertDialog({
   const goBack = () => {
     Router.back();
   };
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { onClose } = useDisclosure()
   const cancelRef = React.useRef()
 
   return (
