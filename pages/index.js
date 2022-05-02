@@ -32,6 +32,8 @@ export default function Home() {
         <Heading fontSize="4xl">Type your Edpuzzle User Token</Heading>
         <Input value={userToken} onChange={onChange} placeholder="User token" />
         <Button
+          isLoading={false}
+          loadingText='Logging you in...'
           colorScheme="blue"
           size="lg"
           width="200px"
