@@ -3,7 +3,8 @@ require("dotenv").config();
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["jedpuzzle.com"],
+    domains: ["edpuzzle.com", "open"],
+
   },
 };
 

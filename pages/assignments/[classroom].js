@@ -19,6 +19,8 @@ export async function getServerSideProps(context) {
   const className = context.query.className;
   const color = context.query.bgColor;
 
+  
+
   try {
     const response = await axios.get(
       `https://edpuzzle.com/api/v3/assignments/classrooms/${classroomID}/students?needle=`,
