@@ -1,9 +1,10 @@
 import React from "react";
 import axios from "axios";
-import { Box, VStack, Heading, Flex, Spacer, Button } from "@chakra-ui/react";
+import { Box, VStack, Heading, Flex, Spacer, Button, useToast } from "@chakra-ui/react";
 import ClassroomCard from "../../components/ClassroomCard";
 import Link from "next/link";
 import BackButton from "../../components/BackButton";
+import CustomAlertDialog from "../../components/CustomAlertDialog";
 
 export async function getServerSideProps(context) {
   const userToken = context.params.user;
@@ -32,117 +33,144 @@ export async function getServerSideProps(context) {
     }
   );
 
-  const [profileResponse, classroomsResponse] = await Promise.all([
-    userProfileRequest,
-    userClassroomsRequest,
-  ]);
+  try {
+    const [profileResponse, classroomsResponse] = await Promise.all([
+      userProfileRequest,
+      userClassroomsRequest,
+    ]);
 
-  const userClassrooms = classroomsResponse.data;
+    const userClassrooms = classroomsResponse.data;
 
-  const profileJSON = {};
-  const classroomJSON = [];
+    const profileJSON = {};
+    const classroomJSON = [];
 
-  /* create profile json */
+    /* create profile json */
 
-  profileJSON["id"] = profileResponse.data._id;
-  profileJSON["role"] = profileResponse.data.role;
-  // indicate in frontend if token is for a teacher, tell them to enter a student
+    profileJSON["id"] = profileResponse.data._id;
+    profileJSON["role"] = profileResponse.data.role;
+    // indicate in frontend if token is for a teacher, tell them to enter a student
 
-  if (profileResponse.data.role === "student") {
-    if (profileResponse.data.isOpenClassroomUser) {
-      profileJSON["isOpenClassroomUser"] = true;
-      profileJSON["nickname"] = profileResponse.data.nickname;
-      profileJSON["classroomId"] = profileResponse.data.classroomId;
-    } else {
-      profileJSON["isOpenClassroomUser"] = false;
-      var email = "";
-      if (profileResponse.data.email === "") {
-        if (profileResponse.data.google.email === "") {
-          email = profileResponse.data.username;
-        } else {
-          email = profileResponse.data.google.email;
-        }
+    if (profileResponse.data.role === "student") {
+      if (profileResponse.data.isOpenClassroomUser) {
+        profileJSON["isOpenClassroomUser"] = true;
+        profileJSON["nickname"] = profileResponse.data.nickname;
+        profileJSON["classroomId"] = profileResponse.data.classroomId;
       } else {
-        email = profileResponse.data.email;
-      }
+        profileJSON["isOpenClassroomUser"] = false;
+        var email = "";
+        if (profileResponse.data.email === "") {
+          if (profileResponse.data.google.email === "") {
+            email = profileResponse.data.username;
+          } else {
+            email = profileResponse.data.google.email;
+          }
+        } else {
+          email = profileResponse.data.email;
+        }
 
-      profileJSON["email"] = email;
-      profileJSON["firstName"] = profileResponse.data.firstName;
-      profileJSON["lastName"] = profileResponse.data.lastName;
+        profileJSON["email"] = email;
+        profileJSON["firstName"] = profileResponse.data.firstName;
+        profileJSON["lastName"] = profileResponse.data.lastName;
+      }
     }
+
+    /* create classroom json */
+
+    userClassrooms.forEach((userClass) => {
+      const userClassesObj = {};
+      userClassesObj["className"] = userClass.name;
+      userClassesObj["classId"] = userClass._id;
+      var teachers = "";
+      userClass.teachers.forEach((teacher) => {
+        if (teachers === "") {
+          teachers = teachers.concat(teacher.name);
+          userClassesObj["teacherName"] = teachers;
+        } else {
+          teachers = teachers.concat(", " + teacher.name);
+          userClassesObj["teacherName"] = teachers;
+        }
+      });
+      classroomJSON.push(userClassesObj);
+    });
+
+    return {
+      props: {
+        userProfileData: profileJSON,
+        classroomData: classroomJSON,
+        userToken: userToken,
+      },
+    };
+  } catch (err) {
+    console.error(err)
+    return {
+      props: {
+        userProfileData: {},
+        error: {},
+        classroomData: [],
+        userToken: "",
+      },
+    };
   }
 
-  /* create classroom json */
-
-  userClassrooms.forEach((userClass) => {
-    const userClassesObj = {};
-    userClassesObj["className"] = userClass.name;
-    userClassesObj["classId"] = userClass._id;
-    var teachers = "";
-    userClass.teachers.forEach((teacher) => {
-      if (teachers === "") {
-        teachers = teachers.concat(teacher.name);
-        userClassesObj["teacherName"] = teachers;
-      } else {
-        teachers = teachers.concat(", " + teacher.name);
-        userClassesObj["teacherName"] = teachers;
-      }
-    });
-    classroomJSON.push(userClassesObj);
-  });
-
-  return {
-    props: {
-      userProfileData: profileJSON,
-      classroomData: classroomJSON,
-      userToken: userToken,
-    },
-  };
 }
 
-const backgroundColors = [
-  "blue.500",
-  "red.500",
-  "green.500",
-  "orange.500",
-  "purple.500",
-  "teal.500",
-  "brown.500",
-];
+export default function User({ userProfileData, classroomData, userToken, error }) {
 
-export default function User({ userProfileData, classroomData, userToken }) {
-  return (
-    <Box m={100}>
-      <VStack spacing={20}>
-        <Flex w="100%">
-          <BackButton />
-          <Spacer />
+  const backgroundColors = [
+    "blue.500",
+    "red.500",
+    "green.500",
+    "orange.500",
+    "purple.500",
+    "teal.500",
+    "brown.500",
+  ];
 
-          <Heading size="2xl">
-            {`Hello, ${
-              userProfileData.isOpenClassroomUser
+  if (error) {
+    return (
+      <Flex height="100vh" alignItems="center" justifyContent="center">
+        <CustomAlertDialog
+          color={"blue"}
+          buttonText={"Error"}
+          header={"Invalid token"}
+          body={"The token you entered was invalid."}
+        />
+      </Flex>
+
+    );
+  } else {
+    return (
+      <Box m={100}>
+        <VStack spacing={20}>
+          <Flex w="100%">
+            <BackButton />
+            <Spacer />
+
+            <Heading size="2xl">
+              {`Hello, ${userProfileData.isOpenClassroomUser
                 ? userProfileData.nickname
                 : userProfileData.firstName
-            }`}
-          </Heading>
+                }`}
+            </Heading>
 
-          <Spacer />
-        </Flex>
+            <Spacer />
+          </Flex>
 
-        <VStack>
-          {classroomData.length > 0 &&
-            classroomData.map((classroom, index) => (
-              <ClassroomCard
-                key={index}
-                className={classroom.className}
-                teacherName={classroom.teacherName}
-                backgroundColorName={backgroundColors[index]}
-                id={classroom.classId}
-                userToken={userToken}
-              />
-            ))}
+          <VStack>
+            {classroomData.length > 0 &&
+              classroomData.map((classroom, index) => (
+                <ClassroomCard
+                  key={index}
+                  className={classroom.className}
+                  teacherName={classroom.teacherName}
+                  backgroundColorName={backgroundColors[index]}
+                  id={classroom.classId}
+                  userToken={userToken}
+                />
+              ))}
+          </VStack>
         </VStack>
-      </VStack>
-    </Box>
-  );
+      </Box>
+    );
+  }
 }
