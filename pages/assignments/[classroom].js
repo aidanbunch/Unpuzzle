@@ -1,11 +1,19 @@
 import React from "react";
 import axios from "axios";
-import { Box, Heading, VStack, HStack, Flex, Spacer } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  VStack,
+  HStack,
+  Flex,
+  Spacer,
+  Button,
+  ButtonGroup,
+} from "@chakra-ui/react";
 import AssignmentCard from "../../components/AssignmentCard";
 import BackButton from "../../components/BackButton";
 
 export async function getServerSideProps(context) {
-
   const classroomID = context.params.classroom;
   const userToken = context.query.userToken;
   const className = context.query.className;
@@ -88,6 +96,7 @@ export default function Classroom({ assignmentsData, className, color }) {
                 key={index}
                 color={color}
                 assignmentTitle={assignment.assignmentTitle}
+                assignmentID={assignment.assignmentTeacherId}
               />
             ))}
         </VStack>

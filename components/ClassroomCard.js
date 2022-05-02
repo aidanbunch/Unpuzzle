@@ -5,6 +5,7 @@ import {
   Text,
   Stack,
   HStack,
+  Button,
   Spacer,
   Avatar,
   useColorModeValue,
@@ -22,9 +23,11 @@ export default function ClassroomCard({
     <Link
       href={{
         pathname: `/assignments/${id}`,
-        query: { userToken: `${userToken}`, 
-        className: `${className}`, 
-        bgColor: `${backgroundColorName}` },
+        query: {
+          userToken: `${userToken}`,
+          className: `${className}`,
+          bgColor: `${backgroundColorName}`,
+        },
       }}
       passHref
     >
