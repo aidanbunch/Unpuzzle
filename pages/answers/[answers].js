@@ -169,16 +169,42 @@ export async function getServerSideProps(context) {
 }
 
 export default function Assignment({ answers }) {
-  console.log(answers)
+
+const [questionAnswerData, setQuestionAnswerData] = React.useState(answers)
+
 React.useEffect(() => {
-})
+
+  if(answers.length > 0) {
+
+    questionAnswerData.map((question, index) => {
+        if(question.type === "open-ended") {
+
+          fetch('/api/getAns/', {
+            method: "POST",
+            body: {
+              prompt: question.body
+            }
+          })
+          .then((response) => {
+            const newAnswers = questionAnswerData
+            console.log(response)
+            newAnswers[index].openEndedAnswer = response
+            console.log(newAnswers)
+            setQuestionAnswerData(newAnswers)
+          })
+        }
+    })
+  }
+  
+}, [])
 
   // console.log(answers);
   return (
     <div>
-      {answers.length > 0 && answers.map((question, index) => (
-        <div>{question.body}</div>
-      )) }
+      {questionAnswerData.length > 0 && answers.map((question, index) => (
+        <div key={index}>{question.body}</div>
+      ) 
+     ) }
       </div>
   )
 }

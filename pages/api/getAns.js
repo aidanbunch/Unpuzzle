@@ -4,9 +4,6 @@ import dotenv from "dotenv";
 import axios from "axios";
 dotenv.config();
 
-const app = express()
-
-app.use(express.json())
 
 
 
@@ -24,20 +21,25 @@ function generatePrompt(question) {
     }
   }
 
-export async function getAnswer(req, res) {
+export async function getAnswer(prompt) {
     // res.status(200).json({ name: 'John Doe' })
-    const questionPrompt = req.body.prompt
+    const questionPrompt = prompt
 
     const completion = await openai.createCompletion("text-davinci-002", {
-      prompt: generatePrompt(questionPrompt),
+      prompt: (questionPrompt),
       temperature: 1.0,
       max_tokens: 160,
     });
-    return completion.data.choices[0].text;
+
+    return {
+      "prompt": questionPrompt,
+      "answer": completion.data.choices[0].text
+    };
 
 }
   
 export default async function handler(req, res) {
-  const ansData = await getAnswer()
-  res.statsu(200).json(ansData)
+  const ansData = await getAnswer(req.body.prompt)
+  console.log(ansData)
+  res.status(200).json({prompt: req.body.prompt, answersData: ansData})
 }
