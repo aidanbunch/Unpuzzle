@@ -26,6 +26,7 @@ export default function ClassroomCard({
         className: `${className}`, 
         bgColor: `${backgroundColorName}` },
       }}
+      passHref
     >
       <Box w="100%">
         <Center py={6}>
