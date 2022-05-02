@@ -4,7 +4,7 @@ import { Box, VStack, Heading, Flex, Spacer, Button, useToast } from "@chakra-ui
 import ClassroomCard from "../../components/ClassroomCard";
 import Link from "next/link";
 import BackButton from "../../components/BackButton";
-import CustomAlertDialog from "../../components/CustomAlertDialog";
+import InstantAlertDialog from "../../components/InstantAlertDialog";
 
 export async function getServerSideProps(context) {
   const userToken = context.params.user;
@@ -128,7 +128,7 @@ export default function User({ userProfileData, classroomData, userToken, error 
 
   if (error) {
     return (
-        <CustomAlertDialog
+        <InstantAlertDialog
           color={"blue"}
           buttonText={"Error"}
           header={"Invalid token"}

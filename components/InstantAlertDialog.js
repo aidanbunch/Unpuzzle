@@ -12,7 +12,7 @@ import {
   Flex
 } from "@chakra-ui/react";
 import Router from "next/router"
-export default function CustomAlertDialog({
+export default function InstantAlertDialog({
   color,
   header,
   body,
