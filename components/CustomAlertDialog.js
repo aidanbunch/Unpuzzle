@@ -7,7 +7,9 @@ import {
   AlertDialogFooter,
   AlertDialogBody,
   AlertDialogContent,
-  useDisclosure
+  useDisclosure,
+  Spacer, 
+  Flex
 } from "@chakra-ui/react";
 import Router from "next/router"
 export default function CustomAlertDialog({
@@ -17,6 +19,11 @@ export default function CustomAlertDialog({
   body,
 }) {
 
+  React.useEffect(() => {
+    // Update the document title using the browser API
+console.log("APPEARED")
+  }, []);
+
   const goBack = () => {
     Router.back();
   };
@@ -25,12 +32,12 @@ export default function CustomAlertDialog({
 
   return (
     <>
-      <Button colorScheme={color} onClick={onOpen}>
+      {/* <Button colorScheme={color} onClick={onOpen}>
         {buttonText}
-      </Button>
+      </Button> */}
 
       <AlertDialog
-        isOpen={isOpen}
+        isOpen={true}
         leastDestructiveRef={cancelRef}
         onClose={onClose}
         onCloseComplete={goBack}
@@ -45,13 +52,13 @@ export default function CustomAlertDialog({
               {body}
             </AlertDialogBody>
 
-            <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose}>
-                Cancel
-              </Button>
-              <Button colorScheme={color} onClick={onClose} ml={3}>
+            <AlertDialogFooter >
+
+              <Button colorScheme={color} onClick={goBack}>
                 Ok
               </Button>
+
+            
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialogOverlay>
