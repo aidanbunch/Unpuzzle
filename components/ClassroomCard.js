@@ -16,9 +16,12 @@ export default function ClassroomCard({
   teacherName,
   backgroundColorName,
   id,
+  userToken,
 }) {
   return (
-    <Link href={`/assignments/${id}`}>
+    <Link
+      href={`/assignments/${userToken}---${className}---${backgroundColorName}---${id}`}
+    >
       <Box w="100%">
         <Center py={6}>
           <Box

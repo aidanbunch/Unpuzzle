@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Box, Text, Flex, VStack, Heading } from "@chakra-ui/react";
+import { Box, VStack, Heading } from "@chakra-ui/react";
 import ClassroomCard from "../../components/ClassroomCard";
 import Link from "next/link";
 
@@ -94,6 +94,7 @@ export async function getServerSideProps(context) {
     props: {
       userProfileData: profileJSON,
       classroomData: classroomJSON,
+      userToken: userToken,
     },
   };
 }
@@ -108,7 +109,7 @@ const backgroundColors = [
   "brown.500",
 ];
 
-export default function User({ userProfileData, classroomData, error }) {
+export default function User({ userProfileData, classroomData, userToken }) {
   return (
     <Box m={100}>
       <VStack spacing={20}>
@@ -129,6 +130,7 @@ export default function User({ userProfileData, classroomData, error }) {
                 teacherName={classroom.teacherName}
                 backgroundColorName={backgroundColors[index]}
                 id={classroom.classId}
+                userToken={userToken}
               />
             ))}
         </VStack>
