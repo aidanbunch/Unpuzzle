@@ -1,7 +1,8 @@
 import React from "react";
 import axios from "axios";
-import { Box, Heading, VStack, HStack } from "@chakra-ui/react";
+import { Box, Heading, VStack, HStack, Flex, Spacer } from "@chakra-ui/react";
 import AssignmentCard from "../../components/AssignmentCard";
+import BackButton from "../../components/BackButton";
 
 export async function getServerSideProps(context) {
   const classroomID = getDataFromSlug(context.params.classroom, "classroomID");
@@ -89,12 +90,20 @@ export default function Classroom({ assignmentsData, className, color }) {
   return (
     <Box m={100}>
       <VStack spacing={20}>
-        <HStack>
-          <Heading color={`${color}`} size="xl">
-            {className}
-          </Heading>
-          <Heading size="xl"> assignments</Heading>
-        </HStack>
+        <Flex w="100%">
+          <BackButton />
+          <Spacer />
+
+          <HStack align mx={10}>
+            <Heading color={`${color}`} size="xl">
+              {className}
+            </Heading>
+            <Heading size="xl"> assignments</Heading>
+          </HStack>
+
+          <Spacer />
+        </Flex>
+
         {/* <AssignmentCard assignmentTitle={assignment} color={color} /> */}
 
         <VStack spacing={20}>

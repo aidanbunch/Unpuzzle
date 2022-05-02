@@ -3,6 +3,7 @@ import React from "react";
 import {
   Flex,
   Center,
+  Heading,
   Text,
   Input,
   Spacer,
@@ -28,7 +29,7 @@ export default function Home() {
     <Flex height="100vh" alignItems="center" justifyContent="center">
       {/* <Center> */}
       <VStack spacing="30px">
-        <Text fontSize="4xl">Type your Edpuzzle User Token</Text>
+        <Heading fontSize="4xl">Type your Edpuzzle User Token</Heading>
         <Input value={userToken} onChange={onChange} placeholder="User token" />
         <Button
           colorScheme="blue"

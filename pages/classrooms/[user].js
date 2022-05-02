@@ -1,8 +1,9 @@
 import React from "react";
 import axios from "axios";
-import { Box, VStack, Heading } from "@chakra-ui/react";
+import { Box, VStack, Heading, Flex, Spacer, Button } from "@chakra-ui/react";
 import ClassroomCard from "../../components/ClassroomCard";
 import Link from "next/link";
+import BackButton from "../../components/BackButton";
 
 export async function getServerSideProps(context) {
   const userToken = context.params.user;
@@ -113,13 +114,20 @@ export default function User({ userProfileData, classroomData, userToken }) {
   return (
     <Box m={100}>
       <VStack spacing={20}>
-        <Heading size="2xl">
-          {`Hello ${
-            userProfileData.isOpenClassroomUser
-              ? userProfileData.nickname
-              : userProfileData.firstName
-          }`}
-        </Heading>
+        <Flex w="100%">
+          <BackButton />
+          <Spacer />
+
+          <Heading size="2xl">
+            {`Hello ${
+              userProfileData.isOpenClassroomUser
+                ? userProfileData.nickname
+                : userProfileData.firstName
+            }`}
+          </Heading>
+
+          <Spacer />
+        </Flex>
 
         <VStack>
           {classroomData.length > 0 &&
