@@ -31,15 +31,23 @@ export async function getAnswer(prompt) {
       max_tokens: 160,
     });
 
-    return {
+    return ({
       "prompt": questionPrompt,
       "answer": completion.data.choices[0].text
-    };
+    });
 
 }
   
 export default async function handler(req, res) {
-  const ansData = await getAnswer(req.body.prompt)
-  console.log(ansData)
-  res.status(200).json({prompt: req.body.prompt, answersData: ansData})
+  const questionPrompt = req.body.prompt
+
+  const completion = await openai.createCompletion("text-davinci-002", {
+    prompt: (questionPrompt),
+    temperature: 1.0,
+    max_tokens: 100,
+  }); 
+
+  const answerString =  completion.data.choices[0].text.replace(/\n/g, '') 
+
+  res.status(200).json({ answer: answerString});
 }
