@@ -130,7 +130,6 @@ export default function User({ userProfileData, classroomData, userToken, error 
     return (
         <InstantAlertDialog
           color={"blue"}
-          buttonText={"Error"}
           header={"Invalid token"}
           body={"The token you entered was invalid."}
         />

@@ -18,11 +18,6 @@ export default function InstantAlertDialog({
   body,
 }) {
 
-  React.useEffect(() => {
-    // Update the document title using the browser API
-    console.log("APPEARED")
-  }, []);
-
   const goBack = () => {
     Router.back();
   };

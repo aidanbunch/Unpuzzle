@@ -18,9 +18,6 @@ export default function AssignmentCard({
   assignmentID,
 }) {
   return (
-    // <Link
-    //   href={`/assignments/${userToken}---${className}---${backgroundColorName}---${id}`}
-    // >
     <Link href={`/answers/${assignmentID}`} passHref>
       <Box w="100%" alignItems="center">
         <Center>

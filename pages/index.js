@@ -28,7 +28,6 @@ export default function Home() {
 
   return (
     <Flex height="100vh" alignItems="center" justifyContent="center">
-      {/* <Center> */}
       <VStack spacing="30px">
         <Heading fontSize="4xl">Type your Edpuzzle User Token</Heading>
         <Input value={userToken} onChange={onChange} placeholder="User token" />
@@ -42,15 +41,8 @@ export default function Home() {
           onClick={(e) => handleClick(e)}
         >
           Go
-          {/* <Link
-            onClick={(e) => handleClick(e)}
-            href={`/classrooms/${userToken}`}
-          >
-            Go
-          </Link> */}
         </Button>
       </VStack>
-      {/* </Center> */}
     </Flex>
   );
 }
