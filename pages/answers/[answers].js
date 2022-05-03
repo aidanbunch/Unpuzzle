@@ -1,7 +1,19 @@
 import React from "react";
 import axios from "axios";
 import QuestionAnswerCard from "../../components/QuestionAnswerCard.js";
-import { Flex, VStack, Text, Center } from "@chakra-ui/react";
+
+import { Box,
+  Heading,
+  VStack,
+  HStack,
+  Flex,
+  Spacer,
+  Text,
+  Center,
+  Button,
+  ButtonGroup, } from "@chakra-ui/react";
+  import BackButton from "../../components/BackButton";
+
 // import returnOpenEndedAnswer from "../../openai.js";
 // import {getAnswer} from "../api/getAns"
 
@@ -100,6 +112,9 @@ var questionJSON = [];
 export async function getServerSideProps(context) {
   var answersJSON = [];
   const assignmentId = context.params.answers;
+  const color = context.query.color;
+  const assignmentTitle = context.query.assignmentTitle;
+
   const teacherToken =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjY2ZTk5MzFlZDFiMjQyZjBiNWMxYmUiLCJyb2xlIjoidGVhY2hlciIsInJlZ2lzdGVyZWRBdCI6MTY1MDkxMTYzNSwiaXNBZG1pbiI6ZmFsc2UsImJlY29tZVRoaXNVc2VyIjpmYWxzZSwidXNlcklkQmVjb21pbmdUaGlzVXNlciI6IiIsImlzT3BlbkNsYXNzcm9vbVVzZXIiOmZhbHNlLCJpc0x0aVVzZXIiOmZhbHNlLCJpc1VzZXJVc2luZ1RoaXJkUGFydHlBcHBsaWNhdGlvbiI6ZmFsc2UsImlhdCI6MTY1MTQ2NDQxNCwiZXhwIjoxNjUyMDY5MjE0LCJqdGkiOiI2MjZmNThkZWY1M2Y0NjQyOTM2OGM2ZDgifQ.oMXwXs9KfjFKxCWSkFZj7YgBn5s4VVslnVik4RhfWrQ";
   try {
@@ -162,6 +177,8 @@ export async function getServerSideProps(context) {
     return {
       props: {
         answers: questionJSON,
+        color: color,
+        assignmentTitle: assignmentTitle,
       },
     };
   } catch (err) {
@@ -169,7 +186,7 @@ export async function getServerSideProps(context) {
   }
 }
 
-export default function Assignment({ answers }) {
+export default function Assignment({ answers, color, assignmentTitle }) {
   const [questionAnswerData, setQuestionAnswerData] = React.useState(answers);
 
   async function getOpenEndedAnswer(question, index) {
@@ -200,12 +217,30 @@ export default function Assignment({ answers }) {
 
   // console.log(answers);
   return (
+<Box m={100}>
+      <VStack spacing={20}>
+        <Flex w="100%">
+          <BackButton />
+          <Spacer />
+
+          <HStack align mx={10}>
+            <Heading color={`${color}`} size="xl">
+              {assignmentTitle}
+            </Heading>
+            <Heading size="xl"> answers</Heading>
+          </HStack>
+
+          <Spacer />
+        </Flex>
+
     <VStack spacing={0}>
       {answers.length > 0 &&
         answers.map((question, index) => (
           <QuestionAnswerCard key={index} question={question} />
         ))}
     </VStack>
+    </VStack>
+    </Box>
   );
 }
 
