@@ -10,6 +10,7 @@ import {
   VStack,
   Button,
 } from "@chakra-ui/react";
+import Navbar from "../components/Navbar";
 
 export default function Home() {
   const [userToken, setUserToken] = React.useState("");
@@ -27,22 +28,31 @@ export default function Home() {
   };
 
   return (
-    <Flex height="100vh" alignItems="center" justifyContent="center">
-      <VStack spacing="30px">
-        <Heading fontSize="4xl">Type your Edpuzzle User Token</Heading>
-        <Input value={userToken} onChange={onChange} placeholder="User token" />
-        <Button
-          isLoading={isLoading}
-          loadingText='Logging you in...'
-          colorScheme="blue"
-          size="lg"
-          width="200px"
-          isDisabled={userToken === "" ? true : false}
-          onClick={(e) => handleClick(e)}
-        >
-          Go
-        </Button>
-      </VStack>
-    </Flex>
+    <>
+      <Navbar currentPage={"home"} />
+      <Flex height="50vh" alignItems="center" justifyContent="center" mx={10}>
+        <VStack spacing="30px">
+          <Heading textAlign="center" fontSize="4xl">
+            Type your Edpuzzle User Token
+          </Heading>
+          <Input
+            value={userToken}
+            onChange={onChange}
+            placeholder="User token"
+          />
+          <Button
+            isLoading={isLoading}
+            loadingText="Logging you in..."
+            colorScheme="blue"
+            size="lg"
+            width="200px"
+            isDisabled={userToken === "" ? true : false}
+            onClick={(e) => handleClick(e)}
+          >
+            Go
+          </Button>
+        </VStack>
+      </Flex>
+    </>
   );
 }

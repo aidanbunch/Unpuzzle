@@ -31,9 +31,9 @@ export default function AssignmentCard({
       }}
       passHref
     >
-      <Box w="100%" alignItems="center">
-        <Center>
-          <Box
+      <Box maxW={"500px"} w="100%" alignItems="center">
+        {/* <Center> */}
+        {/* <Box
             w="100%"
             bg={useColorModeValue(`${color}`, "gray.900")}
             boxShadow={"2xl"}
@@ -41,7 +41,7 @@ export default function AssignmentCard({
             p={10}
             overflow={"hidden"}
             transition="transform 200ms ease-in-out"
-            _hover={{transform: "scale(1.05)"}}
+            _hover={{ transform: "scale(1.05)" }}
           >
             <Stack>
               <Heading color={"white"} fontSize={"2xl"} fontFamily={"body"}>
@@ -53,6 +53,33 @@ export default function AssignmentCard({
             </Stack>
           </Box>
         </Center>
+      </Box> */}
+
+        <Box w="100%">
+          <Center py={6}>
+            <Box
+              w="100%"
+              bg={useColorModeValue(`${color}`, "gray.900")}
+              boxShadow={"2xl"}
+              rounded={"lg"}
+              p={10}
+              overflow={"hidden"}
+              transition="transform 200ms ease-in-out"
+              _hover={{ transform: "scale(1.05)" }}
+            >
+              <Stack>
+                <Heading
+                  textAlign="center"
+                  color={"white"}
+                  fontSize={"2xl"}
+                  fontFamily={"body"}
+                >
+                  {assignmentTitle}
+                </Heading>
+              </Stack>
+            </Box>
+          </Center>
+        </Box>
       </Box>
     </Link>
   );

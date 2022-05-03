@@ -1,10 +1,19 @@
 import React from "react";
 import axios from "axios";
-import { Box, VStack, Heading, Flex, Spacer, Button, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  VStack,
+  Heading,
+  Flex,
+  Spacer,
+  Button,
+  useToast,
+} from "@chakra-ui/react";
 import ClassroomCard from "../../components/ClassroomCard";
 import Link from "next/link";
 import BackButton from "../../components/BackButton";
 import InstantAlertDialog from "../../components/InstantAlertDialog";
+import Navbar from "../../components/Navbar";
 
 export async function getServerSideProps(context) {
   const userToken = context.params.user;
@@ -101,7 +110,7 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (err) {
-    console.error(err)
+    console.error(err);
     return {
       props: {
         userProfileData: {},
@@ -111,11 +120,14 @@ export async function getServerSideProps(context) {
       },
     };
   }
-
 }
 
-export default function User({ userProfileData, classroomData, userToken, error }) {
-
+export default function User({
+  userProfileData,
+  classroomData,
+  userToken,
+  error,
+}) {
   const backgroundColors = [
     "blue.500",
     "red.500",
@@ -128,45 +140,49 @@ export default function User({ userProfileData, classroomData, userToken, error 
 
   if (error) {
     return (
-        <InstantAlertDialog
-          color={"blue"}
-          header={"Invalid token"}
-          body={"The token you entered was invalid."}
-        />
+      <InstantAlertDialog
+        color={"blue"}
+        header={"Invalid token"}
+        body={"The token you entered was invalid."}
+      />
     );
   } else {
     return (
-      <Box m={100}>
-        <VStack spacing={20}>
-          <Flex w="100%">
-            <BackButton />
-            <Spacer />
+      <>
+        <Navbar />
+        <Box m={10}>
+          <VStack spacing={20}>
+            <Flex w="100%">
+              <BackButton />
+              <Spacer />
 
-            <Heading size="2xl">
-              {`Hello, ${userProfileData.isOpenClassroomUser
-                ? userProfileData.nickname
-                : userProfileData.firstName
+              <Heading size="2xl">
+                {`Hello, ${
+                  userProfileData.isOpenClassroomUser
+                    ? userProfileData.nickname
+                    : userProfileData.firstName
                 }`}
-            </Heading>
+              </Heading>
 
-            <Spacer />
-          </Flex>
+              <Spacer />
+            </Flex>
 
-          <VStack>
-            {classroomData.length > 0 &&
-              classroomData.map((classroom, index) => (
-                <ClassroomCard
-                  key={index}
-                  className={classroom.className}
-                  teacherName={classroom.teacherName}
-                  backgroundColorName={backgroundColors[index]}
-                  id={classroom.classId}
-                  userToken={userToken}
-                />
-              ))}
+            <VStack>
+              {classroomData.length > 0 &&
+                classroomData.map((classroom, index) => (
+                  <ClassroomCard
+                    key={index}
+                    className={classroom.className}
+                    teacherName={classroom.teacherName}
+                    backgroundColorName={backgroundColors[index]}
+                    id={classroom.classId}
+                    userToken={userToken}
+                  />
+                ))}
+            </VStack>
           </VStack>
-        </VStack>
-      </Box>
+        </Box>
+      </>
     );
   }
 }

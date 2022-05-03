@@ -1,8 +1,10 @@
 import React from "react";
 import axios from "axios";
 import QuestionAnswerCard from "../../components/QuestionAnswerCard.js";
+import Navbar from "../../components/Navbar";
 
-import { Box,
+import {
+  Box,
   Heading,
   VStack,
   HStack,
@@ -11,8 +13,9 @@ import { Box,
   Text,
   Center,
   Button,
-  ButtonGroup, } from "@chakra-ui/react";
-  import BackButton from "../../components/BackButton";
+  ButtonGroup,
+} from "@chakra-ui/react";
+import BackButton from "../../components/BackButton";
 
 // import returnOpenEndedAnswer from "../../openai.js";
 // import {getAnswer} from "../api/getAns"
@@ -217,30 +220,33 @@ export default function Assignment({ answers, color, assignmentTitle }) {
 
   // console.log(answers);
   return (
-<Box m={100}>
-      <VStack spacing={20}>
-        <Flex w="100%">
-          <BackButton />
-          <Spacer />
+    <>
+      <Navbar />
+      <Box m={10}>
+        <VStack spacing={20}>
+          <Flex w="100%">
+            <BackButton />
+            <Spacer />
 
-          <HStack align mx={10}>
-            <Heading color={`${color}`} size="xl">
-              {assignmentTitle}
-            </Heading>
-            <Heading size="xl"> answers</Heading>
-          </HStack>
+            <HStack align mx={10}>
+              <Heading color={`${color}`} size="xl">
+                {assignmentTitle}
+              </Heading>
+              <Heading size="xl"> answers</Heading>
+            </HStack>
 
-          <Spacer />
-        </Flex>
+            <Spacer />
+          </Flex>
 
-    <VStack spacing={0}>
-      {answers.length > 0 &&
-        answers.map((question, index) => (
-          <QuestionAnswerCard key={index} question={question} />
-        ))}
-    </VStack>
-    </VStack>
-    </Box>
+          <VStack spacing={0}>
+            {answers.length > 0 &&
+              answers.map((question, index) => (
+                <QuestionAnswerCard key={index} question={question} />
+              ))}
+          </VStack>
+        </VStack>
+      </Box>
+    </>
   );
 }
 
