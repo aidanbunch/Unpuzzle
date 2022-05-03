@@ -9,20 +9,16 @@ import {
   AlertDialogContent,
   useDisclosure,
   Spacer,
-  Flex
+  Flex,
 } from "@chakra-ui/react";
-import Router from "next/router"
-export default function InstantAlertDialog({
-  color,
-  header,
-  body,
-}) {
-
+import Router from "next/router";
+export default function InstantAlertDialog({ color, header, body }) {
   const goBack = () => {
-    Router.back();
+    Router.push("/");
+    // Router.back();
   };
-  const { onClose } = useDisclosure()
-  const cancelRef = React.useRef()
+  const { onClose } = useDisclosure();
+  const cancelRef = React.useRef();
 
   return (
     <>
@@ -39,25 +35,20 @@ export default function InstantAlertDialog({
       >
         <AlertDialogOverlay>
           <AlertDialogContent>
-            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
               {header}
             </AlertDialogHeader>
 
-            <AlertDialogBody>
-              {body}
-            </AlertDialogBody>
+            <AlertDialogBody>{body}</AlertDialogBody>
 
-            <AlertDialogFooter >
-
+            <AlertDialogFooter>
               <Button colorScheme={color} onClick={goBack}>
                 Ok
               </Button>
-
-
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialogOverlay>
       </AlertDialog>
     </>
-  )
+  );
 }
