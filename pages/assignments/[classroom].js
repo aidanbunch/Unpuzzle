@@ -12,14 +12,13 @@ import {
 } from "@chakra-ui/react";
 import AssignmentCard from "../../components/AssignmentCard";
 import BackButton from "../../components/BackButton";
+import Navbar from "../../components/Navbar";
 
 export async function getServerSideProps(context) {
   const classroomID = context.params.classroom;
   const userToken = context.query.userToken;
   const className = context.query.className;
   const color = context.query.bgColor;
-
-  
 
   try {
     const response = await axios.get(
@@ -73,36 +72,39 @@ export async function getServerSideProps(context) {
 export default function Classroom({ assignmentsData, className, color }) {
   console.log(assignmentsData);
   return (
-    <Box m={100}>
-      <VStack spacing={20}>
-        <Flex w="100%">
-          <BackButton />
-          <Spacer />
-
-          <HStack align mx={10}>
-            <Heading color={`${color}`} size="xl">
-              {className}
-            </Heading>
-            <Heading size="xl"> assignments</Heading>
-          </HStack>
-
-          <Spacer />
-        </Flex>
-
-        {/* <AssignmentCard assignmentTitle={assignment} color={color} /> */}
-
+    <>
+      <Navbar />
+      <Box m={10}>
         <VStack spacing={20}>
-          {assignmentsData.length > 0 &&
-            assignmentsData.map((assignment, index) => (
-              <AssignmentCard
-                key={index}
-                color={color}
-                assignmentTitle={assignment.assignmentTitle}
-                assignmentID={assignment.assignmentTeacherId}
-              />
-            ))}
+          <Flex w="100%">
+            <BackButton />
+            <Spacer />
+
+            <HStack align mx={10}>
+              <Heading color={`${color}`} size="xl">
+                {className}
+              </Heading>
+              <Heading size="xl"> assignments</Heading>
+            </HStack>
+
+            <Spacer />
+          </Flex>
+
+          {/* <AssignmentCard assignmentTitle={assignment} color={color} /> */}
+
+          <VStack spacing={5}>
+            {assignmentsData.length > 0 &&
+              assignmentsData.map((assignment, index) => (
+                <AssignmentCard
+                  key={index}
+                  color={color}
+                  assignmentTitle={assignment.assignmentTitle}
+                  assignmentID={assignment.assignmentTeacherId}
+                />
+              ))}
+          </VStack>
         </VStack>
-      </VStack>
-    </Box>
+      </Box>
+    </>
   );
 }
