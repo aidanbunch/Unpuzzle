@@ -1,12 +1,15 @@
 import React from "react";
 import axios from "axios";
 import QuestionAnswerCard from "../../components/QuestionAnswerCard.js";
+
 import { Box,
   Heading,
   VStack,
   HStack,
   Flex,
   Spacer,
+  Text,
+  Center,
   Button,
   ButtonGroup, } from "@chakra-ui/react";
   import BackButton from "../../components/BackButton";

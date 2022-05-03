@@ -16,6 +16,7 @@ import React from "react";
 export default function QuestionAnswerCard({ question }) {
   const [frq, setFrq] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(true);
+  // console.log(question);
 
   async function getOpenEndedAnswer(question) {
     if (question.type === "open-ended") {
@@ -80,8 +81,9 @@ export default function QuestionAnswerCard({ question }) {
     <Center>
       <Box
         m={10}
-        maxW={"xl"}
-        w={"full"}
+        // maxW={"660px"}
+        w="660px"
+        // w={"100%"}
         bg={useColorModeValue("white", "gray.800")}
         boxShadow={"2xl"}
         rounded="lg"
@@ -106,14 +108,12 @@ export default function QuestionAnswerCard({ question }) {
               <Textarea defaultValue={frq}></Textarea>
             ) : (
               <List spacing={3}>
-                <ListItem>
-                  <ListIcon as={CheckIcon} color="green.400" />
-                  ADVANTAGE
-                </ListItem>
-                <ListItem>
-                  <ListIcon as={CheckIcon} color="green.400" />
-                  DIADVANTAGE
-                </ListItem>
+                {question.correctChoices.map((choice, index) => (
+                  <ListItem>
+                    <ListIcon as={CheckIcon} color="green.400" />
+                    {choice.choiceText}
+                  </ListItem>
+                ))}
               </List>
             )}
           </Center>
