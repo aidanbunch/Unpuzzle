@@ -64,7 +64,7 @@ export default function WithSubnavigation({ currentPage }) {
             boxSize={"40px"}
             align="center"
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
-            src="/logo.jpg"
+            src="/logo.png"
           />
           <Text
             textAlign={useBreakpointValue({ base: "center", md: "left" })}

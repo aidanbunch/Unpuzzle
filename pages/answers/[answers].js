@@ -138,48 +138,33 @@ export async function getServerSideProps(context) {
 
     var openEndedCount = 0;
     questions.forEach((question) => {
-      if (question.type === "open-ended") {
-        // no answer -> need openai
-        openEndedCount += 1;
-        const questionObj = {};
-        const questionBody = replaceHTMLTags(question.body[0].html);
+      // is multiple choice
+      const questionObj = {};
+      questionObj["body"] = replaceHTMLTags(question.body[0].html);
+      questionObj["type"] = question.type;
 
-        const openEndedAnswer = "";
-        questionObj["body"] = questionBody;
-        questionObj["type"] = question.type;
+      const qChoices = question.choices;
+      const correctChoices = [];
+      qChoices.forEach((choice) => {
+        if (choice.isCorrect === true) {
+          const choiceObj = {
+            choiceText: `${replaceHTMLTags(choice.body[0].html)}`,
+            choiceNumber: `${choice.choiceNumber}`,
+            choiceID: `${choice._id}`,
+          };
 
-        questionObj["openEndedAnswer"] = openEndedAnswer;
+          correctChoices.push(choiceObj);
+        }
+      });
 
-        questionJSON.push(questionObj);
-      } else {
-        // is multiple choice
-        const questionObj = {};
-        questionObj["body"] = replaceHTMLTags(question.body[0].html);
-        questionObj["type"] = question.type;
+      questionObj["correctChoices"] = correctChoices;
 
-        const qChoices = question.choices;
-        const correctChoices = [];
-        qChoices.forEach((choice) => {
-          if (choice.isCorrect === true) {
-            const choiceObj = {
-              choiceText: `${replaceHTMLTags(choice.body[0].html)}`,
-              choiceNumber: `${choice.choiceNumber}`,
-              choiceID: `${choice._id}`,
-            };
-
-            correctChoices.push(choiceObj);
-          }
-        });
-
-        questionObj["correctChoices"] = correctChoices;
-
-        questionJSON.push(questionObj);
-      }
+      answersJSON.push(questionObj);
     });
 
     return {
       props: {
-        answers: questionJSON,
+        answers: answersJSON,
         color: color,
         assignmentTitle: assignmentTitle,
       },
@@ -190,25 +175,8 @@ export async function getServerSideProps(context) {
 }
 
 export default function Assignment({ answers, color, assignmentTitle }) {
-  const [questionAnswerData, setQuestionAnswerData] = React.useState(answers);
-
-  async function getOpenEndedAnswer(question, index) {
-    if (question.type === "open-ended") {
-      const response = await fetch("/api/getAns/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ prompt: question.body }),
-      });
-
-      const newAnswers = questionAnswerData;
-      const data = await response.json();
-      newAnswers[index].openEndedAnswer = data.answer;
-      console.log(JSON.stringify(newAnswers));
-      setQuestionAnswerData(newAnswers);
-    }
-  }
+  // const [questionAnswerData, setQuestionAnswerData] = React.useState(answers);
+  // console.log(questionAnswerData);
 
   // React.useEffect(() => {
   //   if (answers.length > 0) {
@@ -241,7 +209,11 @@ export default function Assignment({ answers, color, assignmentTitle }) {
           <VStack spacing={0}>
             {answers.length > 0 &&
               answers.map((question, index) => (
-                <QuestionAnswerCard key={index} question={question} />
+                <QuestionAnswerCard
+                  key={index}
+                  question={question}
+                  length={question.length}
+                />
               ))}
           </VStack>
         </VStack>

@@ -70,7 +70,7 @@ export async function getServerSideProps(context) {
 }
 
 export default function Classroom({ assignmentsData, className, color }) {
-  console.log(assignmentsData);
+  // console.log(assignmentsData);
   return (
     <>
       <Navbar />
