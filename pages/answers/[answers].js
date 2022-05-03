@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import QuestionAnswerCard from "../../components/QuestionAnswerCard.js";
-import { VStack } from "@chakra-ui/react";
+import { Flex, VStack, Text, Center } from "@chakra-ui/react";
 // import returnOpenEndedAnswer from "../../openai.js";
 // import {getAnswer} from "../api/getAns"
 
