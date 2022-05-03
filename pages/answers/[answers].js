@@ -24,8 +24,6 @@ function replaceHTMLTags(string) {
   return string.replace(/(<([^>]+)>)/gi, "").replace(/\&nbsp;/g, "");
 }
 
-var questionJSON = [];
-
 // const getOpenEndedAnswer = async (openEndedCount, callback) => {
 //   var answerJSON = questionJSON;
 
@@ -113,13 +111,15 @@ var questionJSON = [];
 // };
 
 export async function getServerSideProps(context) {
-  var answersJSON = [];
+  // var answersJSON = [];
+
+  var questionJSON = [];
   const assignmentId = context.params.answers;
   const color = context.query.color;
   const assignmentTitle = context.query.assignmentTitle;
 
   const teacherToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjY2ZTk5MzFlZDFiMjQyZjBiNWMxYmUiLCJyb2xlIjoidGVhY2hlciIsInJlZ2lzdGVyZWRBdCI6MTY1MDkxMTYzNSwiaXNBZG1pbiI6ZmFsc2UsImJlY29tZVRoaXNVc2VyIjpmYWxzZSwidXNlcklkQmVjb21pbmdUaGlzVXNlciI6IiIsImlzT3BlbkNsYXNzcm9vbVVzZXIiOmZhbHNlLCJpc0x0aVVzZXIiOmZhbHNlLCJpc1VzZXJVc2luZ1RoaXJkUGFydHlBcHBsaWNhdGlvbiI6ZmFsc2UsImlhdCI6MTY1MTQ2NDQxNCwiZXhwIjoxNjUyMDY5MjE0LCJqdGkiOiI2MjZmNThkZWY1M2Y0NjQyOTM2OGM2ZDgifQ.oMXwXs9KfjFKxCWSkFZj7YgBn5s4VVslnVik4RhfWrQ";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjY2ZTk5MzFlZDFiMjQyZjBiNWMxYmUiLCJyb2xlIjoidGVhY2hlciIsInJlZ2lzdGVyZWRBdCI6MTY1MDkxMTYzNSwiaXNBZG1pbiI6ZmFsc2UsImJlY29tZVRoaXNVc2VyIjpmYWxzZSwidXNlcklkQmVjb21pbmdUaGlzVXNlciI6IiIsImlzT3BlbkNsYXNzcm9vbVVzZXIiOmZhbHNlLCJpc0x0aVVzZXIiOmZhbHNlLCJpc1VzZXJVc2luZ1RoaXJkUGFydHlBcHBsaWNhdGlvbiI6ZmFsc2UsImlhdCI6MTY1MTYyMDYwMCwiZXhwIjoxNjUyMjI1NDAwLCJqdGkiOiI2MjcxYmFmODYyNWMzMzQyZDZlMDI2ZTYifQ.kHLwvReWTEMOTu4-H9MTe2k1rz0voIKL-wxASucdQYQ";
   try {
     const response = await axios.get(
       `https://edpuzzle.com/api/v3/media/${assignmentId}`,
@@ -135,42 +135,65 @@ export async function getServerSideProps(context) {
     );
 
     const questions = response.data.questions;
+    console.log(JSON.stringify(questions));
 
     var openEndedCount = 0;
     questions.forEach((question) => {
-      // is multiple choice
-      const questionObj = {};
-      questionObj["body"] = replaceHTMLTags(question.body[0].html);
-      questionObj["type"] = question.type;
+      if (question.type === "open-ended") {
+        // no answer -> need openai
+        openEndedCount += 1;
+        const questionObj = {};
+        const questionBody = replaceHTMLTags(question.body[0].html);
 
-      const qChoices = question.choices;
-      const correctChoices = [];
-      qChoices.forEach((choice) => {
-        if (choice.isCorrect === true) {
-          const choiceObj = {
-            choiceText: `${replaceHTMLTags(choice.body[0].html)}`,
-            choiceNumber: `${choice.choiceNumber}`,
-            choiceID: `${choice._id}`,
-          };
+        const openEndedAnswer = "";
+        questionObj["body"] = questionBody;
+        questionObj["type"] = question.type;
 
-          correctChoices.push(choiceObj);
-        }
-      });
+        questionObj["openEndedAnswer"] = openEndedAnswer;
 
-      questionObj["correctChoices"] = correctChoices;
+        questionJSON.push(questionObj);
+      } else {
+        // is multiple choice
+        const questionObj = {};
+        questionObj["body"] = replaceHTMLTags(question.body[0].html);
+        questionObj["type"] = question.type;
 
-      answersJSON.push(questionObj);
+        const qChoices = question.choices;
+        const correctChoices = [];
+        qChoices.forEach((choice) => {
+          if (choice.isCorrect === true) {
+            const choiceObj = {
+              choiceText: `${replaceHTMLTags(choice.body[0].html)}`,
+              choiceNumber: `${choice.choiceNumber}`,
+              choiceID: `${choice._id}`,
+            };
+
+            correctChoices.push(choiceObj);
+          }
+        });
+
+        questionObj["correctChoices"] = correctChoices;
+
+        questionJSON.push(questionObj);
+      }
     });
 
     return {
       props: {
-        answers: answersJSON,
+        answers: questionJSON,
         color: color,
         assignmentTitle: assignmentTitle,
       },
     };
   } catch (err) {
     console.error(err);
+    return {
+      props: {
+        answers: [],
+        color: color,
+        assignmentTitle: "error",
+      },
+    };
   }
 }
 
