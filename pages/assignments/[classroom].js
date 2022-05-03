@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import Head from "next/head";
 import {
   Box,
   Heading,
@@ -58,7 +59,7 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return {
       props: {
         assignmentsData: [],
@@ -73,6 +74,9 @@ export default function Classroom({ assignmentsData, className, color }) {
   // console.log(assignmentsData);
   return (
     <>
+      <Head>
+        <title>Assignment</title>
+      </Head>
       <Navbar />
       <Box m={10}>
         <VStack spacing={20}>

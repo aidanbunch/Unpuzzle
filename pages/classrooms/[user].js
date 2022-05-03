@@ -14,6 +14,7 @@ import Link from "next/link";
 import BackButton from "../../components/BackButton";
 import InstantAlertDialog from "../../components/InstantAlertDialog";
 import Navbar from "../../components/Navbar";
+import Head from "next/head";
 
 export async function getServerSideProps(context) {
   const userToken = context.params.user;
@@ -149,6 +150,9 @@ export default function User({
   } else {
     return (
       <>
+        <Head>
+          <title>Classrooms</title>
+        </Head>
         <Navbar />
         <Box m={10}>
           <VStack spacing={20}>

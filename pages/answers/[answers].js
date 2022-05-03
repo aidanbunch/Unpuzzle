@@ -16,6 +16,7 @@ import {
   ButtonGroup,
 } from "@chakra-ui/react";
 import BackButton from "../../components/BackButton";
+import Head from "next/head";
 
 // import returnOpenEndedAnswer from "../../openai.js";
 // import {getAnswer} from "../api/getAns"
@@ -135,7 +136,7 @@ export async function getServerSideProps(context) {
     );
 
     const questions = response.data.questions;
-    console.log(JSON.stringify(questions));
+    // console.log(JSON.stringify(questions));
 
     var openEndedCount = 0;
     questions.forEach((question) => {
@@ -212,6 +213,9 @@ export default function Assignment({ answers, color, assignmentTitle }) {
   // console.log(answers);
   return (
     <>
+      <Head>
+        <title>Answers</title>
+      </Head>
       <Navbar />
       <Box m={10}>
         <VStack spacing={20}>
