@@ -28,6 +28,8 @@ export default function AssignmentCard({
             rounded={"lg"}
             p={10}
             overflow={"hidden"}
+            transition="transform 200ms ease-in-out"
+            _hover={{transform: "scale(1.05)"}}
           >
             <Stack>
               <Heading color={"white"} fontSize={"2xl"} fontFamily={"body"}>
