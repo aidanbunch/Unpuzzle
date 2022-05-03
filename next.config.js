@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 require("dotenv").config();
 const nextConfig = {
-  reactStrictMode: true,
+  // reactStrictMode: true,
   images: {
-    domains: ["edpuzzle.com"]
+    domains: ["edpuzzle.com"],
   },
 };
 
