@@ -109,7 +109,7 @@ export default function QuestionAnswerCard({ question }) {
             ) : (
               <List spacing={3}>
                 {question.correctChoices.map((choice, index) => (
-                  <ListItem>
+                  <ListItem key={index}>
                     <ListIcon as={CheckIcon} color="green.400" />
                     {choice.choiceText}
                   </ListItem>
