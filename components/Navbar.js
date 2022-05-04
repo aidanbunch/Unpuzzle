@@ -93,7 +93,7 @@ export default function WithSubnavigation({ currentPage }) {
           spacing={6}
         >
           <IconButton
-          icon={ colorMode === "light" ? <SunIcon /> : <MoonIcon />}
+          icon={ colorMode === "light" ? <MoonIcon /> : <SunIcon />}
           isRound="true"
           size="lg"
           onClick={toggleColorMode}
