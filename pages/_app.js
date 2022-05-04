@@ -8,6 +8,7 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <title>Unpuzzle</title>
         <link rel="icon" type="image/png" href="/logo.png" />
+        <link rel="manifest" href="/manifest.json"/>
       </Head>
       <ChakraProvider theme={theme}>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
