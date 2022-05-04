@@ -1,3 +1,6 @@
 {
+    "name": "Unpuzzle",
+    "description": "Educational content",
+    "start_url": "/",
     "categories": ["books", "education"]
 }
