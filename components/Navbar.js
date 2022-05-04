@@ -16,13 +16,14 @@ import {
   useBreakpointValue,
   useDisclosure,
   Image,
+  Spacer,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
   CloseIcon,
   ChevronDownIcon,
   ChevronRightIcon,
-  SunIcon, 
+  SunIcon,
   MoonIcon
 } from "@chakra-ui/icons";
 
@@ -92,14 +93,16 @@ export default function WithSubnavigation({ currentPage }) {
           direction={"row"}
           spacing={6}
         >
-          <IconButton
-          icon={ colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-          isRound="true"
-          size="lg"
-          onClick={toggleColorMode}
-          aria-label="Toggle color mode"
-          />
+            <IconButton
+            display={{ base: "block"}}
+              icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+              isRound="true"
+              size="lg"
+              onClick={toggleColorMode}
+              aria-label="Toggle color mode"
+            />
           <Button
+            display={{ base: "none", md: "inline-flex" }}
             as={"a"}
             fontSize={"sm"}
             fontWeight={400}
@@ -108,20 +111,23 @@ export default function WithSubnavigation({ currentPage }) {
           >
             Sign In
           </Button>
-          <Stack align='center' direction='row'>
-          <Button
-            display={{ base: "none", md: "inline-flex" }}
-            fontSize={"sm"}
-            fontWeight={600}
-            color={"white"}
-            bg={"orange.400"}
-            href={"#"}
-            _hover={{
-              bg: "orange.300",
-            }}
-          >
-            Sign Up
-          </Button>
+          <Stack 
+          display={{ base: "none", md: "inline-flex" }}
+          align='center' 
+          direction='row'>
+            <Button
+              display={{ base: "none", md: "inline-flex" }}
+              fontSize={"sm"}
+              fontWeight={600}
+              color={"white"}
+              bg={"orange.400"}
+              href={"#"}
+              _hover={{
+                bg: "orange.300",
+              }}
+            >
+              Sign Up
+            </Button>
           </Stack>
         </Stack>
       </Flex>
