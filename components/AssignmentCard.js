@@ -59,7 +59,7 @@ export default function AssignmentCard({
           <Center py={6}>
             <Box
               w="100%"
-              bg={useColorModeValue(`${color}`, "gray.900")}
+              bg={`${color}`}
               boxShadow={"2xl"}
               rounded={"lg"}
               p={10}
@@ -70,7 +70,7 @@ export default function AssignmentCard({
               <Stack>
                 <Heading
                   textAlign="center"
-                  color={useColorModeValue("white", `${color}`)}
+                  color={"white"}
                   fontSize={"2xl"}
                   fontFamily={"body"}
                 >

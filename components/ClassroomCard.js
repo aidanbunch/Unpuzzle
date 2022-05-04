@@ -35,7 +35,7 @@ export default function ClassroomCard({
         <Center py={6}>
           <Box
             w="100%"
-            bg={useColorModeValue(`${backgroundColorName}`, "gray.900")}
+            bg={`${backgroundColorName}`}
             boxShadow={"2xl"}
             rounded={"lg"}
             p={10}
@@ -44,7 +44,7 @@ export default function ClassroomCard({
             _hover={{transform: "scale(1.05)"}}
           >
             <Stack>
-              <Heading color={useColorModeValue("white", `${backgroundColorName}`)} fontSize={"2xl"} fontFamily={"body"}>
+              <Heading color="white" fontSize={"2xl"} fontFamily={"body"}>
                 {className}
               </Heading>
             </Stack>
