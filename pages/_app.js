@@ -1,4 +1,4 @@
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import theme from "../theme.js";
 import Head from "next/head";
 
@@ -10,6 +10,7 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" type="image/png" href="/logo.png" />
       </Head>
       <ChakraProvider theme={theme}>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <Component {...pageProps} />
       </ChakraProvider>
     </>
