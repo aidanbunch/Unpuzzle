@@ -69,6 +69,7 @@ export default function WithSubnavigation({ currentPage }) {
             align="center"
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
             src="/logo.png"
+            aria-label="logo"
           />
           <Text
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
