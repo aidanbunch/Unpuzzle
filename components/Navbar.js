@@ -108,6 +108,7 @@ export default function WithSubnavigation({ currentPage }) {
           >
             Sign In
           </Button>
+          <Stack align='center' direction='row'>
           <Button
             display={{ base: "none", md: "inline-flex" }}
             fontSize={"sm"}
@@ -121,6 +122,7 @@ export default function WithSubnavigation({ currentPage }) {
           >
             Sign Up
           </Button>
+          </Stack>
         </Stack>
       </Flex>
 
