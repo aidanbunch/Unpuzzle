@@ -70,7 +70,7 @@ export default function AssignmentCard({
               <Stack>
                 <Heading
                   textAlign="center"
-                  color={"white"}
+                  color={useColorModeValue("white", `${color}`)}
                   fontSize={"2xl"}
                   fontFamily={"body"}
                 >

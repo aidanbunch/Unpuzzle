@@ -44,7 +44,7 @@ export default function ClassroomCard({
             _hover={{transform: "scale(1.05)"}}
           >
             <Stack>
-              <Heading color={"white"} fontSize={"2xl"} fontFamily={"body"}>
+              <Heading color={useColorModeValue("white", `${backgroundColorName}`)} fontSize={"2xl"} fontFamily={"body"}>
                 {className}
               </Heading>
             </Stack>

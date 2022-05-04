@@ -12,6 +12,7 @@ import {
   PopoverTrigger,
   PopoverContent,
   useColorModeValue,
+  useColorMode,
   useBreakpointValue,
   useDisclosure,
   Image,
@@ -21,10 +22,13 @@ import {
   CloseIcon,
   ChevronDownIcon,
   ChevronRightIcon,
+  SunIcon, 
+  MoonIcon
 } from "@chakra-ui/icons";
 
 export default function WithSubnavigation({ currentPage }) {
   const { isOpen, onToggle } = useDisclosure();
+  const { colorMode, toggleColorMode } = useColorMode();
 
   return (
     <Box justifyContent="center">
@@ -87,6 +91,13 @@ export default function WithSubnavigation({ currentPage }) {
           direction={"row"}
           spacing={6}
         >
+          <IconButton
+          icon={ colorMode === "light" ? <SunIcon /> : <MoonIcon />}
+          isRound="true"
+          size="lg"
+          onClick={toggleColorMode}
+          aria-label="Toggle color mode"
+          />
           <Button
             as={"a"}
             fontSize={"sm"}
