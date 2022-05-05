@@ -303,7 +303,7 @@ const NAV_ITEMS = [
       {
         label: "Landing Page",
         subLabel: "What is this App?",
-        href: "#",
+        href: "/landing-page",
       },
       {
         label: "Google Chrome Extension",
@@ -318,7 +318,7 @@ const NAV_ITEMS = [
       {
         label: "Email",
         subLabel: "Contact us about new features",
-        href: "#",
+        href: "/email",
       },
       {
         label: "Other Projects",
@@ -329,6 +329,6 @@ const NAV_ITEMS = [
   },
   {
     label: "Donate",
-    href: "#",
+    href: "/donate",
   },
 ];
