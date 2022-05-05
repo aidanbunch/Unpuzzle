@@ -147,7 +147,16 @@ export default function User({
         body={"The token you entered was invalid."}
       />
     );
-  } else {
+  } else if (userProfileData.role === "teacher") {
+    return (
+      <InstantAlertDialog
+        color={"blue"}
+        header={"Teacher token"}
+        body={"Please enter a student token."}
+      />
+    );
+  }
+  else {
     return (
       <>
         <Head>
@@ -161,11 +170,10 @@ export default function User({
               <Spacer />
 
               <Heading size="2xl">
-                {`Hello, ${
-                  userProfileData.isOpenClassroomUser
+                {`Hello, ${userProfileData.isOpenClassroomUser
                     ? userProfileData.nickname
                     : userProfileData.firstName
-                }`}
+                  }`}
               </Heading>
 
               <Spacer />
