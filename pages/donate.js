@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { FaCheckCircle } from 'react-icons/fa';
 import Footer from '../components/Footer';
-import Navbar from "../components/navbar"
+import Navbar from "../components/Navbar"
 
 function PriceWrapper({ children }) {
   return (
