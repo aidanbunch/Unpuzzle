@@ -14,6 +14,7 @@ import {
 import AssignmentCard from "../../components/AssignmentCard";
 import BackButton from "../../components/BackButton";
 import Navbar from "../../components/Navbar";
+import ColumnAd from "../../components/ColumnAd";
 
 export async function getServerSideProps(context) {
   const classroomID = context.params.classroom;
@@ -94,19 +95,21 @@ export default function Classroom({ assignmentsData, className, color }) {
             <Spacer />
           </Flex>
 
-          {/* <AssignmentCard assignmentTitle={assignment} color={color} /> */}
-
-          <VStack spacing={5}>
-            {assignmentsData.length > 0 &&
-              assignmentsData.map((assignment, index) => (
-                <AssignmentCard
-                  key={index}
-                  color={color}
-                  assignmentTitle={assignment.assignmentTitle}
-                  assignmentID={assignment.assignmentTeacherId}
-                />
-              ))}
-          </VStack>
+          <HStack spacing={"5vw"} alignItems={"start"}>
+            <ColumnAd />
+            <VStack spacing={5}>
+              {assignmentsData.length > 0 &&
+                assignmentsData.map((assignment, index) => (
+                  <AssignmentCard
+                    key={index}
+                    color={color}
+                    assignmentTitle={assignment.assignmentTitle}
+                    assignmentID={assignment.assignmentTeacherId}
+                  />
+                ))}
+            </VStack>
+            <ColumnAd />
+          </HStack>
         </VStack>
       </Box>
     </>

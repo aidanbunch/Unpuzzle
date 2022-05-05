@@ -93,14 +93,14 @@ export default function WithSubnavigation({ currentPage }) {
           direction={"row"}
           spacing={6}
         >
-            <IconButton
-            display={{ base: "block"}}
-              icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-              isRound="true"
-              size="lg"
-              onClick={toggleColorMode}
-              aria-label="Toggle color mode"
-            />
+          <IconButton
+            display={{ base: "block" }}
+            icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+            isRound="true"
+            size="lg"
+            onClick={toggleColorMode}
+            aria-label="Toggle color mode"
+          />
           <Button
             display={{ base: "none", md: "inline-flex" }}
             as={"a"}
@@ -111,10 +111,10 @@ export default function WithSubnavigation({ currentPage }) {
           >
             Sign In
           </Button>
-          <Stack 
-          display={{ base: "none", md: "inline-flex" }}
-          align='center' 
-          direction='row'>
+          <Stack
+            display={{ base: "none", md: "inline-flex" }}
+            align='center'
+            direction='row'>
             <Button
               display={{ base: "none", md: "inline-flex" }}
               fontSize={"sm"}

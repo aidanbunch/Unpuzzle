@@ -1,4 +1,5 @@
 import Router from "next/router";
+import Head from "next/head"
 import React from "react";
 import {
   Flex,
@@ -9,8 +10,11 @@ import {
   Spacer,
   VStack,
   Button,
+  Script,
+  Box
 } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
+import HorizontalAd from "../components/HorizontalAd";
 
 export default function Home() {
   const [userToken, setUserToken] = React.useState("");
@@ -29,6 +33,15 @@ export default function Home() {
 
   return (
     <>
+    <Head>
+      <script
+        id="Adsense-id"
+        data-ad-client="ca-pub-4915743237608302"
+        async="true"
+        strategy="beforeInteractive"
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+      />
+       </Head> 
       <Navbar currentPage={"home"} />
       <Flex height="50vh" alignItems="center" justifyContent="center" mx={10}>
         <VStack spacing="30px">
@@ -53,6 +66,9 @@ export default function Home() {
           </Button>
         </VStack>
       </Flex>
+      <Center>
+        <HorizontalAd />
+      </Center>
     </>
   );
 }
