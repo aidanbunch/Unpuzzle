@@ -8,6 +8,7 @@ import {
   Spacer,
   Button,
   useToast,
+  HStack,
 } from "@chakra-ui/react";
 import ClassroomCard from "../../components/ClassroomCard";
 import Link from "next/link";
@@ -179,6 +180,7 @@ export default function User({
               <Spacer />
             </Flex>
 
+<HStack>
             <VStack>
               {classroomData.length > 0 &&
                 classroomData.map((classroom, index) => (
@@ -192,6 +194,7 @@ export default function User({
                   />
                 ))}
             </VStack>
+            </HStack>
           </VStack>
         </Box>
       </>
