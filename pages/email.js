@@ -120,7 +120,9 @@ import {
                       <FormLabel>Name</FormLabel>
   
                       <InputGroup>
-                        <InputLeftElement children={<BsPerson />} />
+                        <InputLeftElement>
+                        <BsPerson />
+                        </InputLeftElement>
                         <Input type="text" name="name" placeholder="Your Name" />
                       </InputGroup>
                     </FormControl>
