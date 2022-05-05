@@ -131,7 +131,9 @@ import {
                       <FormLabel>Email</FormLabel>
   
                       <InputGroup>
-                        <InputLeftElement children={<MdOutlineEmail />} />
+                        <InputLeftElement>
+                        <MdOutlineEmail />
+                        </InputLeftElement>
                         <Input
                           type="email"
                           name="email"
