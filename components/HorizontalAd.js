@@ -9,7 +9,7 @@ export default function HorizontalAd({
             <Box height={'15vh'} width={"70vw"} //bg={'gray.200'}
             >
                 <Center>
-                    <ins
+                    {/* <ins
                         className="adsbygoogle"
                         style={{ display: "block" }}
                         data-ad-client="ca-pub-4915743237608302"
@@ -19,7 +19,7 @@ export default function HorizontalAd({
                     > </ins>
                     <script>
                         (adsbygoogle = window.adsbygoogle || []).push({ });
-                    </script>
+                    </script> */}
                 </Center>
             </Box>
     );
