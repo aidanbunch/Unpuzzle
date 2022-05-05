@@ -33,7 +33,7 @@ export default function Home() {
 
   return (
     <>
-    <Head>
+    {/* <Head>
       <script
         id="Adsense-id"
         data-ad-client="ca-pub-4915743237608302"
@@ -41,7 +41,7 @@ export default function Home() {
         strategy="beforeInteractive"
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
       />
-       </Head> 
+       </Head>  */}
       <Navbar currentPage={"home"} />
       <Flex height="50vh" alignItems="center" justifyContent="center" mx={10}>
         <VStack spacing="30px">
