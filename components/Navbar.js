@@ -7,7 +7,6 @@ import {
   Stack,
   Collapse,
   Icon,
-  Link,
   Popover,
   PopoverTrigger,
   PopoverContent,
@@ -16,6 +15,7 @@ import {
   useBreakpointValue,
   useDisclosure,
   Image,
+  Link,
   Spacer,
 } from "@chakra-ui/react";
 import {
@@ -27,9 +27,15 @@ import {
   MoonIcon
 } from "@chakra-ui/icons";
 
+import Router from "next/router";
+
 export default function WithSubnavigation({ currentPage }) {
   const { isOpen, onToggle } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
+
+  const goToHome = (event) => {
+    Router.push("/")
+  }
 
   return (
     <Box justifyContent="center">
@@ -63,8 +69,11 @@ export default function WithSubnavigation({ currentPage }) {
           flex={{ base: 2 }}
           justify={{ base: "center", md: "start" }}
         >
-          <Image
+
+       
+        <Image
             // m={1}s
+            onClick={goToHome}
             mx={3}
             boxSize={"40px"}
             align="center"
@@ -72,7 +81,12 @@ export default function WithSubnavigation({ currentPage }) {
             src="/logo.png"
             aria-label="logo"
           />
+    
+
+
+  
           <Text
+            onClick={goToHome}
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
             fontFamily={"heading"}
             fontSize={"3xl"}
@@ -81,6 +95,8 @@ export default function WithSubnavigation({ currentPage }) {
           >
             unpuzzle
           </Text>
+
+
 
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
             <DesktopNav />
