@@ -61,9 +61,7 @@ export default function Pricing() {
               <Text fontSize="5xl" fontWeight="900">
                   1.99
               </Text>
-              <Text fontSize="3xl" color="gray.500">
-                /month
-              </Text>
+             
             </HStack>
           </Box>
           <VStack
@@ -73,7 +71,7 @@ export default function Pricing() {
             <List spacing={3} textAlign="start" px={12}>
               <ListItem>
                 <ListIcon as={FaCheckCircle} color="green.500" />
-                No ads
+                Buy
               </ListItem>
               <ListItem>
                 <ListIcon as={FaCheckCircle} color="green.500" />
@@ -86,7 +84,7 @@ export default function Pricing() {
             </List>
             <Box w="80%" pt={7}>
               <Button w="full" colorScheme="blue" variant="outline">
-                Start trial
+                  Buy
               </Button>
             </Box>
           </VStack>
@@ -122,9 +120,7 @@ export default function Pricing() {
                 <Text fontSize="5xl" fontWeight="900">
                     4.99
                 </Text>
-                <Text fontSize="3xl" color="gray.500">
-                  /month
-                </Text>
+            
               </HStack>
             </Box>
             <VStack
@@ -155,7 +151,7 @@ export default function Pricing() {
               </List>
               <Box w="80%" pt={7}>
                 <Button w="full" colorScheme="blue">
-                  Start trial
+                    Buy
                 </Button>
               </Box>
             </VStack>
@@ -173,9 +169,7 @@ export default function Pricing() {
               <Text fontSize="5xl" fontWeight="900">
                   9.99
               </Text>
-              <Text fontSize="3xl" color="gray.500">
-                /month
-              </Text>
+            
             </HStack>
           </Box>
           <VStack
@@ -198,7 +192,7 @@ export default function Pricing() {
             </List>
             <Box w="80%" pt={7}>
               <Button w="full" colorScheme="blue" variant="outline">
-                Start trial
+                  Buy
               </Button>
             </Box>
           </VStack>
