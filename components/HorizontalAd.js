@@ -6,9 +6,9 @@ import {
 export default function HorizontalAd({
 }) {
     return (
-            <Box height={'15vh'} width={"70vw"} bg={'tomato'}>
+            <Box height={'15vh'} width={"70vw"} //bg={'gray.200'}
+            >
                 <Center>
-                    HorizontalAd
                     <ins
                         className="adsbygoogle"
                         style={{ display: "block" }}

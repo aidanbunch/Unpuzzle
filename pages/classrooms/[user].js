@@ -16,6 +16,7 @@ import BackButton from "../../components/BackButton";
 import InstantAlertDialog from "../../components/InstantAlertDialog";
 import Navbar from "../../components/Navbar";
 import Head from "next/head";
+import ColumnAd from "../../components/ColumnAd";
 
 export async function getServerSideProps(context) {
   const userToken = context.params.user;
@@ -172,28 +173,30 @@ export default function User({
 
               <Heading size="2xl">
                 {`Hello, ${userProfileData.isOpenClassroomUser
-                    ? userProfileData.nickname
-                    : userProfileData.firstName
+                  ? userProfileData.nickname
+                  : userProfileData.firstName
                   }`}
               </Heading>
 
               <Spacer />
             </Flex>
 
-<HStack>
-            <VStack>
-              {classroomData.length > 0 &&
-                classroomData.map((classroom, index) => (
-                  <ClassroomCard
-                    key={index}
-                    className={classroom.className}
-                    teacherName={classroom.teacherName}
-                    backgroundColorName={backgroundColors[index]}
-                    id={classroom.classId}
-                    userToken={userToken}
-                  />
-                ))}
-            </VStack>
+            <HStack spacing={"5vw"} alignItems={"start"}>
+              <ColumnAd />
+              <VStack>
+                {classroomData.length > 0 &&
+                  classroomData.map((classroom, index) => (
+                    <ClassroomCard
+                      key={index}
+                      className={classroom.className}
+                      teacherName={classroom.teacherName}
+                      backgroundColorName={backgroundColors[index]}
+                      id={classroom.classId}
+                      userToken={userToken}
+                    />
+                  ))}
+              </VStack>
+              <ColumnAd />
             </HStack>
           </VStack>
         </Box>

@@ -3,17 +3,17 @@ import {
     Center,
 } from "@chakra-ui/react";
 
-export default function HorizontalAd({
+export default function ColumnAd({
 }) {
     return (
-            <Box height={'15vh'} width={"70vw"} bg={'tomato'}>
+            <Box height={"100vh"} width={"20vw"} //bg={"gray.200"}
+            >
                 <Center>
-                    ColumnAd
                     <ins
                         className="adsbygoogle"
                         style={{ display: "block" }}
                         data-ad-client="ca-pub-4915743237608302"
-                        data-ad-slot="8068300314"
+                        data-ad-slot="2567727471"
                         data-ad-format="auto"
                         data-full-width-responsive="true"
                     > </ins>
