@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import HorizontalAd from "../components/HorizontalAd";
+import Footer from "../components/Footer";
 
 export default function Home() {
   const [userToken, setUserToken] = React.useState("");
@@ -69,6 +70,7 @@ export default function Home() {
       <Center>
         <HorizontalAd />
       </Center>
+      <Footer/>
     </>
   );
 }
