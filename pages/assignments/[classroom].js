@@ -73,22 +73,6 @@ export async function getServerSideProps(context) {
 
 export default function Classroom({ assignmentsData, className, color }) {
   // console.log(assignmentsData);
-  const enclosingRef = React.useRef(null);
-  const columnRef = React.useRef(null);
-
-  var encHeight = 0;
-
-
-  React.useEffect(() => {
-
-    if (enclosingRef.current) {
-
-      encHeight = enclosingRef.current.offsetHeight;
-
-    }
-
-  }, [enclosingRef]);
-
   return (
     <>
       <Head>
