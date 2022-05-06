@@ -39,14 +39,14 @@ export default function Home() {
     e.preventDefault()
 
     if (/\bCrOS\b/.test(navigator.userAgent)) {
-      window.open("https://www.youtube.com/watch?v=GzPwb-8fPtk", '_blank');
+      window.open("https://www.youtube.com/watch?v=GzPwb-8fPtk", '_blank').focus();
     } else {
       if (navigator.platform.toUpperCase().indexOf('MAC') >= 0) {
         // is mac
-        window.open("https://www.youtube.com/watch?v=6F0e8noGiNU", '_blank');
+        window.open("https://www.youtube.com/watch?v=6F0e8noGiNU", '_blank').focus();
       } else {
         // is windows
-        window.open("https://www.youtube.com/watch?v=V3pHpqMH098", '_blank');
+        window.open("https://www.youtube.com/watch?v=V3pHpqMH098", '_blank').focus();
       }
     }
   }
@@ -104,13 +104,13 @@ export default function Home() {
             </VStack>
           </Stack>
           <Text
-            color={useColorModeValue("GrayText", "gray.500")}
+            color={useColorModeValue("gray.400", "gray.500")}
             fontWeight={"semibold"}
           >
             Need help? <Link onClick={sendUserToVideo} color={"blue.400"}> Watch this</Link>
           </Text>
           <Text
-            color={useColorModeValue("GrayText", "gray.500")}
+            color={useColorModeValue("gray.400", "gray.500")}
             fontWeight={"semibold"}
           >
             or use our <Link href={"https://www.google.com/"} color={"blue.400"}> Chrome Extension</Link>
