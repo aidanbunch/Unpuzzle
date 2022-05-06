@@ -66,7 +66,6 @@ export default function ContactFormWithSocialButtons() {
                 borderColor={useColorModeValue("gray.200", "gray.700")}
               >
                 <Flex>
-                <VisuallyHidden>Full Name</VisuallyHidden>
                   <Input
                     mt={0}
                     type="text"
@@ -75,7 +74,6 @@ export default function ContactFormWithSocialButtons() {
                   />
                 </Flex>
                 <Flex>
-                  <VisuallyHidden>Email Address</VisuallyHidden>
                   <Input
                     mt={0}
                     type="email"
@@ -84,7 +82,6 @@ export default function ContactFormWithSocialButtons() {
                   />
                 </Flex>
                 <Flex>
-                  <VisuallyHidden>Subject</VisuallyHidden>
                   <Input
                     mt={0}
                     type="text"
@@ -93,7 +90,6 @@ export default function ContactFormWithSocialButtons() {
                   />
                 </Flex>
                 <Flex>
-                  <VisuallyHidden>Message</VisuallyHidden>
                   <Input
                     mt={0}
                     type="text"
