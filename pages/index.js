@@ -39,14 +39,14 @@ export default function Home() {
     e.preventDefault()
 
     if (/\bCrOS\b/.test(navigator.userAgent)) {
-      window.open("https://youtu.be/GzPwb-8fPtk", '_blank');
+      window.open("https://youtu.be/GzPwb-8fPtk", '_blank').focus();
     } else {
       if (navigator.platform.toUpperCase().indexOf('MAC') >= 0) {
         // is mac
-        window.open("https://youtu.be/6F0e8noGiNU", '_blank');
+        window.open("https://youtu.be/6F0e8noGiNU", '_blank').focus();
       } else {
         // is windows
-        window.open("https://youtu.be/V3pHpqMH098", '_blank');
+        window.open("https://youtu.be/V3pHpqMH098", '_blank').focus();
       }
 
       // if (navigator.appVersion.indexOf("Win") != -1) OSName = "Windows";
