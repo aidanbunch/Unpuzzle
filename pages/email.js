@@ -12,9 +12,9 @@ import {
   Text,
   Link,
   IconButton,
-  HStack
+  HStack,
 } from "@chakra-ui/react";
-import { BsEnvelopeFill, BsPhone, BsPlayBtnFill } from 'react-icons/bs';
+import { BsEnvelopeFill, BsFillChatLeftFill, BsPlayBtnFill } from 'react-icons/bs';
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -136,7 +136,7 @@ export default function ContactFormWithSocialButtons() {
                     variant="ghost"
                     size="lg"
                     fontSize="3xl"
-                    icon={<BsPhone />}
+                    icon={<BsFillChatLeftFill />}
                     _hover={{
                       bg: 'blue.500',
                       color: useColorModeValue('white', 'gray.700'),
