@@ -21,7 +21,6 @@ export default function Home() {
   const handleClick = (e) => {
     e.preventDefault();
     Router.push(`/classrooms/${userToken}`);
-    z;
     setIsLoading(true);
   };
 
