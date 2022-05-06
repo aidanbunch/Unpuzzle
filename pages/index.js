@@ -39,12 +39,20 @@ export default function Home() {
     e.preventDefault()
 
     if (/\bCrOS\b/.test(navigator.userAgent)) {
+      window.open("https://youtu.be/GzPwb-8fPtk", '_blank');
     } else {
-      var OSName = "Unknown OS";
-      if (navigator.appVersion.indexOf("Win") != -1) OSName = "Windows";
-      if (navigator.appVersion.indexOf("Mac") != -1) OSName = "MacOS";
-      if (navigator.appVersion.indexOf("X11") != -1) OSName = "UNIX";
-      if (navigator.appVersion.indexOf("Linux") != -1) OSName = "Linux";
+      if (navigator.platform.toUpperCase().indexOf('MAC') >= 0) {
+        // is mac
+        window.open("https://youtu.be/6F0e8noGiNU", '_blank');
+      } else {
+        // is windows
+        window.open("https://youtu.be/V3pHpqMH098", '_blank');
+      }
+
+      // if (navigator.appVersion.indexOf("Win") != -1) OSName = "Windows";
+      // if (navigator.appVersion.indexOf("Mac") != -1) OSName = "MacOS";
+      // if (navigator.appVersion.indexOf("X11") != -1) OSName = "UNIX";
+      // if (navigator.appVersion.indexOf("Linux") != -1) OSName = "Linux";
     }
 
   }
@@ -102,13 +110,13 @@ export default function Home() {
             </VStack>
           </Stack>
           <Text
-            color={"GrayText"}
+            color={useColorModeValue("GrayText", "gray.500")}
             fontWeight={"semibold"}
           >
-            Need help? <Link color={"blue.400"}> Watch this</Link>
+            Need help? <Link onClick={sendUserToVideo} color={"blue.400"}> Watch this</Link>
           </Text>
           <Text
-            color={"GrayText"}
+            color={useColorModeValue("GrayText", "gray.500")}
             fontWeight={"semibold"}
           >
             or use our <Link href={"https://www.google.com/"} color={"blue.400"}> Chrome Extension</Link>
