@@ -4,11 +4,6 @@ import {
   Heading,
   Text,
   Stack,
-  HStack,
-  Button,
-  Spacer,
-  Avatar,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import Link from "next/link";
 

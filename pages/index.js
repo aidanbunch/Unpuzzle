@@ -5,13 +5,9 @@ import {
   Flex,
   Center,
   Heading,
-  Text,
   Input,
-  Spacer,
   VStack,
   Button,
-  Script,
-  Box
 } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import HorizontalAd from "../components/HorizontalAd";

@@ -1,5 +1,5 @@
 import React from "react";
-import { chakra, Flex, Icon, useColorModeValue } from "@chakra-ui/react";
+import { chakra, Flex, Icon } from "@chakra-ui/react";
 
 export default function Footer() {
   return (

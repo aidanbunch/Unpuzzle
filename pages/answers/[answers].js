@@ -10,10 +10,6 @@ import {
   HStack,
   Flex,
   Spacer,
-  Text,
-  Center,
-  Button,
-  ButtonGroup,
 } from "@chakra-ui/react";
 import BackButton from "../../components/BackButton";
 import Head from "next/head";
