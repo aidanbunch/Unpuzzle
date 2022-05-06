@@ -36,6 +36,14 @@ export default function WithSubnavigation({ currentPage }) {
     Router.push("/")
   }
 
+  const goToSignUp = (event) => {
+    Router.push("/signup")
+  }
+
+  const goToLogin = (event) => {
+    Router.push("/login")
+  }
+
   return (
     <Box justifyContent="center">
       <Flex
@@ -122,21 +130,25 @@ export default function WithSubnavigation({ currentPage }) {
             fontSize={"sm"}
             fontWeight={400}
             variant={"link"}
-            href={"#"}
+            onClick={goToLogin}
           >
-            Sign In
+            Log In
           </Button>
           <Stack
             display={{ base: "none", md: "inline-flex" }}
             align='center'
-            direction='row'>
+            direction='row'
+            onClick={goToSignUp}
+            >
+              
             <Button
               display={{ base: "none", md: "inline-flex" }}
               fontSize={"sm"}
               fontWeight={600}
               color={"white"}
+              
               bg={"orange.400"}
-              href={"#"}
+              
               _hover={{
                 bg: "orange.300",
               }}
@@ -162,7 +174,10 @@ const DesktopNav = () => {
   return (
     <Stack direction={"row"} spacing={4}>
       {NAV_ITEMS.map((navItem) => (
-        <Box key={navItem.label}>
+      
+        (navItem.label !== "Sign up" &&
+          navItem.label !== "Login") && (
+           <Box key={navItem.label}>
           <Popover trigger={"hover"} placement={"bottom-start"}>
             <PopoverTrigger>
               <Link
@@ -198,7 +213,12 @@ const DesktopNav = () => {
             )}
           </Popover>
         </Box>
-      ))}
+        )
+      
+
+      
+      ))
+      }
     </Stack>
   );
 };
@@ -346,4 +366,12 @@ const NAV_ITEMS = [
     label: "Donate",
     href: "/donate",
   },
+  {
+    label: "Sign up",
+    href: "/signup"
+  },
+  {
+    label: "Login",
+    href: "/login"
+  }
 ];
