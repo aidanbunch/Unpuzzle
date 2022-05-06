@@ -57,7 +57,7 @@ export default function ContactFormWithSocialButtons() {
           </GridItem>
           <GridItem colSpan={{ base: "auto", md: 4 }}>
             <Box as="form" mb={6} rounded="lg" shadow="xl">
-              <Center pb={0} color={useColorModeValue("gray.700", "gray.600")}>
+              <Center pb={0} color={useColorModeValue("gray.700", "white")}>
                 <Text fontWeight={"extrabold"} fontSize="2xl">Send a message</Text>
               </Center>
               <SimpleGrid
