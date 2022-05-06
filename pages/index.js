@@ -1,5 +1,5 @@
 import Router from "next/router";
-import Head from "next/head"
+import Head from "next/head";
 import React from "react";
 import {
   Flex,
@@ -8,6 +8,7 @@ import {
   Input,
   VStack,
   Button,
+  Box,
 } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import HorizontalAd from "../components/HorizontalAd";
@@ -20,6 +21,7 @@ export default function Home() {
   const handleClick = (e) => {
     e.preventDefault();
     Router.push(`/classrooms/${userToken}`);
+    z;
     setIsLoading(true);
   };
 
@@ -29,8 +31,15 @@ export default function Home() {
   };
 
   return (
-    <>
-    {/* <Head>
+    <Box
+      minHeight={{
+        base: ["-webkit-fill-available", "fill-available", "-moz-available"],
+        lg: "100vh",
+      }}
+      display="flex"
+      flexDirection="column"
+    >
+      {/* <Head>
       <script
         id="Adsense-id"
         data-ad-client="ca-pub-4915743237608302"
@@ -66,7 +75,8 @@ export default function Home() {
       <Center>
         <HorizontalAd />
       </Center>
-      <Footer/>
-    </>
+      {/* <Box position="relative" bottom="0" width="100%" height="100px"> */}
+      <Footer />
+    </Box>
   );
 }

@@ -1,4 +1,4 @@
-import Head from 'next/head';
+import Head from "next/head";
 import {
   Box,
   Heading,
@@ -9,15 +9,22 @@ import {
   Icon,
   useColorModeValue,
   createIcon,
-} from '@chakra-ui/react';
-import Navbar from "../components/Navbar"
-import Link from "next/link"
-import Footer from '../components/Footer';
+  Center,
+} from "@chakra-ui/react";
+import Navbar from "../components/Navbar";
+import Link from "next/link";
+import Footer from "../components/Footer";
 
 export default function CallToActionWithAnnotation() {
   return (
-    <>
-
+    <Box
+      minHeight={{
+        base: ["-webkit-fill-available", "fill-available", "-moz-available"],
+        lg: "100vh",
+      }}
+      display="flex"
+      flexDirection="column"
+    >
       <Head>
         <link
           href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap"
@@ -25,78 +32,80 @@ export default function CallToActionWithAnnotation() {
         />
       </Head>
 
-    <Navbar/>
-
-      <Container maxW={'3xl'}>
+      <Navbar />
+      <Container>
         <Stack
           as={Box}
-          textAlign={'center'}
+          textAlign={"center"}
           spacing={{ base: 8, md: 14 }}
-          py={{ base: 20, md: 36 }}>
+          py={{ base: 26, md: 36 }}
+        >
           <Heading
             fontWeight={600}
-            fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
-            lineHeight={'110%'}>
+            fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
+            lineHeight={"110%"}
+          >
             Instant EdPuzzle <br />
-            <Text as={'span'} color={'blue.400'}>
-                Help
+            <Text as={"span"} color={"blue.400"}>
+              Help
             </Text>
           </Heading>
-          <Text color={'gray.500'}>
-            Help you finish your assignments on time. Get solutions instantly (even open ended questions)!
+          <Text color={"gray.500"}>
+            Help you finish your assignments on time. Get solutions instantly
+            (even open ended questions)!
           </Text>
           <Stack
-            direction={'column'}
+            direction={"column"}
             spacing={3}
-            align={'center'}
-            alignSelf={'center'}
-            position={'relative'}>
+            align={"center"}
+            alignSelf={"center"}
+            position={"relative"}
+          >
             <Button
-              colorScheme={'blue'}
-              bg={'blue.400'}
-              rounded={'full'}
+              colorScheme={"blue"}
+              bg={"blue.400"}
+              rounded={"full"}
               px={6}
               _hover={{
-                bg: 'blue.500',
-              }}>
-                  
-                <Link href={'/'}>
-              Get Started
-                </Link>
+                bg: "blue.500",
+              }}
+            >
+              <Link href={"/"}>Get Started</Link>
             </Button>
-            <Button variant={'link'} colorScheme={'blue'} size={'sm'}>
-                Our Google Extension
+            <Button variant={"link"} colorScheme={"blue"} size={"sm"}>
+              Our Google Extension
             </Button>
             <Box>
               <Icon
                 as={Arrow}
-                color={useColorModeValue('gray.800', 'gray.300')}
+                color={useColorModeValue("gray.800", "gray.300")}
                 w={71}
-                position={'absolute'}
+                position={"absolute"}
                 right={-71}
-                top={'10px'}
+                top={"10px"}
               />
               <Text
-                fontSize={'xl'}
-                fontFamily={'Caveat'}
-                position={'absolute'}
-                right={'-125px'}
-                top={'-15px'}
-                transform={'rotate(10deg)'}>
-                    get answers now!
+                fontSize={{ base: "lg", md: "xl" }}
+                fontFamily={"Caveat"}
+                position={"absolute"}
+                right={"-125px"}
+                top={"-15px"}
+                transform={"rotate(10deg)"}
+              >
+                get answers now!
               </Text>
             </Box>
           </Stack>
         </Stack>
       </Container>
-      <Footer/>
-    </>
+      <Footer />
+    </Box>
   );
 }
 
 const Arrow = createIcon({
-  displayName: 'Arrow',
-  viewBox: '0 0 72 24',
+  displayName: "Arrow",
+  viewBox: "0 0 72 24",
   path: (
     <path
       fillRule="evenodd"
