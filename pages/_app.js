@@ -1,7 +1,6 @@
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import theme from "../theme.js";
 import Head from "next/head";
-import Link from "next/link";
 
 function MyApp({ Component, pageProps }) {
   return (

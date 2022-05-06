@@ -3,12 +3,7 @@ import {
   Box,
   Center,
   Heading,
-  Text,
   Stack,
-  HStack,
-  Spacer,
-  Avatar,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import Link from "next/link";
 

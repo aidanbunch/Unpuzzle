@@ -8,8 +8,6 @@ import {
   AlertDialogBody,
   AlertDialogContent,
   useDisclosure,
-  Spacer,
-  Flex,
 } from "@chakra-ui/react";
 import Router from "next/router";
 export default function InstantAlertDialog({ color, header, body }) {

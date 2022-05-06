@@ -6,8 +6,6 @@ import {
   Heading,
   Flex,
   Spacer,
-  Button,
-  useToast,
   HStack,
 } from "@chakra-ui/react";
 import ClassroomCard from "../../components/ClassroomCard";

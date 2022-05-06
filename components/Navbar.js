@@ -16,7 +16,6 @@ import {
   useDisclosure,
   Image,
   Link,
-  Spacer,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
