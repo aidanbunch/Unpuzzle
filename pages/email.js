@@ -14,14 +14,24 @@ import {
   IconButton,
   HStack,
 } from "@chakra-ui/react";
-import { BsEnvelopeFill, BsFillChatLeftFill, BsPlayBtnFill } from 'react-icons/bs';
+import {
+  BsEnvelopeFill,
+  BsFillChatLeftFill,
+  BsPlayBtnFill,
+} from "react-icons/bs";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-
 export default function ContactFormWithSocialButtons() {
   return (
-    <>
+    <Box
+      minHeight={{
+        base: ["-webkit-fill-available", "fill-available", "-moz-available"],
+        lg: "100vh",
+      }}
+      display="flex"
+      flexDirection="column"
+    >
       <Navbar />
       <Box px={8} py={24} mx="auto">
         <SimpleGrid
@@ -52,13 +62,16 @@ export default function ContactFormWithSocialButtons() {
               color="gray.500"
               letterSpacing="wider"
             >
-              Want to get in touch? Contact us with any questions or concerns you may have.
+              Want to get in touch? Contact us with any questions or concerns
+              you may have.
             </chakra.p>
           </GridItem>
           <GridItem colSpan={{ base: "auto", md: 4 }}>
             <Box as="form" mb={6} rounded="lg" shadow="xl">
               <Center pb={0} color={useColorModeValue("gray.700", "white")}>
-                <Text fontWeight={"extrabold"} fontSize="2xl">Send a message</Text>
+                <Text fontWeight={"extrabold"} fontSize="2xl">
+                  Send a message
+                </Text>
               </Center>
               <SimpleGrid
                 columns={1}
@@ -105,43 +118,43 @@ export default function ContactFormWithSocialButtons() {
               </SimpleGrid>
             </Box>
             <Center>
-              <HStack spacing={'5'}>
-                  <IconButton
-                    aria-label="github"
-                    variant="ghost"
-                    size="lg"
-                    fontSize="3xl"
-                    icon={<BsPlayBtnFill />}
-                    _hover={{
-                      bg: 'blue.500',
-                      color: useColorModeValue('white', 'gray.700'),
-                    }}
-                    isRound
-                  />
-                  <IconButton
-                    aria-label="github"
-                    variant="ghost"
-                    size="lg"
-                    fontSize="3xl"
-                    icon={<BsEnvelopeFill />}
-                    _hover={{
-                      bg: 'blue.500',
-                      color: useColorModeValue('white', 'gray.700'),
-                    }}
-                    isRound
-                  />
-                  <IconButton
-                    aria-label="github"
-                    variant="ghost"
-                    size="lg"
-                    fontSize="3xl"
-                    icon={<BsFillChatLeftFill />}
-                    _hover={{
-                      bg: 'blue.500',
-                      color: useColorModeValue('white', 'gray.700'),
-                    }}
-                    isRound
-                  />
+              <HStack spacing={"5"}>
+                <IconButton
+                  aria-label="github"
+                  variant="ghost"
+                  size="lg"
+                  fontSize="3xl"
+                  icon={<BsPlayBtnFill />}
+                  _hover={{
+                    bg: "blue.500",
+                    color: useColorModeValue("white", "gray.700"),
+                  }}
+                  isRound
+                />
+                <IconButton
+                  aria-label="github"
+                  variant="ghost"
+                  size="lg"
+                  fontSize="3xl"
+                  icon={<BsEnvelopeFill />}
+                  _hover={{
+                    bg: "blue.500",
+                    color: useColorModeValue("white", "gray.700"),
+                  }}
+                  isRound
+                />
+                <IconButton
+                  aria-label="github"
+                  variant="ghost"
+                  size="lg"
+                  fontSize="3xl"
+                  icon={<BsFillChatLeftFill />}
+                  _hover={{
+                    bg: "blue.500",
+                    color: useColorModeValue("white", "gray.700"),
+                  }}
+                  isRound
+                />
               </HStack>
             </Center>
           </GridItem>
@@ -149,6 +162,6 @@ export default function ContactFormWithSocialButtons() {
       </Box>
 
       <Footer />
-    </>
+    </Box>
   );
 }
