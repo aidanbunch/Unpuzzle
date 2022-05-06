@@ -49,10 +49,6 @@ export default function Home() {
         window.open("https://youtu.be/V3pHpqMH098", '_blank').focus();
       }
 
-      // if (navigator.appVersion.indexOf("Win") != -1) OSName = "Windows";
-      // if (navigator.appVersion.indexOf("Mac") != -1) OSName = "MacOS";
-      // if (navigator.appVersion.indexOf("X11") != -1) OSName = "UNIX";
-      // if (navigator.appVersion.indexOf("Linux") != -1) OSName = "Linux";
     }
 
   }
