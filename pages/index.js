@@ -9,6 +9,12 @@ import {
   VStack,
   Button,
   Box,
+  Stack,
+  useColorModeValue,
+  Text,
+  chakra,
+  HStack,
+  Link
 } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import HorizontalAd from "../components/HorizontalAd";
@@ -29,6 +35,28 @@ export default function Home() {
     setUserToken(value);
   };
 
+  const sendUserToVideo = (e) => {
+    e.preventDefault()
+
+    if (/\bCrOS\b/.test(navigator.userAgent)) {
+      window.open("https://youtu.be/GzPwb-8fPtk", '_blank');
+    } else {
+      if (navigator.platform.toUpperCase().indexOf('MAC') >= 0) {
+        // is mac
+        window.open("https://youtu.be/6F0e8noGiNU", '_blank');
+      } else {
+        // is windows
+        window.open("https://youtu.be/V3pHpqMH098", '_blank');
+      }
+
+      // if (navigator.appVersion.indexOf("Win") != -1) OSName = "Windows";
+      // if (navigator.appVersion.indexOf("Mac") != -1) OSName = "MacOS";
+      // if (navigator.appVersion.indexOf("X11") != -1) OSName = "UNIX";
+      // if (navigator.appVersion.indexOf("Linux") != -1) OSName = "Linux";
+    }
+
+  }
+
   return (
     <Box
       minHeight={{
@@ -48,27 +76,51 @@ export default function Home() {
       />
        </Head>  */}
       <Navbar currentPage={"home"} />
-      <Flex height="50vh" alignItems="center" justifyContent="center" mx={10}>
-        <VStack spacing="30px">
-          <Heading textAlign="center" fontSize="4xl">
-            Type your Edpuzzle User Token
-          </Heading>
-          <Input
-            value={userToken}
-            onChange={onChange}
-            placeholder="User token"
-          />
-          <Button
-            isLoading={isLoading}
-            loadingText="Logging you in..."
-            colorScheme="blue"
-            size="lg"
-            width="200px"
-            isDisabled={userToken === "" ? true : false}
-            onClick={(e) => handleClick(e)}
+      <Flex minHeight="70vh" alignItems="center" justifyContent="center" mx={10}>
+        <VStack>
+          <Stack
+            spacing={4}
+            w={'full'}
+            maxW={'md'}
+            bg={useColorModeValue('white', 'gray.700')}
+            rounded={'xl'}
+            boxShadow={'lg'}
+            p={6}
+            my={12}>
+            <VStack spacing="30px">
+              <Heading textAlign="center" fontSize="4xl">
+                Type your Edpuzzle User Token
+              </Heading>
+              <Input
+                value={userToken}
+                onChange={onChange}
+                placeholder="User token"
+              />
+              <Button
+                isLoading={isLoading}
+                loadingText="Logging you in..."
+                colorScheme="blue"
+                size="lg"
+                width="200px"
+                isDisabled={userToken === "" ? true : false}
+                onClick={(e) => handleClick(e)}
+              >
+                Go
+              </Button>
+            </VStack>
+          </Stack>
+          <Text
+            color={useColorModeValue("GrayText", "gray.500")}
+            fontWeight={"semibold"}
           >
-            Go
-          </Button>
+            Need help? <Link onClick={sendUserToVideo} color={"blue.400"}> Watch this</Link>
+          </Text>
+          <Text
+            color={useColorModeValue("GrayText", "gray.500")}
+            fontWeight={"semibold"}
+          >
+            or use our <Link href={"https://www.google.com/"} color={"blue.400"}> Chrome Extension</Link>
+          </Text>
         </VStack>
       </Flex>
       <Center>
