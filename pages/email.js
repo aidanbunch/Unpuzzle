@@ -65,7 +65,6 @@ export default function ContactFormWithSocialButtons() {
                 px={6}
                 py={4}
                 spacing={4}
-                borderBottom="solid 1px"
                 borderColor={useColorModeValue("gray.200", "gray.700")}
               >
                 <Flex>
