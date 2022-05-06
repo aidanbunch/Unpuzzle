@@ -8,10 +8,13 @@ import {
   Center,
   Flex,
   SimpleGrid,
-  VisuallyHidden,
   Input,
   Text,
+  Link,
+  IconButton,
+  HStack
 } from "@chakra-ui/react";
+import { BsEnvelopeFill, BsPhone, BsPlayBtnFill } from 'react-icons/bs';
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -55,7 +58,7 @@ export default function ContactFormWithSocialButtons() {
           <GridItem colSpan={{ base: "auto", md: 4 }}>
             <Box as="form" mb={6} rounded="lg" shadow="xl">
               <Center pb={0} color={useColorModeValue("gray.700", "gray.600")}>
-              <Text fontWeight={"extrabold"} fontSize="2xl">Send a message</Text>
+                <Text fontWeight={"extrabold"} fontSize="2xl">Send a message</Text>
               </Center>
               <SimpleGrid
                 columns={1}
@@ -102,10 +105,51 @@ export default function ContactFormWithSocialButtons() {
                 </Button>
               </SimpleGrid>
             </Box>
+            <Center>
+              <HStack spacing={'5'}>
+                  <IconButton
+                    aria-label="github"
+                    variant="ghost"
+                    size="lg"
+                    fontSize="3xl"
+                    icon={<BsPlayBtnFill />}
+                    _hover={{
+                      bg: 'blue.500',
+                      color: useColorModeValue('white', 'gray.700'),
+                    }}
+                    isRound
+                  />
+                  <IconButton
+                    aria-label="github"
+                    variant="ghost"
+                    size="lg"
+                    fontSize="3xl"
+                    icon={<BsEnvelopeFill />}
+                    _hover={{
+                      bg: 'blue.500',
+                      color: useColorModeValue('white', 'gray.700'),
+                    }}
+                    isRound
+                  />
+                  <IconButton
+                    aria-label="github"
+                    variant="ghost"
+                    size="lg"
+                    fontSize="3xl"
+                    icon={<BsPhone />}
+                    _hover={{
+                      bg: 'blue.500',
+                      color: useColorModeValue('white', 'gray.700'),
+                    }}
+                    isRound
+                  />
+              </HStack>
+            </Center>
           </GridItem>
         </SimpleGrid>
       </Box>
-      <Footer/>
+
+      <Footer />
     </>
   );
 }
