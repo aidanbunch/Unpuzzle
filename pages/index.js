@@ -9,6 +9,12 @@ import {
   VStack,
   Button,
   Box,
+  Stack,
+  useColorModeValue,
+  Text,
+  chakra,
+  HStack,
+  Link
 } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import HorizontalAd from "../components/HorizontalAd";
@@ -29,6 +35,11 @@ export default function Home() {
     setUserToken(value);
   };
 
+  const sendUserToVideo = (e) => {
+    e.preventDefault()
+
+  }
+
   return (
     <Box
       minHeight={{
@@ -48,27 +59,51 @@ export default function Home() {
       />
        </Head>  */}
       <Navbar currentPage={"home"} />
-      <Flex height="50vh" alignItems="center" justifyContent="center" mx={10}>
-        <VStack spacing="30px">
-          <Heading textAlign="center" fontSize="4xl">
-            Type your Edpuzzle User Token
-          </Heading>
-          <Input
-            value={userToken}
-            onChange={onChange}
-            placeholder="User token"
-          />
-          <Button
-            isLoading={isLoading}
-            loadingText="Logging you in..."
-            colorScheme="blue"
-            size="lg"
-            width="200px"
-            isDisabled={userToken === "" ? true : false}
-            onClick={(e) => handleClick(e)}
+      <Flex minHeight="70vh" alignItems="center" justifyContent="center" mx={10}>
+        <VStack>
+          <Stack
+            spacing={4}
+            w={'full'}
+            maxW={'md'}
+            bg={useColorModeValue('white', 'gray.700')}
+            rounded={'xl'}
+            boxShadow={'lg'}
+            p={6}
+            my={12}>
+            <VStack spacing="30px">
+              <Heading textAlign="center" fontSize="4xl">
+                Type your Edpuzzle User Token
+              </Heading>
+              <Input
+                value={userToken}
+                onChange={onChange}
+                placeholder="User token"
+              />
+              <Button
+                isLoading={isLoading}
+                loadingText="Logging you in..."
+                colorScheme="blue"
+                size="lg"
+                width="200px"
+                isDisabled={userToken === "" ? true : false}
+                onClick={(e) => handleClick(e)}
+              >
+                Go
+              </Button>
+            </VStack>
+          </Stack>
+          <Text
+          color={"GrayText"}
+            fontWeight={"semibold"}
           >
-            Go
-          </Button>
+            Need help? <Link color={"blue.400"}> Watch this</Link>
+          </Text>
+          <Text
+          color={"GrayText"}
+            fontWeight={"semibold"}
+          >
+            or use our <Link href={"https://www.google.com/"} color={"blue.400"}> Chrome Extension</Link>
+          </Text>
         </VStack>
       </Flex>
       <Center>
