@@ -113,7 +113,7 @@ export default function Home() {
             color={useColorModeValue("gray.400", "gray.500")}
             fontWeight={"semibold"}
           >
-            or use our <Link href={"https://www.google.com/"} color={"blue.400"}> Chrome Extension</Link>
+            or use our <Link href={"https://www.google.com/"} color={"blue.400"} target={"_blank"}> Chrome Extension</Link>
           </Text>
         </VStack>
       </Flex>
