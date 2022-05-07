@@ -14,7 +14,7 @@ import {
   Text,
   chakra,
   HStack,
-  Link
+  Link,
 } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import HorizontalAd from "../components/HorizontalAd";
@@ -36,20 +36,34 @@ export default function Home() {
   };
 
   const sendUserToVideo = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (/\bCrOS\b/.test(navigator.userAgent)) {
-      window.open("https://www.youtube.com/watch?v=GzPwb-8fPtk", '_blank').focus();
+      window
+        .open("https://www.youtube.com/watch?v=GzPwb-8fPtk", "_blank")
+        .focus();
     } else {
-      if (navigator.platform.toUpperCase().indexOf('MAC') >= 0) {
+      var isSafari =
+        /constructor/i.test(window.HTMLElement) ||
+        (function (p) {
+          return p.toString() === "[object SafariRemoteNotification]";
+        })(
+          !window["safari"] ||
+            (typeof safari !== "undefined" && window["safari"].pushNotification)
+        );
+      if (isSafari) {
+        window
+          .open("https://www.youtube.com/watch?v=P1fChOsTJqk", "_blank")
+          .focus();
         // is mac
-        window.open("https://www.youtube.com/watch?v=6F0e8noGiNU", '_blank').focus();
       } else {
         // is windows
-        window.open("https://www.youtube.com/watch?v=V3pHpqMH098", '_blank').focus();
+        window
+          .open("https://www.youtube.com/watch?v=oT9rZfq4kp8", "_blank")
+          .focus();
       }
     }
-  }
+  };
 
   return (
     <Box
@@ -70,17 +84,23 @@ export default function Home() {
       />
        </Head>  */}
       <Navbar currentPage={"home"} />
-      <Flex minHeight="70vh" alignItems="center" justifyContent="center" mx={10}>
+      <Flex
+        minHeight="70vh"
+        alignItems="center"
+        justifyContent="center"
+        mx={10}
+      >
         <VStack>
           <Stack
             spacing={4}
-            w={'full'}
-            maxW={'md'}
-            bg={useColorModeValue('white', 'gray.700')}
-            rounded={'xl'}
-            boxShadow={'lg'}
+            w={"full"}
+            maxW={"md"}
+            bg={useColorModeValue("white", "gray.700")}
+            rounded={"xl"}
+            boxShadow={"lg"}
             p={6}
-            my={12}>
+            my={12}
+          >
             <VStack spacing="30px">
               <Heading textAlign="center" fontSize="4xl">
                 Type your Edpuzzle User Token
@@ -107,13 +127,25 @@ export default function Home() {
             color={useColorModeValue("gray.400", "gray.500")}
             fontWeight={"semibold"}
           >
-            Need help? <Link onClick={sendUserToVideo} color={"blue.400"}> Watch this</Link>
+            Need help?{" "}
+            <Link onClick={sendUserToVideo} color={"blue.400"}>
+              {" "}
+              Watch this
+            </Link>
           </Text>
           <Text
             color={useColorModeValue("gray.400", "gray.500")}
             fontWeight={"semibold"}
           >
-            or use our <Link href={"https://www.google.com/"} color={"blue.400"} target={"_blank"}> Chrome Extension</Link>
+            or use our{" "}
+            <Link
+              href={"https://www.google.com/"}
+              color={"blue.400"}
+              target={"_blank"}
+            >
+              {" "}
+              Chrome Extension
+            </Link>
           </Text>
         </VStack>
       </Flex>
