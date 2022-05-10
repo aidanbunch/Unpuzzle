@@ -243,7 +243,24 @@ export default function Assignment({ answers, color, assignmentTitle, attemptId,
 
     const results = async (_callback) => { 
 
+      const videoResponse = await axios.post('/api/complete-video', {
+        attemptId: attemptId,
+        userToken: userToken, 
+      })
+
       const count = answers.length;
+      if (count === 0) {
+        if(videoResponse) {
+          setIsLoading(false)
+          toast({
+            title: 'Completed assignment.',
+            description: "We've submitted the answers for you.",
+            status: 'success',
+            duration: 9000,
+            isClosable: true,
+          })
+        }
+      }
       
       answers.forEach(async (question) => {
         if (question.type === "open-ended") {
@@ -265,6 +282,13 @@ export default function Assignment({ answers, color, assignmentTitle, attemptId,
 
           if(count == 0) {
             setIsLoading(false)
+            toast({
+              title: 'Completed assignment.',
+              description: "We've submitted the answers for you.",
+              status: 'success',
+              duration: 9000,
+              isClosable: true,
+            })
           }
   
           if (response.error) {
@@ -286,6 +310,13 @@ export default function Assignment({ answers, color, assignmentTitle, attemptId,
 
           if(count == 0) {
             setIsLoading(false)
+            toast({
+              title: 'Completed assignment.',
+              description: "We've submitted the answers for you.",
+              status: 'success',
+              duration: 9000,
+              isClosable: true,
+            })
           }
   
         }
@@ -298,24 +329,24 @@ export default function Assignment({ answers, color, assignmentTitle, attemptId,
 
 results()
    
-
-    // if (noError) {
-    //   toast({
-    //     title: 'Completed assignment.',
-    //     description: "We've submitted the answers for you.",
-    //     status: 'success',
-    //     duration: 9000,
-    //     isClosable: true,
-    //   })
-    // } else {
-    //   toast({
-    //     title: 'Error completing assignment',
-    //     description: "Unfortunately, we ran into an error.",
-    //     status: 'error',
-    //     duration: 9000,
-    //     isClosable: true,
-    //   })
-    // }
+  //   if (noError) {
+  //     toast({
+  //       title: 'Completed assignment.',
+  //       description: "We've submitted the answers for you.",
+  //       status: 'success',
+  //       duration: 9000,
+  //       isClosable: true,
+  //     })
+  //   } else {
+  //     toast({
+  //       title: 'Error completing assignment',
+  //       description: "Unfortunately, we ran into an error.",
+  //       status: 'error',
+  //       duration: 9000,
+  //       isClosable: true,
+  //     })
+  //   }
+  
   }
 
   return (
