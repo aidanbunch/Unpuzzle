@@ -16,7 +16,6 @@ import React from "react";
 export default function QuestionAnswerCard({ question }) {
   const [frq, setFrq] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(true);
-  // console.log(question);
 
   async function getOpenEndedAnswer(question) {
     if (question.type === "open-ended") {
@@ -70,6 +69,7 @@ export default function QuestionAnswerCard({ question }) {
 
   React.useEffect(() => {
     // on appear
+    console.log(question.body)
     if (questionType === "open-ended") {
       getOpenEndedAnswer(question);
 

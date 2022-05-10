@@ -22,7 +22,7 @@ import Head from "next/head";
 // import {getAnswer} from "../api/getAns"
 
 function replaceHTMLTags(string) {
-  return string.replace(/(<([^>]+)>)/gi, "").replace(/\&nbsp;/g, "");
+  return string.replace(/(<([^>]+)>)/gi, "").replace(/\&nbsp;/g, "").replace(/(&quot\;)/g,"\"").replace(/\&#39;/g, "");
 }
 
 // const getOpenEndedAnswer = async (openEndedCount, callback) => {
@@ -147,6 +147,7 @@ export async function getServerSideProps(context) {
         openEndedCount += 1;
         const questionObj = {};
         const questionBody = replaceHTMLTags(question.body[0].html);
+
 
         const openEndedAnswer = "";
         questionObj["body"] = questionBody;
