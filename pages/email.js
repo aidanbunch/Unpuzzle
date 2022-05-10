@@ -18,6 +18,7 @@ import {
   BsEnvelopeFill,
   BsFillChatLeftFill,
   BsPlayBtnFill,
+  BsDiscord
 } from "react-icons/bs";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -85,7 +86,7 @@ export default function ContactFormWithSocialButtons() {
                     mt={0}
                     type="text"
                     placeholder="First Name"
-                    required="true"
+                    required={true}
                   />
                 </Flex>
                 <Flex>
@@ -93,7 +94,7 @@ export default function ContactFormWithSocialButtons() {
                     mt={0}
                     type="email"
                     placeholder="Email Address"
-                    required="true"
+                    required={true}
                   />
                 </Flex>
                 <Flex>
@@ -101,7 +102,7 @@ export default function ContactFormWithSocialButtons() {
                     mt={0}
                     type="text"
                     placeholder="Subject"
-                    required="true"
+                    required={true}
                   />
                 </Flex>
                 <Flex>
@@ -109,7 +110,7 @@ export default function ContactFormWithSocialButtons() {
                     mt={0}
                     type="text"
                     placeholder="Message"
-                    required="true"
+                    required={true}
                   />
                 </Flex>
                 <Button colorScheme="blue" w="full" py={2} type="submit">
@@ -120,7 +121,10 @@ export default function ContactFormWithSocialButtons() {
             <Center>
               <HStack spacing={"5"}>
                 <IconButton
-                  aria-label="github"
+                  onClick={() => window
+                    .open("https://www.youtube.com/channel/UCcowS8MwbwWz7Mrhg81b5aQ", "_blank")
+                    .focus()}
+                  aria-label="youtube"
                   variant="ghost"
                   size="lg"
                   fontSize="3xl"
@@ -132,7 +136,8 @@ export default function ContactFormWithSocialButtons() {
                   isRound
                 />
                 <IconButton
-                  aria-label="github"
+                  onClick={() => parent.location = 'mailto:unpuzzledsoftware@gmail.com'}
+                  aria-label="email"
                   variant="ghost"
                   size="lg"
                   fontSize="3xl"
@@ -144,11 +149,14 @@ export default function ContactFormWithSocialButtons() {
                   isRound
                 />
                 <IconButton
-                  aria-label="github"
+                  onClick={() => window
+                    .open("https://discord.com/invite/7hvgXrfS5f", "_blank")
+                    .focus()}
+                  aria-label="discord"
                   variant="ghost"
                   size="lg"
                   fontSize="3xl"
-                  icon={<BsFillChatLeftFill />}
+                  icon={<BsDiscord />}
                   _hover={{
                     bg: "blue.500",
                     color: useColorModeValue("white", "gray.700"),
