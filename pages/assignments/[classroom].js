@@ -8,6 +8,7 @@ import {
   HStack,
   Flex,
   Spacer,
+  useColorModeValue
 } from "@chakra-ui/react";
 import AssignmentCard from "../../components/AssignmentCard";
 import BackButton from "../../components/BackButton";
@@ -87,7 +88,7 @@ export default function Classroom({ assignmentsData, className, color }) {
               <Heading color={`${color}`} size="xl">
                 {className}
               </Heading>
-              <Heading size="xl"> assignments</Heading>
+              <Heading color={useColorModeValue("black", "white")} size="xl"> assignments</Heading>
             </HStack>
 
             <Spacer />

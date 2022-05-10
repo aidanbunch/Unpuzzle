@@ -10,6 +10,9 @@ import {
   HStack,
   Flex,
   Spacer,
+  Button,
+  Center,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import BackButton from "../../components/BackButton";
 import Head from "next/head";
@@ -214,7 +217,7 @@ export default function Assignment({ answers, color, assignmentTitle }) {
       </Head>
       <Navbar />
       <Box m={10}>
-        <VStack spacing={20}>
+        <VStack spacing={0}>
           <Flex w="100%">
             <BackButton />
             <Spacer />
@@ -223,21 +226,41 @@ export default function Assignment({ answers, color, assignmentTitle }) {
               <Heading color={`${color}`} size="xl">
                 {assignmentTitle}
               </Heading>
-              <Heading size="xl"> answers</Heading>
+              <Heading color={useColorModeValue("black", "white")} size="xl"> answers</Heading>
             </HStack>
 
             <Spacer />
           </Flex>
 
-          <VStack spacing={0}>
-            {answers.length > 0 &&
-              answers.map((question, index) => (
-                <QuestionAnswerCard
-                  key={index}
-                  question={question}
-                  length={question.length}
-                />
-              ))}
+          <VStack spacing={-5}>
+            <Button
+              m={10}
+              w={"40%"}
+              minW={"240px"}
+              bg={"blue.400"}
+              color={"white"}
+              rounded={"xl"}
+              boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
+              _hover={{
+                bg: "blue.500",
+              }}
+              _focus={{
+                bg: "blue.500",
+              }}
+            >
+              Finish assignment for me
+            </Button>
+
+            <VStack spacing={0}>
+              {answers.length > 0 &&
+                answers.map((question, index) => (
+                  <QuestionAnswerCard
+                    key={index}
+                    question={question}
+                    length={question.length}
+                  />
+                ))}
+            </VStack>
           </VStack>
         </VStack>
       </Box>
