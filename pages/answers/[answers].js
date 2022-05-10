@@ -153,7 +153,7 @@ export default function Assignment({ answers, color, assignmentTitle, attemptId,
     setIsLoading(true);
 
 
-    const results = async (_callback) => { 
+    const results = async () => { 
 
       const videoResponse = await axios.post('/api/complete-video', {
         attemptId: attemptId,
