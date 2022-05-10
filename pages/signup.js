@@ -1,45 +1,83 @@
 import {
-    Flex,
-    Box,
-    FormControl,
-    FormLabel,
-    Input,
-    InputGroup,
-    HStack,
-    InputRightElement,
-    Stack,
-    Button,
-    Heading,
-    Text,
-    useColorModeValue,
-    Link,
-  } from '@chakra-ui/react';
+  Flex,
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  InputGroup,
+  HStack,
+  InputRightElement,
+  Stack,
+  Button,
+  Heading,
+  Text,
+  useColorModeValue,
+  Link,
+  useToast,
+} from '@chakra-ui/react';
 
-  import { useState } from 'react';
-  import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';  
-  import Navbar from "../components/Navbar"
-  import Footer from "../components/Footer"
+import React, { useState } from 'react';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import Navbar from "../components/Navbar"
+import Footer from "../components/Footer"
+import GoogleAuthButton from '../components/GoogleAuthButton';
+import Router from 'next/router';
+import { supabase } from '../utils/supabaseClient';
 
-  export default function SignupCard() {
-    const [showPassword, setShowPassword] = useState(false);
-  
-    return (
-        <Box
-        minHeight={{
-          base: ["-webkit-fill-available", "fill-available", "-moz-available"],
-          lg: "100vh",
-        }}
-        display="flex"
-        flexDirection="column"
-      >
+export default function SignupCard() {
+  const [mail, setMail] = useState("")
+  const [pass, setPass] = useState("")
+  const [showPassword, setShowPassword] = useState(false);
+  const toast = useToast()
+  const toastIdRef = React.useRef()
 
-        <Navbar/>
+  function addToast() {
+    toastIdRef.current = toast({
+      title: 'Account created!',
+      description: "We've created your account for you.",
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    })
+  }
+
+  // const signUp = async () => {
+  // }
+
+  const signup = async (e) => {
+    const { user, session, error } = await supabase.auth.signUp({
+      email: mail,
+      password: pass,
+    })
+
+    console.log(user);
+    if (!error) {
+      console.log(user)
+      addToast()
+      Router.push("/")
+    } else {
+      console.log(error)
+    }
+
+  }
+
+  return (
+    <Box
+      minHeight={{
+        base: ["-webkit-fill-available", "fill-available", "-moz-available"],
+        lg: "100vh",
+      }}
+      display="flex"
+      flexDirection="column"
+    >
+
+      <Navbar />
       <Flex
         minH={'100vh'}
         align={'top'}
         justify={'center'}
-        // bg={useColorModeValue('white',)}
-        >
+      // bg={useColorModeValue('white',)}
+      >
         <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
           <Stack align={'center'}>
             <Heading fontSize={'4xl'} textAlign={'center'}>
@@ -69,13 +107,13 @@ import {
                   </FormControl>
                 </Box>
               </HStack>
-              <FormControl id="email" isRequired>
+              <FormControl onChange={(event) => setMail(event.target.value)} id="email" isRequired>
                 <FormLabel>Email address</FormLabel>
                 <Input type="email" />
               </FormControl>
               <FormControl id="password" isRequired>
                 <FormLabel>Password</FormLabel>
-                <InputGroup>
+                <InputGroup onChange={(event) => setPass(event.target.value)}>
                   <Input type={showPassword ? 'text' : 'password'} />
                   <InputRightElement h={'full'}>
                     <Button
@@ -88,8 +126,9 @@ import {
                   </InputRightElement>
                 </InputGroup>
               </FormControl>
-              <Stack spacing={10} pt={2}>
+              <Stack spacing={5} pt={2}>
                 <Button
+                  onClick={signup}
                   loadingText="Submitting"
                   size="lg"
                   bg={'blue.400'}
@@ -99,6 +138,7 @@ import {
                   }}>
                   Sign up
                 </Button>
+                <GoogleAuthButton />
               </Stack>
               <Stack pt={6}>
                 <Text align={'center'}>
@@ -109,7 +149,7 @@ import {
           </Box>
         </Stack>
       </Flex>
-      <Footer/>
-      </Box>
-    );
-  }
+      <Footer />
+    </Box>
+  );
+}
