@@ -36,6 +36,7 @@ export async function getServerSideProps(context) {
     );
     const titles = response.data.medias;
     const assignments = response.data.teacherAssignments;
+    const attempts = response.data.attempts;
     const assignmentsJSON = [];
 
     assignments.forEach((assignment) => {
@@ -47,15 +48,21 @@ export async function getServerSideProps(context) {
           assignmentsObj["assignmentTitle"] = title.title;
         }
       });
+      attempts.forEach((attempt) => {
+        if (assignment._id === attempt.teacherAssignmentId) {
+          assignmentsObj["attemptId"] = attempt._id;
+        }
+      });
       assignmentsJSON.push(assignmentsObj);
     });
 
-    // return assignmentsJSON;
+    // return assignmentsJSON; attempts[6]._id
     return {
       props: {
         assignmentsData: assignmentsJSON,
         className: className,
         color: color,
+        userToken: userToken,
       },
     };
   } catch (err) {
@@ -70,7 +77,7 @@ export async function getServerSideProps(context) {
   }
 }
 
-export default function Classroom({ assignmentsData, className, color }) {
+export default function Classroom({ assignmentsData, className, color, userToken }) {
   // console.log(assignmentsData);
   return (
     <>
@@ -104,6 +111,8 @@ export default function Classroom({ assignmentsData, className, color }) {
                     color={color}
                     assignmentTitle={assignment.assignmentTitle}
                     assignmentID={assignment.assignmentTeacherId}
+                    attemptId={assignment.attemptId}
+                    userToken={userToken}
                   />
                 ))}
             </VStack>

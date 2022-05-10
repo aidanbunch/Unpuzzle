@@ -117,6 +117,8 @@ export async function getServerSideProps(context) {
   const assignmentId = context.params.answers;
   const color = context.query.color;
   const assignmentTitle = context.query.assignmentTitle;
+  const attemptId = context.query.attemptId;
+  const userToken = context.query.userToken;
 
   const teacherToken =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjY2ZTk5MzFlZDFiMjQyZjBiNWMxYmUiLCJyb2xlIjoidGVhY2hlciIsInJlZ2lzdGVyZWRBdCI6MTY1MDkxMTYzNSwiaXNBZG1pbiI6ZmFsc2UsImJlY29tZVRoaXNVc2VyIjpmYWxzZSwidXNlcklkQmVjb21pbmdUaGlzVXNlciI6IiIsImlzT3BlbkNsYXNzcm9vbVVzZXIiOmZhbHNlLCJpc0x0aVVzZXIiOmZhbHNlLCJpc1VzZXJVc2luZ1RoaXJkUGFydHlBcHBsaWNhdGlvbiI6ZmFsc2UsImlhdCI6MTY1MTYyMDYwMCwiZXhwIjoxNjUyMjI1NDAwLCJqdGkiOiI2MjcxYmFmODYyNWMzMzQyZDZlMDI2ZTYifQ.kHLwvReWTEMOTu4-H9MTe2k1rz0voIKL-wxASucdQYQ";
@@ -148,6 +150,7 @@ export async function getServerSideProps(context) {
         const openEndedAnswer = "";
         questionObj["body"] = questionBody;
         questionObj["type"] = question.type;
+        questionObj["id"] = question._id;
 
         questionObj["openEndedAnswer"] = openEndedAnswer;
 
@@ -157,6 +160,7 @@ export async function getServerSideProps(context) {
         const questionObj = {};
         questionObj["body"] = replaceHTMLTags(question.body[0].html);
         questionObj["type"] = question.type;
+        questionObj["id"] = question._id;
 
         const qChoices = question.choices;
         const correctChoices = [];
@@ -183,6 +187,7 @@ export async function getServerSideProps(context) {
         answers: questionJSON,
         color: color,
         assignmentTitle: assignmentTitle,
+        attemptId: attemptId,
       },
     };
   } catch (err) {
@@ -197,7 +202,7 @@ export async function getServerSideProps(context) {
   }
 }
 
-export default function Assignment({ answers, color, assignmentTitle }) {
+export default function Assignment({ answers, color, assignmentTitle, attemptId }) {
   // const [questionAnswerData, setQuestionAnswerData] = React.useState(answers);
   // console.log(questionAnswerData);
 
@@ -210,6 +215,91 @@ export default function Assignment({ answers, color, assignmentTitle }) {
   // }, []);
 
   // console.log(answers);
+
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  async function getOpenEndedAnswer(question) {
+    if (question.type === "open-ended") {
+      const response = await fetch("/api/getAns/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt: question.body }),
+      });
+
+      const data = await response.json();
+      return data.answer
+    }
+  }
+
+  const submitAnswers = async () => {
+    var noError = true;
+    setIsLoading(true);
+    answers.forEach(async (question) => {
+      if (question.type === "open-ended") {
+
+        const openEndedAns = getOpenEndedAnswer(question)
+
+        const response = await fetch("/api/completeAssignment", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            type: question.type, attemptId: attemptId, questionId: question.id,
+            userToken: userToken, openEndedBody: question.body, openEndedAnswer: openEndedAns
+          }),
+        });
+
+        const data = await response.json();
+
+        if (data.error) {
+          noError = false;
+        }
+
+      } else {
+        // is multiple choice
+        const response = await fetch("/api/completeAssignment", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            type: question.type, attemptId: attemptId, questionId: question.id,
+            userToken: userToken, correctChoices: question.correctChoices
+          }),
+        });
+
+        const data = await response.json();
+
+        if (data.error) {
+          noError = false;
+        }
+      }
+    })
+
+    setIsLoading(false);
+
+    if (noError) {
+      toast({
+        title: 'Completed assignment.',
+        description: "We've submitted the answers for you.",
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+      })
+    } else {
+      toast({
+        title: 'Error completing assignment',
+        description: "Unfortunately, we ran into an error.",
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
+    }
+  }
+
   return (
     <>
       <Head>
@@ -234,7 +324,10 @@ export default function Assignment({ answers, color, assignmentTitle }) {
 
           <VStack spacing={-5}>
             <Button
+              onClick={submitAnswers}
               m={10}
+              loadingText={"Submitting answers..."}
+              isLoading={isLoading}
               w={"40%"}
               minW={"240px"}
               bg={"blue.400"}

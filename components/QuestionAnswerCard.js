@@ -112,6 +112,7 @@ export default function QuestionAnswerCard({ question }) {
                   <ListItem key={index}>
                     <ListIcon as={CheckIcon} color="green.400" />
                     {choice.choiceText}
+                    {choice.choiceID}
                   </ListItem>
                 ))}
               </List>
