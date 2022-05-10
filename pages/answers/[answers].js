@@ -13,6 +13,7 @@ import {
   Button,
   Center,
   useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
 import BackButton from "../../components/BackButton";
 import Head from "next/head";
@@ -188,6 +189,7 @@ export async function getServerSideProps(context) {
         color: color,
         assignmentTitle: assignmentTitle,
         attemptId: attemptId,
+        userToken: userToken,
       },
     };
   } catch (err) {
@@ -202,7 +204,7 @@ export async function getServerSideProps(context) {
   }
 }
 
-export default function Assignment({ answers, color, assignmentTitle, attemptId }) {
+export default function Assignment({ answers, color, assignmentTitle, attemptId, userToken }) {
   // const [questionAnswerData, setQuestionAnswerData] = React.useState(answers);
   // console.log(questionAnswerData);
 
@@ -217,6 +219,7 @@ export default function Assignment({ answers, color, assignmentTitle, attemptId 
   // console.log(answers);
 
   const [isLoading, setIsLoading] = React.useState(false);
+  const toast = useToast();
 
   async function getOpenEndedAnswer(question) {
     if (question.type === "open-ended") {
@@ -236,68 +239,83 @@ export default function Assignment({ answers, color, assignmentTitle, attemptId 
   const submitAnswers = async () => {
     var noError = true;
     setIsLoading(true);
-    answers.forEach(async (question) => {
-      if (question.type === "open-ended") {
 
-        const openEndedAns = getOpenEndedAnswer(question)
 
-        const response = await fetch("/api/completeAssignment", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            type: question.type, attemptId: attemptId, questionId: question.id,
-            userToken: userToken, openEndedBody: question.body, openEndedAnswer: openEndedAns
-          }),
-        });
+    const results = async (_callback) => { 
 
-        const data = await response.json();
+      const count = answers.length;
+      
+      answers.forEach(async (question) => {
+        if (question.type === "open-ended") {
+  
+          const openEndedAns = await getOpenEndedAnswer(question)
+  
+  
+  
+          const response = await axios.post('/api/complete-questions', {
+            type: question.type,
+            attemptId: attemptId,
+            questionId: question.id,
+            userToken: userToken, 
+            openEndedBody: question.body,
+            openEndedAnswer: openEndedAns
+          })
 
-        if (data.error) {
-          noError = false;
+          count -= 1;
+
+          if(count == 0) {
+            setIsLoading(false)
+          }
+  
+          if (response.error) {
+            noError = false;
+          }
+  
+        } else {
+  
+          // ** NEED TO UNCOMMENT LATER WORKS
+          const response = await axios.post('/api/complete-questions', {
+            type: question.type,
+            attemptId: attemptId,
+            questionId: question.id,
+            userToken: userToken, 
+            correctChoices: question.correctChoices
+          })
+
+          count -= 1;
+
+          if(count == 0) {
+            setIsLoading(false)
+          }
+  
         }
-
-      } else {
-        // is multiple choice
-        const response = await fetch("/api/completeAssignment", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            type: question.type, attemptId: attemptId, questionId: question.id,
-            userToken: userToken, correctChoices: question.correctChoices
-          }),
-        });
-
-        const data = await response.json();
-
-        if (data.error) {
-          noError = false;
-        }
-      }
-    })
-
-    setIsLoading(false);
-
-    if (noError) {
-      toast({
-        title: 'Completed assignment.',
-        description: "We've submitted the answers for you.",
-        status: 'success',
-        duration: 9000,
-        isClosable: true,
       })
-    } else {
-      toast({
-        title: 'Error completing assignment',
-        description: "Unfortunately, we ran into an error.",
-        status: 'error',
-        duration: 9000,
-        isClosable: true,
-      })
+
+
+      
     }
+
+
+results()
+   
+
+    // if (noError) {
+    //   toast({
+    //     title: 'Completed assignment.',
+    //     description: "We've submitted the answers for you.",
+    //     status: 'success',
+    //     duration: 9000,
+    //     isClosable: true,
+    //   })
+    // } else {
+    //   toast({
+    //     title: 'Error completing assignment',
+    //     description: "Unfortunately, we ran into an error.",
+    //     status: 'error',
+    //     duration: 9000,
+    //     isClosable: true,
+    //   })
+    // }
   }
 
   return (

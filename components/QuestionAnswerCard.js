@@ -29,7 +29,7 @@ export default function QuestionAnswerCard({ question }) {
       });
 
       const data = await response.json();
-      // console.log(data.answer);
+      // console.log(data.answer);  
       setFrq(data.answer);
       setIsLoading(false);
     }
@@ -112,7 +112,6 @@ export default function QuestionAnswerCard({ question }) {
                   <ListItem key={index}>
                     <ListIcon as={CheckIcon} color="green.400" />
                     {choice.choiceText}
-                    {choice.choiceID}
                   </ListItem>
                 ))}
               </List>
