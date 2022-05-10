@@ -72,7 +72,9 @@ export default function CallToActionWithAnnotation() {
             >
               <Link href={"/"}>Get Started</Link>
             </Button>
-            <Button variant={"link"} colorScheme={"blue"} size={"sm"}>
+            <Button   onClick={() =>  window
+                .open("https://chrome.google.com/webstore/detail/unpuzzle/bkhmfdnoifikoinnhgbalpejgdakdlpc?", "_blank")
+                .focus()} variant={"link"} colorScheme={"blue"} size={"sm"}>
               Our Google Extension
             </Button>
             <Box>

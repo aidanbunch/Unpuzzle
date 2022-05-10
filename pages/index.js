@@ -139,7 +139,9 @@ export default function Home() {
           >
             or use our{" "}
             <Link
-              href={"https://www.google.com/"}
+              onClick={() =>  window
+                .open("https://chrome.google.com/webstore/detail/unpuzzle/bkhmfdnoifikoinnhgbalpejgdakdlpc?", "_blank")
+                .focus()}
               color={"blue.400"}
               target={"_blank"}
             >
