@@ -10,6 +10,10 @@ import {
   HStack,
   Flex,
   Spacer,
+  Button,
+  Center,
+  useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
 import BackButton from "../../components/BackButton";
 import Head from "next/head";
@@ -114,6 +118,8 @@ export async function getServerSideProps(context) {
   const assignmentId = context.params.answers;
   const color = context.query.color;
   const assignmentTitle = context.query.assignmentTitle;
+  const attemptId = context.query.attemptId;
+  const userToken = context.query.userToken;
 
   const teacherToken =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjY2ZTk5MzFlZDFiMjQyZjBiNWMxYmUiLCJyb2xlIjoidGVhY2hlciIsInJlZ2lzdGVyZWRBdCI6MTY1MDkxMTYzNSwiaXNBZG1pbiI6ZmFsc2UsImJlY29tZVRoaXNVc2VyIjpmYWxzZSwidXNlcklkQmVjb21pbmdUaGlzVXNlciI6IiIsImlzT3BlbkNsYXNzcm9vbVVzZXIiOmZhbHNlLCJpc0x0aVVzZXIiOmZhbHNlLCJpc1VzZXJVc2luZ1RoaXJkUGFydHlBcHBsaWNhdGlvbiI6ZmFsc2UsImlhdCI6MTY1MTYyMDYwMCwiZXhwIjoxNjUyMjI1NDAwLCJqdGkiOiI2MjcxYmFmODYyNWMzMzQyZDZlMDI2ZTYifQ.kHLwvReWTEMOTu4-H9MTe2k1rz0voIKL-wxASucdQYQ";
@@ -145,6 +151,7 @@ export async function getServerSideProps(context) {
         const openEndedAnswer = "";
         questionObj["body"] = questionBody;
         questionObj["type"] = question.type;
+        questionObj["id"] = question._id;
 
         questionObj["openEndedAnswer"] = openEndedAnswer;
 
@@ -154,6 +161,7 @@ export async function getServerSideProps(context) {
         const questionObj = {};
         questionObj["body"] = replaceHTMLTags(question.body[0].html);
         questionObj["type"] = question.type;
+        questionObj["id"] = question._id;
 
         const qChoices = question.choices;
         const correctChoices = [];
@@ -180,6 +188,8 @@ export async function getServerSideProps(context) {
         answers: questionJSON,
         color: color,
         assignmentTitle: assignmentTitle,
+        attemptId: attemptId,
+        userToken: userToken,
       },
     };
   } catch (err) {
@@ -194,7 +204,7 @@ export async function getServerSideProps(context) {
   }
 }
 
-export default function Assignment({ answers, color, assignmentTitle }) {
+export default function Assignment({ answers, color, assignmentTitle, attemptId, userToken }) {
   // const [questionAnswerData, setQuestionAnswerData] = React.useState(answers);
   // console.log(questionAnswerData);
 
@@ -207,6 +217,138 @@ export default function Assignment({ answers, color, assignmentTitle }) {
   // }, []);
 
   // console.log(answers);
+
+  const [isLoading, setIsLoading] = React.useState(false);
+  const toast = useToast();
+
+  async function getOpenEndedAnswer(question) {
+    if (question.type === "open-ended") {
+      const response = await fetch("/api/getAns/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt: question.body }),
+      });
+
+      const data = await response.json();
+      return data.answer
+    }
+  }
+
+  const submitAnswers = async () => {
+    var noError = true;
+    setIsLoading(true);
+
+
+    const results = async (_callback) => { 
+
+      const videoResponse = await axios.post('/api/complete-video', {
+        attemptId: attemptId,
+        userToken: userToken, 
+      })
+
+      const count = answers.length;
+      if (count === 0) {
+        if(videoResponse) {
+          setIsLoading(false)
+          toast({
+            title: 'Completed assignment.',
+            description: "We've submitted the answers for you.",
+            status: 'success',
+            duration: 9000,
+            isClosable: true,
+          })
+        }
+      }
+      
+      answers.forEach(async (question) => {
+        if (question.type === "open-ended") {
+  
+          const openEndedAns = await getOpenEndedAnswer(question)
+  
+  
+  
+          const response = await axios.post('/api/complete-questions', {
+            type: question.type,
+            attemptId: attemptId,
+            questionId: question.id,
+            userToken: userToken, 
+            openEndedBody: question.body,
+            openEndedAnswer: openEndedAns
+          })
+
+          count -= 1;
+
+          if(count == 0) {
+            setIsLoading(false)
+            toast({
+              title: 'Completed assignment.',
+              description: "We've submitted the answers for you.",
+              status: 'success',
+              duration: 9000,
+              isClosable: true,
+            })
+          }
+  
+          if (response.error) {
+            noError = false;
+          }
+  
+        } else {
+  
+          // ** NEED TO UNCOMMENT LATER WORKS
+          const response = await axios.post('/api/complete-questions', {
+            type: question.type,
+            attemptId: attemptId,
+            questionId: question.id,
+            userToken: userToken, 
+            correctChoices: question.correctChoices
+          })
+
+          count -= 1;
+
+          if(count == 0) {
+            setIsLoading(false)
+            toast({
+              title: 'Completed assignment.',
+              description: "We've submitted the answers for you.",
+              status: 'success',
+              duration: 9000,
+              isClosable: true,
+            })
+          }
+  
+        }
+      })
+
+
+      
+    }
+
+
+results()
+   
+  //   if (noError) {
+  //     toast({
+  //       title: 'Completed assignment.',
+  //       description: "We've submitted the answers for you.",
+  //       status: 'success',
+  //       duration: 9000,
+  //       isClosable: true,
+  //     })
+  //   } else {
+  //     toast({
+  //       title: 'Error completing assignment',
+  //       description: "Unfortunately, we ran into an error.",
+  //       status: 'error',
+  //       duration: 9000,
+  //       isClosable: true,
+  //     })
+  //   }
+  
+  }
+
   return (
     <>
       <Head>
@@ -214,7 +356,7 @@ export default function Assignment({ answers, color, assignmentTitle }) {
       </Head>
       <Navbar />
       <Box m={10}>
-        <VStack spacing={20}>
+        <VStack spacing={0}>
           <Flex w="100%">
             <BackButton />
             <Spacer />
@@ -223,21 +365,44 @@ export default function Assignment({ answers, color, assignmentTitle }) {
               <Heading color={`${color}`} size="xl">
                 {assignmentTitle}
               </Heading>
-              <Heading size="xl"> answers</Heading>
+              <Heading color={useColorModeValue("black", "white")} size="xl"> answers</Heading>
             </HStack>
 
             <Spacer />
           </Flex>
 
-          <VStack spacing={0}>
-            {answers.length > 0 &&
-              answers.map((question, index) => (
-                <QuestionAnswerCard
-                  key={index}
-                  question={question}
-                  length={question.length}
-                />
-              ))}
+          <VStack spacing={-5}>
+            <Button
+              onClick={submitAnswers}
+              m={10}
+              loadingText={"Submitting answers..."}
+              isLoading={isLoading}
+              w={"40%"}
+              minW={"240px"}
+              bg={"blue.400"}
+              color={"white"}
+              rounded={"xl"}
+              boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
+              _hover={{
+                bg: "blue.500",
+              }}
+              _focus={{
+                bg: "blue.500",
+              }}
+            >
+              Finish assignment for me
+            </Button>
+
+            <VStack spacing={0}>
+              {answers.length > 0 &&
+                answers.map((question, index) => (
+                  <QuestionAnswerCard
+                    key={index}
+                    question={question}
+                    length={question.length}
+                  />
+                ))}
+            </VStack>
           </VStack>
         </VStack>
       </Box>

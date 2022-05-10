@@ -29,7 +29,7 @@ export default function QuestionAnswerCard({ question }) {
       });
 
       const data = await response.json();
-      // console.log(data.answer);
+      // console.log(data.answer);  
       setFrq(data.answer);
       setIsLoading(false);
     }
@@ -82,8 +82,8 @@ export default function QuestionAnswerCard({ question }) {
       <Box
         m={10}
         // maxW={"660px"}
-        w="660px"
-        // w={"100%"}
+        // w="100%"
+        w={"660px"}
         bg={useColorModeValue("white", "gray.800")}
         boxShadow={"2xl"}
         rounded="lg"

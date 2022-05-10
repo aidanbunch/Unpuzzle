@@ -11,6 +11,8 @@ export default function AssignmentCard({
   color,
   assignmentTitle,
   assignmentID,
+  attemptId,
+  userToken
 }) {
   return (
     // <Link
@@ -22,6 +24,8 @@ export default function AssignmentCard({
         query: {
           assignmentTitle: `${assignmentTitle}`,
           color: `${color}`,
+          attemptId: `${attemptId}`,
+          userToken: `${userToken}`,
         },
       }}
       passHref
