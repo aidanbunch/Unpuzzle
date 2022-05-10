@@ -343,7 +343,7 @@ const NAV_ITEMS = [
       {
         label: "Google Chrome Extension",
         subLabel: "Even easier",
-        href: "#",
+        href: "https://chrome.google.com/webstore/detail/unpuzzle/bkhmfdnoifikoinnhgbalpejgdakdlpc?",
       },
     ],
   },
