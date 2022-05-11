@@ -297,16 +297,16 @@ results()
               w={"40%"}
               minW={"240px"}
               h={"8vh"}
-              bg={"blue.400"}
-              color={"white"}
+              // bg={"blue.400"}
+              colorScheme="blue"
               rounded={"3xl"}
               // boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
-              _hover={{
-                bg: "blue.500",
-              }}
-              _focus={{
-                bg: "blue.500",
-              }}
+              // _hover={{
+              //   bg: "blue.500",
+              // }}
+              // _focus={{
+              //   bg: "blue.500",
+              // }}
             >
               <Text fontSize={"xl"} fontWeight={"semibold"}>Finish assignment for me</Text>
             </Button>

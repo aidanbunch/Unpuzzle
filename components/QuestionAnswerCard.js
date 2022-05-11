@@ -52,16 +52,16 @@ export default function QuestionAnswerCard({ question }) {
         loadingText="Generating response"
         mt={5}
         w={"full"}
-        bg={"blue.400"}
-        color={"white"}
+        colorScheme="blue"
+        // bg={"blue.400"}
         rounded={"xl"}
         // boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
-        _hover={{
-          bg: "blue.500",
-        }}
-        _focus={{
-          bg: "blue.500",
-        }}
+        // _hover={{
+        //   bg: "blue.500",
+        // }}
+        // _focus={{
+        //   bg: "blue.500",
+        // }}
       >
         Generate another response
       </Button>
