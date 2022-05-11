@@ -9,6 +9,7 @@ import {
   Button,
   Textarea,
   useColorModeValue,
+  HStack,
 } from "@chakra-ui/react";
 import { CheckIcon } from "@chakra-ui/icons";
 import React from "react";
@@ -96,9 +97,11 @@ export default function QuestionAnswerCard({ question }) {
           align={"center"}
         >
           <Stack direction={"row"} align={"center"} justify={"center"}>
-            <Text fontSize={"2xl"} fontWeight={500}>
-              {question.body}
+            <Text fontSize={"2xl"} fontWeight={500} dangerouslySetInnerHTML={{ __html: question.body }}>
             </Text>
+            {/* <Text fontSize={"2xl"} fontWeight={500}>
+              {question.body}
+            </Text> */}
           </Stack>
         </Stack>
 
@@ -110,8 +113,13 @@ export default function QuestionAnswerCard({ question }) {
               <List spacing={3}>
                 {question.correctChoices.map((choice, index) => (
                   <ListItem key={index}>
+                    <HStack>
                     <ListIcon as={CheckIcon} color="green.400" />
-                    {choice.choiceText}
+                    <Text fontSize={"md"} dangerouslySetInnerHTML={{ __html: choice.choiceText }}></Text>
+                    </HStack>
+
+                    {/* <ListIcon as={CheckIcon} color="green.400" />
+                    {choice.choiceText} */}
                   </ListItem>
                 ))}
               </List>

@@ -18,8 +18,8 @@ import {
 import BackButton from "../../components/BackButton";
 import Head from "next/head";
 
-function replaceHTMLTags(string) {
-  return string.replace(/(<([^>]+)>)/gi, "").replace(/\&nbsp;/g, "").replace(/(&quot\;)/g,"\"").replace(/\&#39;/g, "");
+function removeBackslashes(str) {
+  return str.replace(/\\/g, '')
 }
 
 export async function getServerSideProps(context) {
@@ -57,7 +57,7 @@ export async function getServerSideProps(context) {
         // no answer -> need openai
         openEndedCount += 1;
         const questionObj = {};
-        const questionBody = replaceHTMLTags(question.body[0].html);
+        const questionBody = removeBackslashes(question.body[0].html);
 
 
         const openEndedAnswer = "";
@@ -71,7 +71,7 @@ export async function getServerSideProps(context) {
       } else {
         // is multiple choice
         const questionObj = {};
-        questionObj["body"] = replaceHTMLTags(question.body[0].html);
+        questionObj["body"] = removeBackslashes(question.body[0].html);
         questionObj["type"] = question.type;
         questionObj["id"] = question._id;
 
@@ -80,7 +80,7 @@ export async function getServerSideProps(context) {
         qChoices.forEach((choice) => {
           if (choice.isCorrect === true) {
             const choiceObj = {
-              choiceText: `${replaceHTMLTags(choice.body[0].html)}`,
+              choiceText: `${removeBackslashes(choice.body[0].html)}`,
               choiceNumber: `${choice.choiceNumber}`,
               choiceID: `${choice._id}`,
             };
