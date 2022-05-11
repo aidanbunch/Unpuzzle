@@ -82,9 +82,9 @@ export default function QuestionAnswerCard({ question }) {
     <Center>
       <Box
         m={10}
-        // maxW={"660px"}
-        // w="100%"
-        w={"660px"}
+        maxW={"660px"}
+        w="100%"
+        // w={"660px"}
         bg={useColorModeValue("white", "gray.800")}
         boxShadow={"2xl"}
         rounded="lg"

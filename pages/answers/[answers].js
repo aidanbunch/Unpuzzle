@@ -295,7 +295,7 @@ results()
               loadingText={"Submitting answers..."}
               isLoading={isLoading}
               w={"40%"}
-              minW={"240px"}
+              minW={"250px"}
               h={"8vh"}
               // bg={"blue.400"}
               colorScheme="blue"
