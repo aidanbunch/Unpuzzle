@@ -22,6 +22,10 @@ function removeBackslashes(str) {
   return str.replace(/\\/g, '')
 }
 
+function replaceHTMLTags(string) {
+  return string.replace(/(<([^>]+)>)/gi, "").replace(/\&nbsp;/g, "").replace(/(&quot\;)/g,"\"").replace(/\&#39;/g, "");
+}
+
 export async function getServerSideProps(context) {
   // var answersJSON = [];
 
@@ -57,11 +61,10 @@ export async function getServerSideProps(context) {
         // no answer -> need openai
         openEndedCount += 1;
         const questionObj = {};
-        const questionBody = removeBackslashes(question.body[0].html);
-
 
         const openEndedAnswer = "";
-        questionObj["body"] = questionBody;
+        questionObj["bodyDisplay"] = removeBackslashes(question.body[0].html);
+        questionObj["body"] = replaceHTMLTags(question.body[0].html);
         questionObj["type"] = question.type;
         questionObj["id"] = question._id;
 
@@ -71,7 +74,8 @@ export async function getServerSideProps(context) {
       } else {
         // is multiple choice
         const questionObj = {};
-        questionObj["body"] = removeBackslashes(question.body[0].html);
+        questionObj["bodyDisplay"] = removeBackslashes(question.body[0].html);
+        questionObj["body"] = replaceHTMLTags(question.body[0].html);
         questionObj["type"] = question.type;
         questionObj["id"] = question._id;
 

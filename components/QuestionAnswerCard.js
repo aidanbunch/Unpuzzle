@@ -97,7 +97,7 @@ export default function QuestionAnswerCard({ question }) {
           align={"center"}
         >
           <Stack direction={"row"} align={"center"} justify={"center"}>
-            <Text fontSize={"2xl"} fontWeight={500} dangerouslySetInnerHTML={{ __html: question.body }}>
+            <Text fontSize={"2xl"} fontWeight={500} dangerouslySetInnerHTML={{ __html: question.bodyDisplay }}>
             </Text>
             {/* <Text fontSize={"2xl"} fontWeight={500}>
               {question.body}
