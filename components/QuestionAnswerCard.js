@@ -55,7 +55,7 @@ export default function QuestionAnswerCard({ question }) {
         bg={"blue.400"}
         color={"white"}
         rounded={"xl"}
-        boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
+        // boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
         _hover={{
           bg: "blue.500",
         }}

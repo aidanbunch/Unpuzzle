@@ -14,6 +14,7 @@ import {
   Center,
   useColorModeValue,
   useToast,
+  Text,
 } from "@chakra-ui/react";
 import BackButton from "../../components/BackButton";
 import Head from "next/head";
@@ -295,10 +296,11 @@ results()
               isLoading={isLoading}
               w={"40%"}
               minW={"240px"}
+              h={"8vh"}
               bg={"blue.400"}
               color={"white"}
-              rounded={"xl"}
-              boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
+              rounded={"3xl"}
+              // boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
               _hover={{
                 bg: "blue.500",
               }}
@@ -306,7 +308,7 @@ results()
                 bg: "blue.500",
               }}
             >
-              Finish assignment for me
+              <Text fontSize={"xl"} fontWeight={"semibold"}>Finish assignment for me</Text>
             </Button>
 
             <VStack spacing={0}>
