@@ -23,7 +23,7 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
   SunIcon,
-  MoonIcon
+  MoonIcon,
 } from "@chakra-ui/icons";
 
 import Router from "next/router";
@@ -33,16 +33,16 @@ export default function WithSubnavigation({ currentPage }) {
   const { colorMode, toggleColorMode } = useColorMode();
 
   const goToHome = (event) => {
-    Router.push("/")
-  }
+    Router.push("/");
+  };
 
   const goToSignUp = (event) => {
-    Router.push("/signup")
-  }
+    Router.push("/signup");
+  };
 
   const goToLogin = (event) => {
-    Router.push("/login")
-  }
+    Router.push("/login");
+  };
 
   return (
     <Box justifyContent="center">
@@ -76,9 +76,7 @@ export default function WithSubnavigation({ currentPage }) {
           flex={{ base: 2 }}
           justify={{ base: "center", md: "start" }}
         >
-
-       
-        <Image
+          <Image
             // m={1}s
             onClick={goToHome}
             mx={3}
@@ -88,10 +86,7 @@ export default function WithSubnavigation({ currentPage }) {
             src="/logo.png"
             aria-label="logo"
           />
-    
 
-
-  
           <Text
             onClick={goToHome}
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
@@ -102,8 +97,6 @@ export default function WithSubnavigation({ currentPage }) {
           >
             unpuzzle
           </Text>
-
-
 
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
             <DesktopNav />
@@ -136,19 +129,16 @@ export default function WithSubnavigation({ currentPage }) {
           </Button>
           <Stack
             display={{ base: "none", md: "inline-flex" }}
-            align='center'
-            direction='row'
+            align="center"
+            direction="row"
             onClick={goToSignUp}
-            >
-              
+          >
             <Button
               display={{ base: "none", md: "inline-flex" }}
               fontSize={"sm"}
               fontWeight={600}
               color={"white"}
-              
               bg={"orange.400"}
-              
               _hover={{
                 bg: "orange.300",
               }}
@@ -173,52 +163,48 @@ const DesktopNav = () => {
 
   return (
     <Stack direction={"row"} spacing={4}>
-      {NAV_ITEMS.map((navItem) => (
-      
-        (navItem.label !== "Sign up" &&
-          navItem.label !== "Login") && (
-           <Box key={navItem.label}>
-          <Popover trigger={"hover"} placement={"bottom-start"}>
-            <PopoverTrigger>
-              <Link
-                p={2}
-                href={navItem.href ?? "#"}
-                fontSize={"sm"}
-                fontWeight={500}
-                color={linkColor}
-                _hover={{
-                  textDecoration: "none",
-                  color: linkHoverColor,
-                }}
-              >
-                {navItem.label}
-              </Link>
-            </PopoverTrigger>
+      {NAV_ITEMS.map(
+        (navItem) =>
+          navItem.label !== "Sign up" &&
+          navItem.label !== "Login" && (
+            <Box key={navItem.label}>
+              <Popover trigger={"hover"} placement={"bottom-start"}>
+                <PopoverTrigger>
+                  <Link
+                    p={2}
+                    href={navItem.href ?? "#"}
+                    fontSize={"sm"}
+                    fontWeight={500}
+                    color={linkColor}
+                    _hover={{
+                      textDecoration: "none",
+                      color: linkHoverColor,
+                    }}
+                  >
+                    {navItem.label}
+                  </Link>
+                </PopoverTrigger>
 
-            {navItem.children && (
-              <PopoverContent
-                border={0}
-                boxShadow={"xl"}
-                bg={popoverContentBgColor}
-                p={4}
-                rounded={"xl"}
-                minW={"sm"}
-              >
-                <Stack>
-                  {navItem.children.map((child) => (
-                    <DesktopSubNav key={child.label} {...child} />
-                  ))}
-                </Stack>
-              </PopoverContent>
-            )}
-          </Popover>
-        </Box>
-        )
-      
-
-      
-      ))
-      }
+                {navItem.children && (
+                  <PopoverContent
+                    border={0}
+                    boxShadow={"xl"}
+                    bg={popoverContentBgColor}
+                    p={4}
+                    rounded={"xl"}
+                    minW={"sm"}
+                  >
+                    <Stack>
+                      {navItem.children.map((child) => (
+                        <DesktopSubNav key={child.label} {...child} />
+                      ))}
+                    </Stack>
+                  </PopoverContent>
+                )}
+              </Popover>
+            </Box>
+          )
+      )}
     </Stack>
   );
 };
@@ -368,10 +354,10 @@ const NAV_ITEMS = [
   },
   {
     label: "Sign up",
-    href: "/signup"
+    href: "/signup",
   },
   {
     label: "Login",
-    href: "/login"
-  }
+    href: "/login",
+  },
 ];

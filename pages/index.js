@@ -19,8 +19,11 @@ import {
 import Navbar from "../components/Navbar";
 import HorizontalAd from "../components/HorizontalAd";
 import Footer from "../components/Footer";
+import { useUser } from "../context/user";
 
 export default function Home() {
+  const { user } = useUser();
+
   const [userToken, setUserToken] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -139,9 +142,14 @@ export default function Home() {
           >
             or use our{" "}
             <Link
-              onClick={() =>  window
-                .open("https://chrome.google.com/webstore/detail/unpuzzle/bkhmfdnoifikoinnhgbalpejgdakdlpc?", "_blank")
-                .focus()}
+              onClick={() =>
+                window
+                  .open(
+                    "https://chrome.google.com/webstore/detail/unpuzzle/bkhmfdnoifikoinnhgbalpejgdakdlpc?",
+                    "_blank"
+                  )
+                  .focus()
+              }
               color={"blue.400"}
               target={"_blank"}
             >

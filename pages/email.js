@@ -18,7 +18,7 @@ import {
   BsEnvelopeFill,
   BsFillChatLeftFill,
   BsPlayBtnFill,
-  BsDiscord
+  BsDiscord,
 } from "react-icons/bs";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -121,9 +121,14 @@ export default function ContactFormWithSocialButtons() {
             <Center>
               <HStack spacing={"5"}>
                 <IconButton
-                  onClick={() => window
-                    .open("https://www.youtube.com/channel/UCcowS8MwbwWz7Mrhg81b5aQ", "_blank")
-                    .focus()}
+                  onClick={() =>
+                    window
+                      .open(
+                        "https://www.youtube.com/channel/UCcowS8MwbwWz7Mrhg81b5aQ",
+                        "_blank"
+                      )
+                      .focus()
+                  }
                   aria-label="youtube"
                   variant="ghost"
                   size="lg"
@@ -136,7 +141,9 @@ export default function ContactFormWithSocialButtons() {
                   isRound
                 />
                 <IconButton
-                  onClick={() => parent.location = 'mailto:unpuzzledsoftware@gmail.com'}
+                  onClick={() =>
+                    (parent.location = "mailto:unpuzzledsoftware@gmail.com")
+                  }
                   aria-label="email"
                   variant="ghost"
                   size="lg"
@@ -149,9 +156,11 @@ export default function ContactFormWithSocialButtons() {
                   isRound
                 />
                 <IconButton
-                  onClick={() => window
-                    .open("https://discord.com/invite/7hvgXrfS5f", "_blank")
-                    .focus()}
+                  onClick={() =>
+                    window
+                      .open("https://discord.com/invite/7hvgXrfS5f", "_blank")
+                      .focus()
+                  }
                   aria-label="discord"
                   variant="ghost"
                   size="lg"
