@@ -141,7 +141,7 @@ export default function Assignment({ answers, color, assignmentTitle, attemptId,
 
   async function getOpenEndedAnswer(question) {
     if (question.type === "open-ended") {
-      const response = await fetch("/api/getAns/", {
+      const response = await fetch("/api/get-answer", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
