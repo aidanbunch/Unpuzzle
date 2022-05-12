@@ -16,6 +16,7 @@ import {
   useDisclosure,
   Image,
   Link,
+  Avatar,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -25,12 +26,14 @@ import {
   SunIcon,
   MoonIcon,
 } from "@chakra-ui/icons";
+import { useUser } from "../context/user";
 
 import Router from "next/router";
 
 export default function WithSubnavigation({ currentPage }) {
   const { isOpen, onToggle } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
+  const { user, logout } = useUser();
 
   const goToHome = (event) => {
     Router.push("/");
@@ -39,6 +42,7 @@ export default function WithSubnavigation({ currentPage }) {
   const goToSignUp = (event) => {
     Router.push("/signup");
   };
+  console.log(user);
 
   const goToLogin = (event) => {
     Router.push("/login");
@@ -117,35 +121,39 @@ export default function WithSubnavigation({ currentPage }) {
             onClick={toggleColorMode}
             aria-label="Toggle color mode"
           />
-          <Button
-            display={{ base: "none", md: "inline-flex" }}
-            as={"a"}
-            fontSize={"sm"}
-            fontWeight={400}
-            variant={"link"}
-            onClick={goToLogin}
-          >
-            Log In
-          </Button>
-          <Stack
-            display={{ base: "none", md: "inline-flex" }}
-            align="center"
-            direction="row"
-            onClick={goToSignUp}
-          >
-            <Button
+          {user == null ? (
+            <Stack
               display={{ base: "none", md: "inline-flex" }}
-              fontSize={"sm"}
-              fontWeight={600}
-              color={"white"}
-              bg={"orange.400"}
-              _hover={{
-                bg: "orange.300",
-              }}
+              align="center"
+              direction="row"
+              onClick={goToLogin}
             >
-              Sign Up
-            </Button>
-          </Stack>
+              <Button
+                display={{ base: "none", md: "inline-flex" }}
+                fontSize={"sm"}
+                fontWeight={600}
+                color={"white"}
+                bg={"orange.400"}
+                _hover={{
+                  bg: "orange.300",
+                }}
+              >
+                Log in
+              </Button>
+            </Stack>
+          ) : (
+            <Stack
+              display={{ base: "none", md: "inline-flex" }}
+              align="center"
+              direction="row"
+              onClick={logout}
+            >
+              <Avatar
+                src={user.user_metadata.picture}
+                name={user.user_metadata.full_name}
+              />
+            </Stack>
+          )}
         </Stack>
       </Flex>
 
@@ -352,10 +360,7 @@ const NAV_ITEMS = [
     label: "Donate",
     href: "/donate",
   },
-  {
-    label: "Sign up",
-    href: "/signup",
-  },
+
   {
     label: "Login",
     href: "/login",
