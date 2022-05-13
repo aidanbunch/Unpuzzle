@@ -18,6 +18,12 @@ import {
   Link,
   Avatar,
   useToast,
+  Menu,
+  MenuList,
+  MenuButton,
+  Center,
+  MenuDivider,
+  MenuItem,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -157,17 +163,47 @@ export default function WithSubnavigation({ currentPage }) {
               display={{ base: "none", md: "inline-flex" }}
               align="center"
               direction="row"
-              onClick={() => {
-                signoutToast();
-                logout();
-              }}
             >
-              <Avatar
+              {/* <Avatar
                 bg="teal.500"
                 color={"white"}
                 src={user.user_metadata.avatar_url}
                 name={user.user_metadata.name}
-              />
+              /> */}
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  rounded={'full'}
+                  variant={'link'}
+                  cursor={'pointer'}
+                  minW={0}>
+                  <Avatar
+                    size={'md'}
+                    src={user.user_metadata.avatar_url}
+                  />
+                </MenuButton>
+                <MenuList alignItems={'center'}>
+                  <br />
+                  <Center>
+                    <Avatar
+                      size={'2xl'}
+                      src={user.user_metadata.avatar_url}
+                    />
+                  </Center>
+                  <br />
+                  <Center>
+                    <p>{user.user_metadata.name}</p>
+                  </Center>
+                  <br />
+                  <MenuDivider />
+                  <MenuItem
+                  onClick={() => {
+                    signoutToast();
+                    logout();
+                  }}
+                  >Logout</MenuItem>
+                </MenuList>
+              </Menu>
             </Stack>
           )}
         </Stack>

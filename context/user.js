@@ -52,7 +52,7 @@ const Provider = ({ children }) => {
   const loginWithGoogle = async () => {
     await supabase.auth.signIn({
       provider: "google",
-    });
+    })
   };
 
   const loginWithApple = async () => {
