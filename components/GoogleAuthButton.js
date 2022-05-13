@@ -4,11 +4,11 @@ import { FaGoogle } from "react-icons/fa";
 import { useUser } from "../context/user";
 
 export default function GoogleAuthButton() {
-  const { login } = useUser();
+  const { loginWithGoogle } = useUser();
 
   return (
     <Button
-      onClick={login}
+      onClick={loginWithGoogle}
       leftIcon={<FaGoogle />}
       colorScheme={"teal"}
       variant="solid"

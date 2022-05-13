@@ -17,6 +17,7 @@ import {
   Image,
   Link,
   Avatar,
+  useToast,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -31,6 +32,7 @@ import { useUser } from "../context/user";
 import Router from "next/router";
 
 export default function WithSubnavigation({ currentPage }) {
+  const toast = useToast();
   const { isOpen, onToggle } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
   const { user, logout } = useUser();
@@ -38,6 +40,15 @@ export default function WithSubnavigation({ currentPage }) {
   const goToHome = (event) => {
     Router.push("/");
   };
+
+  function signoutToast() {
+    toast({
+      title: "Signed out successfully!",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
+  }
 
   const goToSignUp = (event) => {
     Router.push("/signup");
@@ -146,11 +157,16 @@ export default function WithSubnavigation({ currentPage }) {
               display={{ base: "none", md: "inline-flex" }}
               align="center"
               direction="row"
-              onClick={logout}
+              onClick={() => {
+                signoutToast();
+                logout();
+              }}
             >
               <Avatar
-                src={user.user_metadata.picture}
-                name={user.user_metadata.full_name}
+                bg="teal.500"
+                color={"white"}
+                src={user.user_metadata.avatar_url}
+                name={user.user_metadata.name}
               />
             </Stack>
           )}

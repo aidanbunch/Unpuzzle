@@ -19,7 +19,11 @@ import BackButton from "../../components/BackButton";
 import Head from "next/head";
 
 function replaceHTMLTags(string) {
-  return string.replace(/(<([^>]+)>)/gi, "").replace(/\&nbsp;/g, "").replace(/(&quot\;)/g,"\"").replace(/\&#39;/g, "");
+  return string
+    .replace(/(<([^>]+)>)/gi, "")
+    .replace(/\&nbsp;/g, "")
+    .replace(/(&quot\;)/g, '"')
+    .replace(/\&#39;/g, "");
 }
 
 export async function getServerSideProps(context) {
@@ -58,7 +62,6 @@ export async function getServerSideProps(context) {
         openEndedCount += 1;
         const questionObj = {};
         const questionBody = replaceHTMLTags(question.body[0].html);
-
 
         const openEndedAnswer = "";
         questionObj["body"] = questionBody;
@@ -116,7 +119,13 @@ export async function getServerSideProps(context) {
   }
 }
 
-export default function Assignment({ answers, color, assignmentTitle, attemptId, userToken }) {
+export default function Assignment({
+  answers,
+  color,
+  assignmentTitle,
+  attemptId,
+  userToken,
+}) {
   // const [questionAnswerData, setQuestionAnswerData] = React.useState(answers);
   // console.log(questionAnswerData);
 
@@ -144,7 +153,7 @@ export default function Assignment({ answers, color, assignmentTitle, attemptId,
       });
 
       const data = await response.json();
-      return data.answer
+      return data.answer;
     }
   }
 
@@ -152,114 +161,103 @@ export default function Assignment({ answers, color, assignmentTitle, attemptId,
     var noError = true;
     setIsLoading(true);
 
+    const results = async () => {
+      console.log(attemptId);
 
-    const results = async () => { 
-
-      const videoResponse = await axios.post('/api/complete-video', {
+      const videoResponse = await axios.post("/api/complete-video", {
         attemptId: attemptId,
-        userToken: userToken, 
-      })
+        userToken: userToken,
+      });
 
       const count = answers.length;
       if (count === 0) {
-        if(videoResponse) {
-          setIsLoading(false)
+        if (videoResponse) {
+          setIsLoading(false);
           toast({
-            title: 'Completed assignment.',
+            title: "Completed assignment.",
             description: "We've submitted the answers for you.",
-            status: 'success',
+            status: "success",
             duration: 9000,
             isClosable: true,
-          })
+          });
         }
       }
-      
+
       answers.forEach(async (question) => {
         if (question.type === "open-ended") {
-  
-          const openEndedAns = await getOpenEndedAnswer(question)
-  
-  
-  
-          const response = await axios.post('/api/complete-questions', {
+          const openEndedAns = await getOpenEndedAnswer(question);
+
+          const response = await axios.post("/api/complete-questions", {
             type: question.type,
             attemptId: attemptId,
             questionId: question.id,
-            userToken: userToken, 
+            userToken: userToken,
             openEndedBody: question.body,
-            openEndedAnswer: openEndedAns
-          })
+            openEndedAnswer: openEndedAns,
+          });
 
           count -= 1;
 
-          if(count == 0) {
-            setIsLoading(false)
+          if (count == 0) {
+            setIsLoading(false);
             toast({
-              title: 'Completed assignment.',
+              title: "Completed assignment.",
               description: "We've submitted the answers for you.",
-              status: 'success',
+              status: "success",
               duration: 9000,
               isClosable: true,
-            })
+            });
           }
-  
+
           if (response.error) {
             noError = false;
           }
-  
         } else {
-  
           // ** NEED TO UNCOMMENT LATER WORKS
-          const response = await axios.post('/api/complete-questions', {
+          const response = await axios.post("/api/complete-questions", {
             type: question.type,
             attemptId: attemptId,
             questionId: question.id,
-            userToken: userToken, 
-            correctChoices: question.correctChoices
-          })
+            userToken: userToken,
+            correctChoices: question.correctChoices,
+          });
 
           count -= 1;
 
-          if(count == 0) {
-            setIsLoading(false)
+          if (count == 0) {
+            setIsLoading(false);
             toast({
-              title: 'Completed assignment.',
+              title: "Completed assignment.",
               description: "We've submitted the answers for you.",
-              status: 'success',
+              status: "success",
               duration: 9000,
               isClosable: true,
-            })
+            });
           }
-  
         }
-      })
+      });
+    };
 
+    results();
 
-      
-    }
-
-
-results()
-   
-  //   if (noError) {
-  //     toast({
-  //       title: 'Completed assignment.',
-  //       description: "We've submitted the answers for you.",
-  //       status: 'success',
-  //       duration: 9000,
-  //       isClosable: true,
-  //     })
-  //   } else {
-  //     toast({
-  //       title: 'Error completing assignment',
-  //       description: "Unfortunately, we ran into an error.",
-  //       status: 'error',
-  //       duration: 9000,
-  //       isClosable: true,
-  //     })
-  //   }
-  
-  }
+    //   if (noError) {
+    //     toast({
+    //       title: 'Completed assignment.',
+    //       description: "We've submitted the answers for you.",
+    //       status: 'success',
+    //       duration: 9000,
+    //       isClosable: true,
+    //     })
+    //   } else {
+    //     toast({
+    //       title: 'Error completing assignment',
+    //       description: "Unfortunately, we ran into an error.",
+    //       status: 'error',
+    //       duration: 9000,
+    //       isClosable: true,
+    //     })
+    //   }
+  };
 
   return (
     <>
@@ -277,7 +275,10 @@ results()
               <Heading color={`${color}`} size="xl">
                 {assignmentTitle}
               </Heading>
-              <Heading color={useColorModeValue("black", "white")} size="xl"> answers</Heading>
+              <Heading color={useColorModeValue("black", "white")} size="xl">
+                {" "}
+                answers
+              </Heading>
             </HStack>
 
             <Spacer />

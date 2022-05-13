@@ -49,9 +49,21 @@ const Provider = ({ children }) => {
   //     // }
   //     return error;
   //   }
-  const login = async () => {
+  const loginWithGoogle = async () => {
     await supabase.auth.signIn({
       provider: "google",
+    });
+  };
+
+  const loginWithApple = async () => {
+    await supabase.auth.signIn({
+      provider: "apple",
+    });
+  };
+
+  const loginWithGithub = async () => {
+    await supabase.auth.signIn({
+      provider: "github",
     });
   };
 
@@ -64,7 +76,9 @@ const Provider = ({ children }) => {
   const exposed = {
     user,
     logout,
-    login,
+    loginWithApple,
+    loginWithGoogle,
+    loginWithGithub,
   };
   return <Context.Provider value={exposed}>{children}</Context.Provider>;
 };

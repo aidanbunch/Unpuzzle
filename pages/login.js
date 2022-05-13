@@ -14,6 +14,7 @@ import {
   useColorModeValue,
   Link,
 } from "@chakra-ui/react";
+import AppleAuthButton from "../components/AppleAuthButton";
 import { useState, useRef } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import Navbar from "../components/Navbar";
@@ -21,6 +22,7 @@ import Footer from "../components/Footer";
 import GoogleAuthButton from "../components/GoogleAuthButton";
 import { supabase } from "../utils/supabaseClient";
 import Router from "next/router";
+import GithubAuthButton from "../components/GithubAuthButton";
 import { useToast } from "@chakra-ui/react";
 import { user, useUser } from "../context/user";
 
@@ -133,7 +135,9 @@ export default function SignupCard() {
                 >
                   Log in
                 </Button> */}
+                <AppleAuthButton />
                 <GoogleAuthButton />
+                <GithubAuthButton />
               </Stack>
 
               {/* <Stack pt={6}>
