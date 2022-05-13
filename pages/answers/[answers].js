@@ -13,10 +13,17 @@ import {
   Button,
   Center,
   useColorModeValue,
+  useBreakpointValue,
   useToast,
+  Text,
+  Wrap,
 } from "@chakra-ui/react";
 import BackButton from "../../components/BackButton";
 import Head from "next/head";
+
+function removeBackslashes(str) {
+  return str.replace(/\\/g, "");
+}
 
 function replaceHTMLTags(string) {
   return string
@@ -61,10 +68,10 @@ export async function getServerSideProps(context) {
         // no answer -> need openai
         openEndedCount += 1;
         const questionObj = {};
-        const questionBody = replaceHTMLTags(question.body[0].html);
 
         const openEndedAnswer = "";
-        questionObj["body"] = questionBody;
+        questionObj["bodyDisplay"] = removeBackslashes(question.body[0].html);
+        questionObj["body"] = replaceHTMLTags(question.body[0].html);
         questionObj["type"] = question.type;
         questionObj["id"] = question._id;
 
@@ -74,6 +81,7 @@ export async function getServerSideProps(context) {
       } else {
         // is multiple choice
         const questionObj = {};
+        questionObj["bodyDisplay"] = removeBackslashes(question.body[0].html);
         questionObj["body"] = replaceHTMLTags(question.body[0].html);
         questionObj["type"] = question.type;
         questionObj["id"] = question._id;
@@ -83,7 +91,7 @@ export async function getServerSideProps(context) {
         qChoices.forEach((choice) => {
           if (choice.isCorrect === true) {
             const choiceObj = {
-              choiceText: `${replaceHTMLTags(choice.body[0].html)}`,
+              choiceText: `${removeBackslashes(choice.body[0].html)}`,
               choiceNumber: `${choice.choiceNumber}`,
               choiceID: `${choice._id}`,
             };
@@ -144,7 +152,7 @@ export default function Assignment({
 
   async function getOpenEndedAnswer(question) {
     if (question.type === "open-ended") {
-      const response = await fetch("/api/getAns/", {
+      const response = await fetch("/api/get-answer", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -164,67 +172,15 @@ export default function Assignment({
     const results = async () => {
       console.log(attemptId);
 
-      const videoResponse = await axios.post("/api/complete-video", {
-        attemptId: attemptId,
-        userToken: userToken,
-      });
+      const results = async () => {
+        const videoResponse = await axios.post("/api/complete-video", {
+          attemptId: attemptId,
+          userToken: userToken,
+        });
 
-      const count = answers.length;
-      if (count === 0) {
-        if (videoResponse) {
-          setIsLoading(false);
-          toast({
-            title: "Completed assignment.",
-            description: "We've submitted the answers for you.",
-            status: "success",
-            duration: 9000,
-            isClosable: true,
-          });
-        }
-      }
-
-      answers.forEach(async (question) => {
-        if (question.type === "open-ended") {
-          const openEndedAns = await getOpenEndedAnswer(question);
-
-          const response = await axios.post("/api/complete-questions", {
-            type: question.type,
-            attemptId: attemptId,
-            questionId: question.id,
-            userToken: userToken,
-            openEndedBody: question.body,
-            openEndedAnswer: openEndedAns,
-          });
-
-          count -= 1;
-
-          if (count == 0) {
-            setIsLoading(false);
-            toast({
-              title: "Completed assignment.",
-              description: "We've submitted the answers for you.",
-              status: "success",
-              duration: 9000,
-              isClosable: true,
-            });
-          }
-
-          if (response.error) {
-            noError = false;
-          }
-        } else {
-          // ** NEED TO UNCOMMENT LATER WORKS
-          const response = await axios.post("/api/complete-questions", {
-            type: question.type,
-            attemptId: attemptId,
-            questionId: question.id,
-            userToken: userToken,
-            correctChoices: question.correctChoices,
-          });
-
-          count -= 1;
-
-          if (count == 0) {
+        const count = answers.length;
+        if (count === 0) {
+          if (videoResponse) {
             setIsLoading(false);
             toast({
               title: "Completed assignment.",
@@ -235,7 +191,63 @@ export default function Assignment({
             });
           }
         }
-      });
+
+        answers.forEach(async (question) => {
+          if (question.type === "open-ended") {
+            const openEndedAns = await getOpenEndedAnswer(question);
+
+            const response = await axios.post("/api/complete-questions", {
+              type: question.type,
+              attemptId: attemptId,
+              questionId: question.id,
+              userToken: userToken,
+              openEndedBody: question.body,
+              openEndedAnswer: openEndedAns,
+            });
+
+            count -= 1;
+
+            if (count == 0) {
+              setIsLoading(false);
+              toast({
+                title: "Completed assignment.",
+                description: "We've submitted the answers for you.",
+                status: "success",
+                duration: 9000,
+                isClosable: true,
+              });
+            }
+
+            if (response.error) {
+              noError = false;
+            }
+          } else {
+            // ** NEED TO UNCOMMENT LATER WORKS
+            const response = await axios.post("/api/complete-questions", {
+              type: question.type,
+              attemptId: attemptId,
+              questionId: question.id,
+              userToken: userToken,
+              correctChoices: question.correctChoices,
+            });
+
+            count -= 1;
+
+            if (count == 0) {
+              setIsLoading(false);
+              toast({
+                title: "Completed assignment.",
+                description: "We've submitted the answers for you.",
+                status: "success",
+                duration: 9000,
+                isClosable: true,
+              });
+            }
+          }
+        });
+      };
+
+      results();
     };
 
     results();
@@ -272,13 +284,15 @@ export default function Assignment({
             <Spacer />
 
             <HStack align mx={10}>
-              <Heading color={`${color}`} size="xl">
-                {assignmentTitle}
-              </Heading>
-              <Heading color={useColorModeValue("black", "white")} size="xl">
-                {" "}
-                answers
-              </Heading>
+              <Wrap>
+                <Heading color={`${color}`} size="xl">
+                  {assignmentTitle}
+                </Heading>
+                <Heading color={useColorModeValue("black", "white")} size="xl">
+                  {" "}
+                  answers
+                </Heading>
+              </Wrap>
             </HStack>
 
             <Spacer />
@@ -290,20 +304,18 @@ export default function Assignment({
               m={10}
               loadingText={"Submitting answers..."}
               isLoading={isLoading}
-              w={"40%"}
-              minW={"240px"}
-              bg={"blue.400"}
-              color={"white"}
-              rounded={"xl"}
-              boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
-              _hover={{
-                bg: "blue.500",
-              }}
-              _focus={{
-                bg: "blue.500",
-              }}
+              w={answers.length > 0 ? "40%" : "100%"}
+              minW={"250px"}
+              h={"8vh"}
+              colorScheme="blue"
+              rounded={"3xl"}
             >
-              Finish assignment for me
+              <Text
+                fontSize={useBreakpointValue({ base: "lg", md: "xl" })}
+                fontWeight={"semibold"}
+              >
+                Finish assignment for me
+              </Text>
             </Button>
 
             <VStack spacing={0}>

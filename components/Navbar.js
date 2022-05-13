@@ -237,6 +237,7 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
   return (
     <Link
       href={href}
+      target={label === "Google Chrome Extension" ? "_blank" : "_self"}
       role={"group"}
       display={"block"}
       p={2}
@@ -327,7 +328,7 @@ const MobileNavItem = ({ label, children, href }) => {
         >
           {children &&
             children.map((child) => (
-              <Link key={child.label} py={2} href={child.href}>
+              <Link key={child.label} py={2} href={child.href} target={child.label === "Google Chrome Extension" ? "_blank" : "_self"}>
                 {child.label}
               </Link>
             ))}

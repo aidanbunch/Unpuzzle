@@ -9,7 +9,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-function generatePrompt(question) {
+function appendQuestionMarkToPrompt(question) {
   if (question.slice(-1) === "?") {
     return question;
   } else {
@@ -18,7 +18,7 @@ function generatePrompt(question) {
 }
 
 export default async function handler(req, res) {
-  const questionPrompt = req.body.prompt;
+  const questionPrompt = appendQuestionMarkToPrompt(req.body.prompt);
 
   const completion = await openai.createCompletion("text-davinci-002", {
     prompt: questionPrompt,

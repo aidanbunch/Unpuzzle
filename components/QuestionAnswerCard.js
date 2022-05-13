@@ -9,6 +9,8 @@ import {
   Button,
   Textarea,
   useColorModeValue,
+  useBreakpointValue,
+  HStack,
 } from "@chakra-ui/react";
 import { CheckIcon } from "@chakra-ui/icons";
 import React from "react";
@@ -19,7 +21,7 @@ export default function QuestionAnswerCard({ question }) {
 
   async function getOpenEndedAnswer(question) {
     if (question.type === "open-ended") {
-      const response = await fetch("/api/getAns/", {
+      const response = await fetch("/api/get-answer/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,38 +44,28 @@ export default function QuestionAnswerCard({ question }) {
   const questionType = question.type;
 
   let openEndedButton;
+  let blankComponent;
 
-  if (questionType === "open-ended") {
-    openEndedButton = (
-      <Button
-        onClick={handleClick}
-        isLoading={isLoading}
-        loadingText="Generating response"
-        mt={5}
-        w={"full"}
-        bg={"blue.400"}
-        color={"white"}
-        rounded={"xl"}
-        boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
-        _hover={{
-          bg: "blue.500",
-        }}
-        _focus={{
-          bg: "blue.500",
-        }}
-      >
-        Generate another response
-      </Button>
-    );
-  }
+  openEndedButton = (
+    <Button
+      onClick={handleClick}
+      isLoading={isLoading}
+      loadingText="Generating response"
+      mt={5}
+      w={"full"}
+      colorScheme="blue"
+      rounded={"xl"}
+      fontSize={useBreakpointValue({ base: "sm", md: "medium" })}
+    >
+      Generate another response
+    </Button>
+  );
 
   React.useEffect(() => {
     // on appear
     console.log(question.body)
     if (questionType === "open-ended") {
       getOpenEndedAnswer(question);
-
-      // setFrq("ajsdkflajsdlkfj asdlfk jasldkfjaslkjfsakl");
     }
   }, []);
 
@@ -81,9 +73,8 @@ export default function QuestionAnswerCard({ question }) {
     <Center>
       <Box
         m={10}
-        // maxW={"660px"}
-        // w="100%"
-        w={"660px"}
+        maxW={"660px"}
+        w="80vw"
         bg={useColorModeValue("white", "gray.800")}
         boxShadow={"2xl"}
         rounded="lg"
@@ -96,9 +87,11 @@ export default function QuestionAnswerCard({ question }) {
           align={"center"}
         >
           <Stack direction={"row"} align={"center"} justify={"center"}>
-            <Text fontSize={"2xl"} fontWeight={500}>
-              {question.body}
+            <Text fontSize={"2xl"} fontWeight={500} dangerouslySetInnerHTML={{ __html: question.bodyDisplay }}>
             </Text>
+            {/* <Text fontSize={"2xl"} fontWeight={500}>
+              {question.body}
+            </Text> */}
           </Stack>
         </Stack>
 
@@ -110,15 +103,20 @@ export default function QuestionAnswerCard({ question }) {
               <List spacing={3}>
                 {question.correctChoices.map((choice, index) => (
                   <ListItem key={index}>
-                    <ListIcon as={CheckIcon} color="green.400" />
-                    {choice.choiceText}
+                    <HStack>
+                      <ListIcon as={CheckIcon} color="green.400" />
+                      <Text fontSize={"md"} dangerouslySetInnerHTML={{ __html: choice.choiceText }}></Text>
+                    </HStack>
+
+                    {/* <ListIcon as={CheckIcon} color="green.400" />
+                    {choice.choiceText} */}
                   </ListItem>
                 ))}
               </List>
             )}
           </Center>
 
-          {openEndedButton}
+          {questionType === "open-ended" ? openEndedButton : blankComponent}
         </Box>
       </Box>
     </Center>
