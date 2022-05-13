@@ -382,4 +382,8 @@ const NAV_ITEMS = [
     label: "Login",
     href: "/login",
   },
+  {
+    label: "Logout",
+    href: "/logout"
+  }
 ];
