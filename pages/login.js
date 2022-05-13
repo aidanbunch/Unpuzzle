@@ -23,6 +23,7 @@ import GoogleAuthButton from "../components/GoogleAuthButton";
 import { supabase } from "../utils/supabaseClient";
 import Router from "next/router";
 import GithubAuthButton from "../components/GithubAuthButton";
+import DiscordAuthButton from "../components/DiscordAuthButton";
 import { useToast } from "@chakra-ui/react";
 import { user, useUser } from "../context/user";
 
@@ -137,6 +138,7 @@ export default function SignupCard() {
                 </Button> */}
                 <AppleAuthButton />
                 <GoogleAuthButton />
+                <DiscordAuthButton />
                 <GithubAuthButton />
               </Stack>
 
