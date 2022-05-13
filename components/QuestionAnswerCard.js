@@ -9,6 +9,7 @@ import {
   Button,
   Textarea,
   useColorModeValue,
+  useBreakpointValue,
   HStack,
 } from "@chakra-ui/react";
 import { CheckIcon } from "@chakra-ui/icons";
@@ -43,38 +44,28 @@ export default function QuestionAnswerCard({ question }) {
   const questionType = question.type;
 
   let openEndedButton;
+  let blankComponent;
 
-  if (questionType === "open-ended") {
-    openEndedButton = (
-      <Button
-        onClick={handleClick}
-        isLoading={isLoading}
-        loadingText="Generating response"
-        mt={5}
-        w={"full"}
-        colorScheme="blue"
-        // bg={"blue.400"}
-        rounded={"xl"}
-        // boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
-        // _hover={{
-        //   bg: "blue.500",
-        // }}
-        // _focus={{
-        //   bg: "blue.500",
-        // }}
-      >
-        Generate another response
-      </Button>
-    );
-  }
+  openEndedButton = (
+    <Button
+      onClick={handleClick}
+      isLoading={isLoading}
+      loadingText="Generating response"
+      mt={5}
+      w={"full"}
+      colorScheme="blue"
+      rounded={"xl"}
+      fontSize={useBreakpointValue({ base: "sm", md: "medium" })}
+    >
+      Generate another response
+    </Button>
+  );
 
   React.useEffect(() => {
     // on appear
     console.log(question.body)
     if (questionType === "open-ended") {
       getOpenEndedAnswer(question);
-
-      // setFrq("ajsdkflajsdlkfj asdlfk jasldkfjaslkjfsakl");
     }
   }, []);
 
@@ -84,7 +75,6 @@ export default function QuestionAnswerCard({ question }) {
         m={10}
         maxW={"660px"}
         w="80vw"
-        // w={"660px"}
         bg={useColorModeValue("white", "gray.800")}
         boxShadow={"2xl"}
         rounded="lg"
@@ -114,8 +104,8 @@ export default function QuestionAnswerCard({ question }) {
                 {question.correctChoices.map((choice, index) => (
                   <ListItem key={index}>
                     <HStack>
-                    <ListIcon as={CheckIcon} color="green.400" />
-                    <Text fontSize={"md"} dangerouslySetInnerHTML={{ __html: choice.choiceText }}></Text>
+                      <ListIcon as={CheckIcon} color="green.400" />
+                      <Text fontSize={"md"} dangerouslySetInnerHTML={{ __html: choice.choiceText }}></Text>
                     </HStack>
 
                     {/* <ListIcon as={CheckIcon} color="green.400" />
@@ -126,7 +116,7 @@ export default function QuestionAnswerCard({ question }) {
             )}
           </Center>
 
-          {openEndedButton}
+          {questionType === "open-ended" ? openEndedButton : blankComponent}
         </Box>
       </Box>
     </Center>

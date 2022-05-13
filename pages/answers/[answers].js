@@ -13,6 +13,7 @@ import {
   Button,
   Center,
   useColorModeValue,
+  useBreakpointValue,
   useToast,
   Text,
   Wrap,
@@ -299,20 +300,13 @@ export default function Assignment({ answers, color, assignmentTitle, attemptId,
               isLoading={isLoading}
               w={answers.length > 0 ? "40%" : "100%"}
               minW={"250px"}
-              // p={8}
               h={"8vh"}
-              // bg={"blue.400"}
               colorScheme="blue"
               rounded={"3xl"}
-            // boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
-            // _hover={{
-            //   bg: "blue.500",
-            // }}
-            // _focus={{
-            //   bg: "blue.500",
-            // }}
             >
-              <Text fontSize={"xl"} fontWeight={"semibold"}>Finish assignment for me</Text>
+              <Text fontSize={useBreakpointValue({ base: "lg", md: "xl" })} fontWeight={"semibold"}>
+                Finish assignment for me
+              </Text>
             </Button>
 
             <VStack spacing={0}>
