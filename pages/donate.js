@@ -13,7 +13,6 @@ import {
 } from "@chakra-ui/react";
 import { FaCheckCircle } from "react-icons/fa";
 import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
 
 function PriceWrapper({ children }) {
   return (
@@ -40,7 +39,6 @@ export default function Pricing() {
       display="flex"
       flexDirection="column"
     >
-      <Navbar />
       <Stack spacing={0}>
         <Box py={10}>
           <VStack spacing={2} textAlign="center">

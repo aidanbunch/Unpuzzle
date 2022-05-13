@@ -20,7 +20,6 @@ import {
   BsPlayBtnFill,
   BsDiscord,
 } from "react-icons/bs";
-import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export default function ContactFormWithSocialButtons() {
@@ -33,7 +32,6 @@ export default function ContactFormWithSocialButtons() {
       display="flex"
       flexDirection="column"
     >
-      <Navbar />
       <Box px={8} py={24} mx="auto">
         <SimpleGrid
           alignItems="center"

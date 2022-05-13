@@ -16,7 +16,6 @@ import {
   HStack,
   Link,
 } from "@chakra-ui/react";
-import Navbar from "../components/Navbar";
 import HorizontalAd from "../components/HorizontalAd";
 import Footer from "../components/Footer";
 import { useUser } from "../context/user";
@@ -86,7 +85,6 @@ export default function Home() {
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
       />
        </Head>  */}
-      <Navbar currentPage={"home"} />
       <Flex
         minHeight="70vh"
         alignItems="center"

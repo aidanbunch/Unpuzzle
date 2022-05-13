@@ -2,6 +2,7 @@ import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import UserProvider from "../context/user";
 import theme from "../theme.js";
 import Head from "next/head";
+import Navbar from "../components/Navbar";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -19,6 +20,7 @@ function MyApp({ Component, pageProps }) {
       <ChakraProvider theme={theme}>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <UserProvider>
+          <Navbar />
           <Component {...pageProps} />
         </UserProvider>
       </ChakraProvider>

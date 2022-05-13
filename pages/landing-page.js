@@ -11,7 +11,6 @@ import {
   createIcon,
   Center,
 } from "@chakra-ui/react";
-import Navbar from "../components/Navbar";
 import Link from "next/link";
 import Footer from "../components/Footer";
 
@@ -32,7 +31,6 @@ export default function CallToActionWithAnnotation() {
         />
       </Head>
 
-      <Navbar />
       <Container>
         <Stack
           as={Box}
@@ -72,9 +70,19 @@ export default function CallToActionWithAnnotation() {
             >
               <Link href={"/"}>Get Started</Link>
             </Button>
-            <Button   onClick={() =>  window
-                .open("https://chrome.google.com/webstore/detail/unpuzzle/bkhmfdnoifikoinnhgbalpejgdakdlpc?", "_blank")
-                .focus()} variant={"link"} colorScheme={"blue"} size={"sm"}>
+            <Button
+              onClick={() =>
+                window
+                  .open(
+                    "https://chrome.google.com/webstore/detail/unpuzzle/bkhmfdnoifikoinnhgbalpejgdakdlpc?",
+                    "_blank"
+                  )
+                  .focus()
+              }
+              variant={"link"}
+              colorScheme={"blue"}
+              size={"sm"}
+            >
               Our Google Extension
             </Button>
             <Box>
