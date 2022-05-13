@@ -18,7 +18,6 @@ import {
 
 import React, { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import GoogleAuthButton from "../components/GoogleAuthButton";
 import Router from "next/router";
@@ -75,7 +74,6 @@ export default function SignupCard() {
       display="flex"
       flexDirection="column"
     >
-      <Navbar />
       <Flex
         minH={"100vh"}
         align={"top"}
