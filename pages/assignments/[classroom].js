@@ -63,6 +63,7 @@ export async function getServerSideProps(context) {
         className: className,
         color: color,
         userToken: userToken,
+        classroomID: classroomID,
       },
     };
   } catch (err) {
@@ -72,6 +73,7 @@ export async function getServerSideProps(context) {
         assignmentsData: [],
         className: className,
         color: color,
+        classroomID: classroomID,
       },
     };
   }
@@ -82,6 +84,7 @@ export default function Classroom({
   className,
   color,
   userToken,
+  classroomID,
 }) {
   // console.log(assignmentsData);
   return (
@@ -122,6 +125,7 @@ export default function Classroom({
                     assignmentID={assignment.assignmentTeacherId}
                     attemptId={assignment.attemptId}
                     userToken={userToken}
+                    classroomID={classroomID}
                   />
                 ))}
             </VStack>
