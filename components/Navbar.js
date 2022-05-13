@@ -323,13 +323,14 @@ const MobileNav = () => {
 
 const MobileNavItem = ({ label, children, href }) => {
   const { isOpen, onToggle } = useDisclosure();
+  const {user} = useUser();
 
   return (
     <Stack spacing={4} onClick={children && onToggle}>
       <Flex
         py={2}
         as={Link}
-        href={href ?? "#"}
+        href={label === "Login" ? (user == null ? "/login" : "/logout") : (href ?? "#")}
         justify={"space-between"}
         align={"center"}
         _hover={{
@@ -340,7 +341,7 @@ const MobileNavItem = ({ label, children, href }) => {
           fontWeight={600}
           color={useColorModeValue("gray.600", "gray.200")}
         >
-          {label}
+          {label === "Login" ? (user == null ? "Login" : "Logout") : label}
         </Text>
         {children && (
           <Icon
@@ -418,8 +419,4 @@ const NAV_ITEMS = [
     label: "Login",
     href: "/login",
   },
-  {
-    label: "Logout",
-    href: "/logout"
-  }
 ];
