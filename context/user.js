@@ -67,6 +67,12 @@ const Provider = ({ children }) => {
     });
   };
 
+  const loginWithDiscord = async () => {
+    await supabase.auth.signIn({
+      provider: "discord",
+    })
+  }
+
   const logout = async () => {
     await supabase.auth.signOut();
     setUser(null);
@@ -79,6 +85,7 @@ const Provider = ({ children }) => {
     loginWithApple,
     loginWithGoogle,
     loginWithGithub,
+    loginWithDiscord,
   };
   return <Context.Provider value={exposed}>{children}</Context.Provider>;
 };
