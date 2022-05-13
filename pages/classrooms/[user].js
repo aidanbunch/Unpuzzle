@@ -1,18 +1,10 @@
 import React from "react";
 import axios from "axios";
-import {
-  Box,
-  VStack,
-  Heading,
-  Flex,
-  Spacer,
-  HStack,
-} from "@chakra-ui/react";
+import { Box, VStack, Heading, Flex, Spacer, HStack } from "@chakra-ui/react";
 import ClassroomCard from "../../components/ClassroomCard";
 import Link from "next/link";
 import BackButton from "../../components/BackButton";
 import InstantAlertDialog from "../../components/InstantAlertDialog";
-import Navbar from "../../components/Navbar";
 import Head from "next/head";
 import ColumnAd from "../../components/ColumnAd";
 
@@ -155,14 +147,12 @@ export default function User({
         body={"Please enter a student token."}
       />
     );
-  }
-  else {
+  } else {
     return (
       <>
         <Head>
           <title>Classrooms</title>
         </Head>
-        <Navbar />
         <Box m={10}>
           <VStack spacing={20}>
             <Flex w="100%">
@@ -170,10 +160,11 @@ export default function User({
               <Spacer />
 
               <Heading size="2xl">
-                {`Hello, ${userProfileData.isOpenClassroomUser
-                  ? userProfileData.nickname
-                  : userProfileData.firstName
-                  }`}
+                {`Hello, ${
+                  userProfileData.isOpenClassroomUser
+                    ? userProfileData.nickname
+                    : userProfileData.firstName
+                }`}
               </Heading>
 
               <Spacer />

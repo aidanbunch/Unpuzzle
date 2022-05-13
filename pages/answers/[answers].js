@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import QuestionAnswerCard from "../../components/QuestionAnswerCard.js";
-import Navbar from "../../components/Navbar";
 
 import {
   Box,
@@ -276,7 +275,6 @@ export default function Assignment({
       <Head>
         <title>Answers</title>
       </Head>
-      <Navbar />
       <Box m={10}>
         <VStack spacing={0}>
           <Flex w="100%">

@@ -9,11 +9,10 @@ import {
   Flex,
   Spacer,
   useColorModeValue,
-  Wrap
+  Wrap,
 } from "@chakra-ui/react";
 import AssignmentCard from "../../components/AssignmentCard";
 import BackButton from "../../components/BackButton";
-import Navbar from "../../components/Navbar";
 import ColumnAd from "../../components/ColumnAd";
 
 export async function getServerSideProps(context) {
@@ -78,14 +77,18 @@ export async function getServerSideProps(context) {
   }
 }
 
-export default function Classroom({ assignmentsData, className, color, userToken }) {
+export default function Classroom({
+  assignmentsData,
+  className,
+  color,
+  userToken,
+}) {
   // console.log(assignmentsData);
   return (
     <>
       <Head>
         <title>Assignment</title>
       </Head>
-      <Navbar />
       <Box m={10}>
         <VStack spacing={20}>
           <Flex w="100%">
@@ -97,7 +100,10 @@ export default function Classroom({ assignmentsData, className, color, userToken
                 <Heading color={`${color}`} size="xl">
                   {className}
                 </Heading>
-                <Heading color={useColorModeValue("black", "white")} size="xl"> assignments</Heading>
+                <Heading color={useColorModeValue("black", "white")} size="xl">
+                  {" "}
+                  assignments
+                </Heading>
               </Wrap>
             </HStack>
 
