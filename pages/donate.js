@@ -69,7 +69,7 @@ export default function Pricing() {
               Premium Tiers
             </Heading>
             <Text fontSize="lg" color={"gray.500"}>
-              Please donate help 2 high school developers pay for hosting fees
+              Please donate to help 2 high school developers pay for hosting fees
             </Text>
           </VStack>
           <Stack
