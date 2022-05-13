@@ -13,6 +13,8 @@ import {
 } from "@chakra-ui/react";
 import { FaCheckCircle } from "react-icons/fa";
 import Footer from "../components/Footer";
+import {useUser} from "../context/user"
+import Router from "next/router";
 
 function PriceWrapper({ children }) {
   return (
@@ -30,6 +32,27 @@ function PriceWrapper({ children }) {
 }
 
 export default function Pricing() {
+  const {user} = useUser();
+
+  let buyButton;
+
+  if(user) {
+    buyButton = (
+      <Button w="full" colorScheme="blue">
+      Buy
+    </Button>
+    )
+  } else {
+    buyButton = (
+      <Button onClick={() => {
+        Router.push("/login")
+      }} w="full" colorScheme="blue">
+        Log in First
+    </Button>
+    )
+  }
+
+
   return (
     <Box
       minHeight={{
@@ -43,10 +66,10 @@ export default function Pricing() {
         <Box py={10}>
           <VStack spacing={2} textAlign="center">
             <Heading as="h1" fontSize="4xl">
-              Donations
+              Premium Tiers
             </Heading>
             <Text fontSize="lg" color={"gray.500"}>
-              Help 2 high school developers pay for hosting and food
+              Please donate help 2 high school developers pay for hosting fees
             </Text>
           </VStack>
           <Stack
@@ -59,7 +82,7 @@ export default function Pricing() {
             <PriceWrapper>
               <Box py={4} px={12}>
                 <Text fontWeight="600" fontSize="2xl">
-                  Mediocre
+                  Bronze
                 </Text>
                 <HStack justifyContent="center">
                   <Text fontSize="3xl" fontWeight="600">
@@ -76,23 +99,26 @@ export default function Pricing() {
                 borderBottomRadius={"xl"}
               >
                 <List spacing={3} textAlign="start" px={12}>
+                <ListItem opacity={"0.0"}>
+                    Placeholder
+
+                    </ListItem>
                   <ListItem>
                     <ListIcon as={FaCheckCircle} color="green.500" />
-                    Buy
+                    No Ads
                   </ListItem>
+               
                   <ListItem>
                     <ListIcon as={FaCheckCircle} color="green.500" />
-                    Lorem, ipsum dolor.
+                    Special Sponsor Badge
                   </ListItem>
-                  <ListItem>
-                    <ListIcon as={FaCheckCircle} color="green.500" />
-                    5TB Lorem, ipsum dolor.
-                  </ListItem>
+                  <ListItem opacity={"0.0"}>
+                    Placeholder
+
+                    </ListItem>
                 </List>
                 <Box w="80%" pt={7}>
-                  <Button w="full" colorScheme="blue" variant="outline">
-                    Buy
-                  </Button>
+                  {buyButton}
                 </Box>
               </VStack>
             </PriceWrapper>
@@ -115,12 +141,12 @@ export default function Pricing() {
                     fontWeight="600"
                     rounded="xl"
                   >
-                    Most Popular
+                    Best Deal
                   </Text>
                 </Box>
                 <Box py={4} px={12}>
                   <Text fontWeight="600" fontSize="2xl">
-                    Ordinary
+                    Gold
                   </Text>
                   <HStack justifyContent="center">
                     <Text fontSize="3xl" fontWeight="600">
@@ -139,29 +165,27 @@ export default function Pricing() {
                   <List spacing={3} textAlign="start" px={12}>
                     <ListItem>
                       <ListIcon as={FaCheckCircle} color="green.500" />
-                      unlimited build minutes
+                      No Ads
                     </ListItem>
                     <ListItem>
                       <ListIcon as={FaCheckCircle} color="green.500" />
-                      Lorem, ipsum dolor.
+                      Special Sponsor Badge
                     </ListItem>
                     <ListItem>
                       <ListIcon as={FaCheckCircle} color="green.500" />
-                      5TB Lorem, ipsum dolor.
+                      Customer Support
                     </ListItem>
                     <ListItem>
                       <ListIcon as={FaCheckCircle} color="green.500" />
-                      5TB Lorem, ipsum dolor.
+                      Early access to Features
                     </ListItem>
                     <ListItem>
                       <ListIcon as={FaCheckCircle} color="green.500" />
-                      5TB Lorem, ipsum dolor.
+                      1 free Essay per week
                     </ListItem>
                   </List>
                   <Box w="80%" pt={7}>
-                    <Button w="full" colorScheme="blue">
-                      Buy
-                    </Button>
+                    {buyButton}
                   </Box>
                 </VStack>
               </Box>
@@ -169,7 +193,7 @@ export default function Pricing() {
             <PriceWrapper>
               <Box py={4} px={12}>
                 <Text fontWeight="600" fontSize="2xl">
-                  Wealthy
+                  Platinum
                 </Text>
                 <HStack justifyContent="center">
                   <Text fontSize="3xl" fontWeight="600">
@@ -186,23 +210,28 @@ export default function Pricing() {
                 borderBottomRadius={"xl"}
               >
                 <List spacing={3} textAlign="start" px={12}>
+                <ListItem>
+                    <ListIcon as={FaCheckCircle} color="green.500" />
+                    Same Benefits as Gold
+                  </ListItem>
+              
                   <ListItem>
                     <ListIcon as={FaCheckCircle} color="green.500" />
-                    unlimited build minutes
+                    Special Platinum Badge 
                   </ListItem>
                   <ListItem>
                     <ListIcon as={FaCheckCircle} color="green.500" />
-                    Lorem, ipsum dolor.
+                    Name on Landing page
                   </ListItem>
+     
+            
                   <ListItem>
                     <ListIcon as={FaCheckCircle} color="green.500" />
-                    5TB Lorem, ipsum dolor.
+                    Unlimited Essays
                   </ListItem>
                 </List>
                 <Box w="80%" pt={7}>
-                  <Button w="full" colorScheme="blue" variant="outline">
-                    Buy
-                  </Button>
+                  {buyButton}
                 </Box>
               </VStack>
             </PriceWrapper>
