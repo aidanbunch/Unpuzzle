@@ -61,6 +61,12 @@ export default function ContactFormWithSocialButtons() {
       });
     } else {
       setIsLoading(false)
+
+      setFirstName("")
+      setEmail("")
+      setSubject("")
+      setMessage("")
+
       toast({
         title: "Sent message.",
         description: "We've received your feedback!",
@@ -139,6 +145,7 @@ export default function ContactFormWithSocialButtons() {
                 <Flex>
                   <Input
                     onChange={(event) => { setFirstName(event.target.value) }}
+                    value={firstName}
                     mt={0}
                     type="text"
                     placeholder="First Name"
@@ -148,6 +155,7 @@ export default function ContactFormWithSocialButtons() {
                 <Flex>
                   <Input
                     onChange={(event) => { setEmail(event.target.value) }}
+                    value={email}
                     mt={0}
                     type="email"
                     placeholder="Email Address"
@@ -157,6 +165,7 @@ export default function ContactFormWithSocialButtons() {
                 <Flex>
                   <Input
                     onChange={(event) => { setSubject(event.target.value) }}
+                    value={subject}
                     mt={0}
                     type="text"
                     placeholder="Subject"
@@ -166,6 +175,7 @@ export default function ContactFormWithSocialButtons() {
                 <Flex>
                   <Input
                     onChange={(event) => { setMessage(event.target.value) }}
+                    value={message}
                     mt={0}
                     type="text"
                     placeholder="Message"
