@@ -13,6 +13,7 @@ import {
   Link,
   IconButton,
   HStack,
+  useToast,
 } from "@chakra-ui/react";
 import {
   BsEnvelopeFill,
@@ -21,8 +22,61 @@ import {
   BsDiscord,
 } from "react-icons/bs";
 import Footer from "../components/Footer";
+import { supabase } from "../utils/supabaseClient";
 
 export default function ContactFormWithSocialButtons() {
+  const [firstName, setFirstName] = React.useState('')
+  const [email, setEmail] = React.useState('')
+  const [subject, setSubject] = React.useState('')
+  const [message, setMessage] = React.useState('')
+
+  const toast = useToast();
+  const [isLoading, setIsLoading] = React.useState(false)
+
+  const insertMessageIntoDatabase = async (event, firstName, email, subject, message) => {
+    event.preventDefault();
+
+    setIsLoading(true)
+
+    const { data, error } = await supabase
+      .from('messages')
+      .insert([
+        {
+          firstName: `${firstName}`,
+          emailAddress: `${email}`,
+          subject: `${subject}`,
+          message: `${message}`,
+        }
+      ])
+
+    if (error) {
+      console.log(error)
+      setIsLoading(false)
+      toast({
+        title: "Error sending message.",
+        description: "Sorry, we ran into some trouble sending your message.",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    } else {
+      setIsLoading(false)
+
+      setFirstName("")
+      setEmail("")
+      setSubject("")
+      setMessage("")
+
+      toast({
+        title: "Sent message.",
+        description: "We've received your feedback!",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+  }
+
   return (
     <Box
       minHeight={{
@@ -66,7 +120,16 @@ export default function ContactFormWithSocialButtons() {
             </chakra.p>
           </GridItem>
           <GridItem colSpan={{ base: "auto", md: 4 }}>
-            <Box as="form" mb={6} rounded="lg" shadow="xl">
+            <Box as="form" mb={6} rounded="lg" shadow="xl"
+            onSubmit={(event) =>
+              (insertMessageIntoDatabase(
+                event,
+                firstName,
+                email,
+                subject,
+                message))
+              }
+            >
               <Center pb={0} color={useColorModeValue("gray.700", "white")}>
                 <Text fontWeight={"extrabold"} fontSize="2xl">
                   Send a message
@@ -81,6 +144,8 @@ export default function ContactFormWithSocialButtons() {
               >
                 <Flex>
                   <Input
+                    onChange={(event) => { setFirstName(event.target.value) }}
+                    value={firstName}
                     mt={0}
                     type="text"
                     placeholder="First Name"
@@ -89,6 +154,8 @@ export default function ContactFormWithSocialButtons() {
                 </Flex>
                 <Flex>
                   <Input
+                    onChange={(event) => { setEmail(event.target.value) }}
+                    value={email}
                     mt={0}
                     type="email"
                     placeholder="Email Address"
@@ -97,6 +164,8 @@ export default function ContactFormWithSocialButtons() {
                 </Flex>
                 <Flex>
                   <Input
+                    onChange={(event) => { setSubject(event.target.value) }}
+                    value={subject}
                     mt={0}
                     type="text"
                     placeholder="Subject"
@@ -105,13 +174,22 @@ export default function ContactFormWithSocialButtons() {
                 </Flex>
                 <Flex>
                   <Input
+                    onChange={(event) => { setMessage(event.target.value) }}
+                    value={message}
                     mt={0}
                     type="text"
                     placeholder="Message"
                     required={true}
                   />
                 </Flex>
-                <Button colorScheme="blue" w="full" py={2} type="submit">
+                <Button
+                  colorScheme="blue"
+                  w="full"
+                  py={2}
+                  loadingText="Sending message..."
+                  isLoading={isLoading}
+                  type={"submit"}
+                >
                   Send
                 </Button>
               </SimpleGrid>
