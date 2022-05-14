@@ -172,15 +172,9 @@ export default function WithSubnavigation({ currentPage }) {
               /> */}
               <Menu>
                 <MenuButton
-                  as={Button}
-                  rounded={'full'}
-                  variant={'link'}
-                  cursor={'pointer'}
-                  minW={0}>
-                  <Avatar
-                    size={'md'}
-                    src={user.user_metadata.avatar_url}
-                  />
+                  as={Avatar}
+                  size={'md'}
+                  src={user.user_metadata.avatar_url} >
                 </MenuButton>
                 <MenuList alignItems={'center'}>
                   <br />
@@ -197,10 +191,10 @@ export default function WithSubnavigation({ currentPage }) {
                   <br />
                   <MenuDivider />
                   <MenuItem
-                  onClick={() => {
-                    signoutToast();
-                    logout();
-                  }}
+                    onClick={() => {
+                      signoutToast();
+                      logout();
+                    }}
                   >Logout</MenuItem>
                 </MenuList>
               </Menu>
@@ -323,7 +317,7 @@ const MobileNav = () => {
 
 const MobileNavItem = ({ label, children, href }) => {
   const { isOpen, onToggle } = useDisclosure();
-  const {user} = useUser();
+  const { user } = useUser();
 
   return (
     <Stack spacing={4} onClick={children && onToggle}>
@@ -384,9 +378,9 @@ const NAV_ITEMS = [
     label: "About",
     children: [
       {
-        label: "Landing Page",
-        subLabel: "What is this App?",
-        href: "/landing-page",
+        label: "Edpuzzle Login",
+        subLabel: "Get Edpuzzle answers!",
+        href: "/edpuzzle",
       },
       {
         label: "Google Chrome Extension",
