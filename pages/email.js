@@ -234,7 +234,7 @@ export default function ContactFormWithSocialButtons() {
                 <IconButton
                   onClick={() =>
                     window
-                      .open("https://discord.com/invite/7hvgXrfS5f", "_blank")
+                      .open("https://discord.gg/fFGQPF465s", "_blank")
                       .focus()
                   }
                   aria-label="discord"
