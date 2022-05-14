@@ -9,7 +9,7 @@ import * as gtag from '../lib/gtag'
 import { useEffect } from "react"
 
 function MyApp({ Component, pageProps }) {
-  const G_AD_CLIENT = process.env.G_AD_CLIENT
+  const G_CLIENT = process.env.G_AD_CLIENT
 
   const router = useRouter()
   useEffect(() => {
@@ -47,9 +47,9 @@ function MyApp({ Component, pageProps }) {
       <Script
         id="Adsense-id"
         async={true}
-        strategy="afterInteractive"
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-        data-ad-client={`${G_AD_CLIENT}`}
+        strategy="beforeInteractive"
+        crossOrigin="anonymous"
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${G_CLIENT}`}
         onError={ (e) => { console.error('Auto-ad script failed to load', e) }}
       />
 
