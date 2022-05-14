@@ -14,6 +14,7 @@ import {
   IconButton,
   HStack,
   useToast,
+  Textarea
 } from "@chakra-ui/react";
 import {
   BsEnvelopeFill,
@@ -173,7 +174,7 @@ export default function ContactFormWithSocialButtons() {
                   />
                 </Flex>
                 <Flex>
-                  <Input
+                  <Textarea
                     onChange={(event) => { setMessage(event.target.value) }}
                     value={message}
                     mt={0}
