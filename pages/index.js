@@ -13,8 +13,21 @@ import {
 import Link from "next/link";
 import Footer from "../components/Footer";
 import Router from "next/router";
+import { useUser } from "../context/user";
+import { useEffect } from "react";
 
 export default function Home() {
+  const user = useUser();
+  useEffect(() => {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
+    if (!params["noredirect"]) {
+      if (user.user !== null) {
+        console.log(user.user);
+        Router.push("/edpuzzle");
+      }
+    }
+  });
   return (
     <Box
       minHeight={{
@@ -70,8 +83,8 @@ export default function Home() {
               h={"8vh"}
               w={"170%"}
               onClick={(event) => {
-                event.preventDefault()
-                Router.push("/edpuzzle")
+                event.preventDefault();
+                Router.push("/edpuzzle");
               }}
             >
               Get Started

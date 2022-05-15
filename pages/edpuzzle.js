@@ -1,6 +1,6 @@
-import Router from "next/router";
+import Router, { createRouter } from "next/router";
 import Head from "next/head";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Flex,
   Center,
@@ -22,6 +22,11 @@ import { useUser } from "../context/user";
 
 export default function Edpuzzle() {
   const { user } = useUser();
+  // useEffect(() => {
+  //   if (user == null) {
+  //     Router.push("/");
+  //   }
+  // });
 
   const [userToken, setUserToken] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
