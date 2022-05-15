@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { FaCheckCircle } from "react-icons/fa";
 import Footer from "../components/Footer";
-import {useUser} from "../context/user"
+import { useUser } from "../context/user";
 import Router from "next/router";
 
 function PriceWrapper({ children }) {
@@ -32,26 +32,29 @@ function PriceWrapper({ children }) {
 }
 
 export default function Pricing() {
-  const {user} = useUser();
+  const { user } = useUser();
 
   let buyButton;
 
-  if(user) {
+  if (user) {
     buyButton = (
       <Button w="full" colorScheme="blue">
-      Buy
-    </Button>
-    )
+        Buy
+      </Button>
+    );
   } else {
     buyButton = (
-      <Button onClick={() => {
-        Router.push("/login")
-      }} w="full" colorScheme="blue">
+      <Button
+        onClick={() => {
+          Router.push("/login");
+        }}
+        w="full"
+        colorScheme="blue"
+      >
         Log in First
-    </Button>
-    )
+      </Button>
+    );
   }
-
 
   return (
     <Box
@@ -69,7 +72,8 @@ export default function Pricing() {
               Premium Tiers
             </Heading>
             <Text fontSize="lg" color={"gray.500"}>
-              Please donate to help 2 student developers pay for hosting fees
+              Your donations help keep Unpuzzle free and accessible for
+              everyone!
             </Text>
           </VStack>
           <Stack
@@ -99,23 +103,17 @@ export default function Pricing() {
                 borderBottomRadius={"xl"}
               >
                 <List spacing={3} textAlign="start" px={12}>
-                <ListItem opacity={"0.0"}>
-                    Placeholder
-
-                    </ListItem>
+                  <ListItem opacity={"0.0"}>Placeholder</ListItem>
                   <ListItem>
                     <ListIcon as={FaCheckCircle} color="green.500" />
                     No Ads
                   </ListItem>
-               
+
                   <ListItem>
                     <ListIcon as={FaCheckCircle} color="green.500" />
                     Special Sponsor Badge
                   </ListItem>
-                  <ListItem opacity={"0.0"}>
-                    Placeholder
-
-                    </ListItem>
+                  <ListItem opacity={"0.0"}>Placeholder</ListItem>
                 </List>
                 <Box w="80%" pt={7}>
                   {buyButton}
@@ -180,8 +178,8 @@ export default function Pricing() {
                       Early access to Features
                     </ListItem>
                     <ListItem>
-                      <ListIcon as={FaCheckCircle} color="green.500" />
-                      1 free Essay per week
+                      <ListIcon as={FaCheckCircle} color="green.500" />1 free
+                      Essay per week
                     </ListItem>
                   </List>
                   <Box w="80%" pt={7}>
@@ -210,21 +208,20 @@ export default function Pricing() {
                 borderBottomRadius={"xl"}
               >
                 <List spacing={3} textAlign="start" px={12}>
-                <ListItem>
+                  <ListItem>
                     <ListIcon as={FaCheckCircle} color="green.500" />
                     Same Benefits as Gold
                   </ListItem>
-              
+
                   <ListItem>
                     <ListIcon as={FaCheckCircle} color="green.500" />
-                    Special Platinum Badge 
+                    Special Platinum Badge
                   </ListItem>
                   <ListItem>
                     <ListIcon as={FaCheckCircle} color="green.500" />
                     Name on Landing page
                   </ListItem>
-     
-            
+
                   <ListItem>
                     <ListIcon as={FaCheckCircle} color="green.500" />
                     Unlimited Essays

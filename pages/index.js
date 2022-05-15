@@ -62,9 +62,10 @@ export default function Home() {
             </Text>
           </Heading>
           <Text color={"gray.500"} fontSize={"xl"}>
-            Help you finish your assignments on time. Get solutions instantly
-            (we even generate answers to open ended questions)! We provide unique insights 
-            on problems in order to aid students in learning the material!
+            Finish your assignments on time by getting solutions instantly (we
+            even generate answers to open ended questions)! We provide unique
+            insights on problems in order to aid students in learning the
+            material!
           </Text>
           <Stack
             direction={"column"}
