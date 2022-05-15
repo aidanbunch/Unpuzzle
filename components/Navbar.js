@@ -173,16 +173,13 @@ export default function WithSubnavigation({ currentPage }) {
               <Menu>
                 <MenuButton
                   as={Avatar}
-                  size={'md'}
-                  src={user.user_metadata.avatar_url} >
-                </MenuButton>
-                <MenuList alignItems={'center'}>
+                  size={"md"}
+                  src={user.user_metadata.avatar_url}
+                ></MenuButton>
+                <MenuList alignItems={"center"}>
                   <br />
                   <Center>
-                    <Avatar
-                      size={'2xl'}
-                      src={user.user_metadata.avatar_url}
-                    />
+                    <Avatar size={"2xl"} src={user.user_metadata.avatar_url} />
                   </Center>
                   <br />
                   <Center>
@@ -195,7 +192,9 @@ export default function WithSubnavigation({ currentPage }) {
                       signoutToast();
                       logout();
                     }}
-                  >Logout</MenuItem>
+                  >
+                    Logout
+                  </MenuItem>
                 </MenuList>
               </Menu>
             </Stack>
@@ -324,7 +323,13 @@ const MobileNavItem = ({ label, children, href }) => {
       <Flex
         py={2}
         as={Link}
-        href={label === "Login" ? (user == null ? "/login" : "/logout") : (href ?? "#")}
+        href={
+          label === "Login"
+            ? user == null
+              ? "/login"
+              : "/logout"
+            : href ?? "#"
+        }
         justify={"space-between"}
         align={"center"}
         _hover={{
@@ -359,7 +364,14 @@ const MobileNavItem = ({ label, children, href }) => {
         >
           {children &&
             children.map((child) => (
-              <Link key={child.label} py={2} href={child.href} target={child.label === "Google Chrome Extension" ? "_blank" : "_self"}>
+              <Link
+                key={child.label}
+                py={2}
+                href={child.href}
+                target={
+                  child.label === "Google Chrome Extension" ? "_blank" : "_self"
+                }
+              >
                 {child.label}
               </Link>
             ))}
@@ -378,9 +390,9 @@ const NAV_ITEMS = [
     label: "About",
     children: [
       {
-        label: "Edpuzzle Login",
-        subLabel: "Get Edpuzzle answers!",
-        href: "/edpuzzle",
+        label: "Landing page",
+        subLabel: "Learn about what we do!",
+        href: "/?noredirect=true",
       },
       {
         label: "Google Chrome Extension",
