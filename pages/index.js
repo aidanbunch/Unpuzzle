@@ -104,7 +104,7 @@ export default function Home() {
             >
               Our Google Extension
             </Button>
-            <Box>
+            <Box display={{ base: "none", md: "flex", lg: "flex" }}>
               <Icon
                 as={Arrow}
                 color={useColorModeValue("gray.800", "gray.300")}
