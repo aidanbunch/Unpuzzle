@@ -10,9 +10,9 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import Router from "next/router";
-export default function InstantAlertDialog({ color, header, body }) {
+export default function InstantAlertDialog({ color, header, body, route }) {
   const goBack = () => {
-    Router.push("/");
+    Router.push(`${route}`);
     // Router.back();
   };
   const { onClose } = useDisclosure();

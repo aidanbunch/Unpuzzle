@@ -137,6 +137,7 @@ export default function User({
         color={"blue"}
         header={"Invalid token"}
         body={"The token you entered was invalid."}
+        route={"/edpuzzle"}
       />
     );
   } else if (userProfileData.role === "teacher") {
@@ -145,6 +146,7 @@ export default function User({
         color={"blue"}
         header={"Teacher token"}
         body={"Please enter a student token."}
+        route={"/edpuzzle"}
       />
     );
   } else {
