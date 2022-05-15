@@ -70,8 +70,8 @@ export default function Home() {
               h={"8vh"}
               w={"170%"}
               onClick={(event) => {
-                event.preventDefault()
-                Router.push("/edpuzzle")
+                event.preventDefault();
+                Router.push("/edpuzzle");
               }}
             >
               Get Started
@@ -91,7 +91,7 @@ export default function Home() {
             >
               Our Google Extension
             </Button>
-            <Box>
+            <Box display={{ base: "none", md: "flex", lg: "flex" }}>
               <Icon
                 as={Arrow}
                 color={useColorModeValue("gray.800", "gray.300")}
