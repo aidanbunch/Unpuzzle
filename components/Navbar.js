@@ -101,6 +101,8 @@ export default function WithSubnavigation({ currentPage }) {
             // m={1}s
             onClick={goToHome}
             mx={3}
+            maxHeight={"40px"}
+            maxWidth={"40px"}
             boxSize={"40px"}
             align="center"
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
