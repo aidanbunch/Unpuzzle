@@ -181,7 +181,7 @@ export default function User({
                       key={index}
                       className={classroom.className}
                       teacherName={classroom.teacherName}
-                      backgroundColorName={backgroundColors[index]}
+                      backgroundColorName={backgroundColors[(index > backgroundColors.length - 1 ? index - backgroundColors.length : index)]}
                       id={classroom.classId}
                       userToken={userToken}
                     />
