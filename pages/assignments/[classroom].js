@@ -38,6 +38,9 @@ export async function getServerSideProps(context) {
     const assignments = response.data.teacherAssignments;
     const attempts = response.data.attempts;
     const assignmentsJSON = [];
+    // for(i = 0; i < titles.length; i++) {
+    //   console.log(titles[i].thumbnailURL)
+    // }
 
     assignments.forEach((assignment) => {
       const assignmentsObj = {};
@@ -46,6 +49,7 @@ export async function getServerSideProps(context) {
       titles.forEach((title) => {
         if (assignment.contentId === title._id) {
           assignmentsObj["assignmentTitle"] = title.title;
+          assignmentsObj["thumbnailURL"] = title.thumbnailURL
         }
       });
       attempts.forEach((attempt) => {
@@ -55,8 +59,7 @@ export async function getServerSideProps(context) {
       });
       assignmentsJSON.push(assignmentsObj);
     });
-
-    // return assignmentsJSON; attempts[6]._id
+     // return assignmentsJSON; attempts[6]._id
     return {
       props: {
         assignmentsData: assignmentsJSON,
@@ -112,7 +115,6 @@ export default function Classroom({
 
             <Spacer />
           </Flex>
-
           <HStack spacing={"5vw"} alignItems={"start"}>
             <ColumnAd />
             <VStack spacing={5}>
@@ -121,6 +123,7 @@ export default function Classroom({
                   <AssignmentCard
                     key={index}
                     color={color}
+                    thumbnailURL={assignment.thumbnailURL}
                     assignmentTitle={assignment.assignmentTitle}
                     assignmentID={assignment.assignmentTeacherId}
                     attemptId={assignment.attemptId}
