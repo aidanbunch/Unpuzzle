@@ -76,7 +76,7 @@ function MyApp({ Component, pageProps }) {
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <UserProvider>
           <Navbar />
-          <NextNProgress />
+          <NextNProgress options={{showSpinner: false}} />
           <Component {...pageProps} />
         </UserProvider>
       </ChakraProvider>
