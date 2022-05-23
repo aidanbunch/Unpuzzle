@@ -16,7 +16,7 @@ export default function GithubAuthButton() {
       bg={"gray"}
       variant="solid"
     >
-      Sign in with Github
+      Sign in with GitHub
     </Button>
   );
 }
