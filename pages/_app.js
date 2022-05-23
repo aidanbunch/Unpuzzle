@@ -7,6 +7,7 @@ import Script from 'next/script'
 import { useRouter } from 'next/router'
 import * as gtag from '../lib/gtag'
 import { useEffect } from "react"
+import { NextSeo } from "next-seo"
 
 function MyApp({ Component, pageProps }) {
   const G_CLIENT = process.env.G_AD_CLIENT
@@ -50,7 +51,7 @@ function MyApp({ Component, pageProps }) {
         strategy="beforeInteractive"
         crossOrigin="anonymous"
         src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${G_CLIENT}`}
-        onError={ (e) => { console.error('Auto-ad script failed to load', e) }}
+        onError={(e) => { console.error('Auto-ad script failed to load', e) }}
       />
 
       <Head>
@@ -59,6 +60,26 @@ function MyApp({ Component, pageProps }) {
         <link rel="manifest" href="/manifest.json" />
       </Head>
       <ChakraProvider theme={theme}>
+        <NextSeo
+          title="Unpuzzle"
+          description="Finish your assignments on time by getting Edpuzzle solutions instantly (we even generate answers to open ended questions)! We provide unique insights on problems in order to aid students in learning the material!"
+          openGraph={{
+            url: 'https://unpuzzle.net',
+            title: 'Unpuzzle',
+            description:
+              'Finish your assignments on time by getting Edpuzzle solutions instantly (we even generate answers to open ended questions)! We provide unique insights on problems in order to aid students in learning the material!',
+            locale: 'en_US',
+            images: [
+              {
+                url: 'https://unpuzzle.net/logo.png',
+                width: 1200,
+                height: 630,
+                alt: 'unpuzzle',
+                type: 'image/png',
+              },
+            ],
+          }}
+        />
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <UserProvider>
           <Navbar />
