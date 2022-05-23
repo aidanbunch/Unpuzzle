@@ -108,7 +108,7 @@ export async function getServerSideProps(context) {
           }
         });
 
-    
+
       }
     })
     return {
@@ -174,18 +174,67 @@ export default function Assignment({
     var noError = true;
     setIsLoading(true);
 
-    const results = async () => {
-      console.log(attemptId);
+    console.log(attemptId);
 
-      const results = async () => {
-        const videoResponse = await axios.post("/api/complete-video", {
-          attemptId: attemptId,
-          userToken: userToken,
-        });
+      const videoResponse = await axios.post("/api/complete-video", {
+        attemptId: attemptId,
+        userToken: userToken,
+      });
 
-        const count = answers.length;
-        if (count === 0) {
-          if (videoResponse) {
+      const count = answers.length;
+      if (count === 0) {
+          setIsLoading(false);
+          toast({
+            title: "Completed assignment.",
+            description: "We've submitted the answers for you.",
+            status: "success",
+            duration: 9000,
+            isClosable: true,
+          });
+      }
+
+      for(let question of answers) {
+        if (question.type === "open-ended") {
+          const openEndedAns = await getOpenEndedAnswer(question);
+
+          const response = await axios.post("/api/complete-questions", {
+            type: question.type,
+            attemptId: attemptId,
+            questionId: question.id,
+            userToken: userToken,
+            openEndedBody: question.body,
+            openEndedAnswer: openEndedAns,
+          });
+
+          count -= 1;
+
+          if (count == 0) {
+            setIsLoading(false);
+            toast({
+              title: "Completed assignment.",
+              description: "We've submitted the answers for you.",
+              status: "success",
+              duration: 9000,
+              isClosable: true,
+            });
+          }
+
+          if (response.error) {
+            noError = false;
+          }
+        } else {
+          // ** NEED TO UNCOMMENT LATER WORKS
+          const response = await axios.post("/api/complete-questions", {
+            type: question.type,
+            attemptId: attemptId,
+            questionId: question.id,
+            userToken: userToken,
+            correctChoices: question.correctChoices,
+          });
+
+          count -= 1;
+
+          if (count == 0) {
             setIsLoading(false);
             toast({
               title: "Completed assignment.",
@@ -196,66 +245,7 @@ export default function Assignment({
             });
           }
         }
-
-        answers.forEach(async (question) => {
-          if (question.type === "open-ended") {
-            const openEndedAns = await getOpenEndedAnswer(question);
-
-            const response = await axios.post("/api/complete-questions", {
-              type: question.type,
-              attemptId: attemptId,
-              questionId: question.id,
-              userToken: userToken,
-              openEndedBody: question.body,
-              openEndedAnswer: openEndedAns,
-            });
-
-            count -= 1;
-
-            if (count == 0) {
-              setIsLoading(false);
-              toast({
-                title: "Completed assignment.",
-                description: "We've submitted the answers for you.",
-                status: "success",
-                duration: 9000,
-                isClosable: true,
-              });
-            }
-
-            if (response.error) {
-              noError = false;
-            }
-          } else {
-            // ** NEED TO UNCOMMENT LATER WORKS
-            const response = await axios.post("/api/complete-questions", {
-              type: question.type,
-              attemptId: attemptId,
-              questionId: question.id,
-              userToken: userToken,
-              correctChoices: question.correctChoices,
-            });
-
-            count -= 1;
-
-            if (count == 0) {
-              setIsLoading(false);
-              toast({
-                title: "Completed assignment.",
-                description: "We've submitted the answers for you.",
-                status: "success",
-                duration: 9000,
-                isClosable: true,
-              });
-            }
-          }
-        });
-      };
-
-      results();
-    };
-
-    results();
+      }
 
     //   if (noError) {
     //     toast({
