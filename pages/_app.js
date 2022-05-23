@@ -45,14 +45,6 @@ function MyApp({ Component, pageProps }) {
           `,
         }}
       />
-      <Script
-        id="Adsense-id"
-        async={true}
-        strategy="beforeInteractive"
-        crossOrigin="anonymous"
-        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${G_CLIENT}`}
-        onError={(e) => { console.error('Auto-ad script failed to load', e) }}
-      />
 
       <Head>
         <title>Unpuzzle</title>
