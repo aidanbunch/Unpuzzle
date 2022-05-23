@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import * as gtag from '../lib/gtag'
 import { useEffect } from "react"
 import { NextSeo } from "next-seo"
+import NextNProgress from "nextjs-progressbar";
 
 function MyApp({ Component, pageProps }) {
   const G_CLIENT = process.env.G_AD_CLIENT
@@ -75,6 +76,7 @@ function MyApp({ Component, pageProps }) {
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <UserProvider>
           <Navbar />
+          <NextNProgress />
           <Component {...pageProps} />
         </UserProvider>
       </ChakraProvider>
