@@ -4,11 +4,16 @@ import {
   Center,
   Heading,
   Stack,
+  AspectRatio,
+  Spacer,
+  HStack,
+  Image,
 } from "@chakra-ui/react";
 import Link from "next/link";
 
 export default function AssignmentCard({
   color,
+  thumbnailURL,
   assignmentTitle,
   assignmentID,
   attemptId,
@@ -34,28 +39,6 @@ export default function AssignmentCard({
       passHref
     >
       <Box maxW={"500px"} w="100%" alignItems="center">
-        {/* <Center> */}
-        {/* <Box
-            w="100%"
-            bg={useColorModeValue(`${color}`, "gray.900")}
-            boxShadow={"2xl"}
-            rounded={"lg"}
-            p={10}
-            overflow={"hidden"}
-            transition="transform 200ms ease-in-out"
-            _hover={{ transform: "scale(1.05)" }}
-          >
-            <Stack>
-              <Heading color={"white"} fontSize={"2xl"} fontFamily={"body"}>
-                {assignmentTitle}
-              </Heading>
-            </Stack>
-            <Stack direction={"row"} spacing={4} align={"center"}>
-              <Text color={"gray.300"} fontWeight={600}></Text>
-            </Stack>
-          </Box>
-        </Center>
-      </Box> */}
 
         <Box w="100%">
           <Center py={6}>
@@ -69,7 +52,19 @@ export default function AssignmentCard({
               transition="transform 200ms ease-in-out"
               _hover={{ transform: "scale(1.05)" }}
             >
-              <Stack>
+              <HStack>
+                {thumbnailURL.includes("api") ?
+                  <Box h="90px"></Box> :
+                  <Image
+                    h="90px"
+                    borderRadius={"md"}
+                    title='Assignment Thumbnail URL'
+                    src={thumbnailURL}
+                    allowFullScreen
+                  />
+                }
+
+                <Spacer />
                 <Heading
                   textAlign="center"
                   color={"white"}
@@ -78,7 +73,8 @@ export default function AssignmentCard({
                 >
                   {assignmentTitle}
                 </Heading>
-              </Stack>
+                <Spacer />
+              </HStack>
             </Box>
           </Center>
         </Box>
