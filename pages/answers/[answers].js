@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef, useEffect, useState } from "react";
 import axios from "axios";
 import QuestionAnswerCard from "../../components/QuestionAnswerCard.js";
 
@@ -139,18 +139,16 @@ export default function Assignment({
   attemptId,
   userToken,
 }) {
-  // const [questionAnswerData, setQuestionAnswerData] = React.useState(answers);
-  // console.log(questionAnswerData);
 
-  // React.useEffect(() => {
-  //   if (answers.length > 0) {
-  //     questionAnswerData.map((question, index) => {
-  //       getOpenEndedAnswer(question, index);
-  //     });
-  //   }
-  // }, []);
+  const [elRefs, setElRefs] = useState([]);
+  console.log(elRefs);
 
-  // console.log(answers);
+  useEffect(() => {
+    setElRefs((elRefs) =>
+      answers
+        .map((_, i) => elRefs[i] || createRef())
+    );
+  }, []);
 
   const [isLoading, setIsLoading] = React.useState(false);
   const toast = useToast();
@@ -170,19 +168,50 @@ export default function Assignment({
     }
   }
 
+
+
+
   const submitAnswers = async () => {
+    let arrayRefCount = 0;
+
     var noError = true;
     setIsLoading(true);
 
     console.log(attemptId);
 
-      const videoResponse = await axios.post("/api/complete-video", {
-        attemptId: attemptId,
-        userToken: userToken,
-      });
+    const videoResponse = await axios.post("/api/complete-video", {
+      attemptId: attemptId,
+      userToken: userToken,
+    });
 
-      const count = answers.length;
-      if (count === 0) {
+    const count = answers.length;
+    if (count === 0) {
+      setIsLoading(false);
+      toast({
+        title: "Completed assignment.",
+        description: "We've submitted the answers for you.",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+
+    for (let question of answers) {
+      if (question.type === "open-ended") {
+        const openEndedAns = elRefs[arrayRefCount].getElementsByClassName('chakra-textarea')[0].value
+
+        const response = await axios.post("/api/complete-questions", {
+          type: question.type,
+          attemptId: attemptId,
+          questionId: question.id,
+          userToken: userToken,
+          openEndedBody: question.body,
+          openEndedAnswer: openEndedAns,
+        });
+
+        count -= 1;
+
+        if (count == 0) {
           setIsLoading(false);
           toast({
             title: "Completed assignment.",
@@ -191,80 +220,46 @@ export default function Assignment({
             duration: 9000,
             isClosable: true,
           });
-      }
+        }
 
-      for(let question of answers) {
-        if (question.type === "open-ended") {
-          const openEndedAns = await getOpenEndedAnswer(question);
+        if (response.error) {
+          noError = false;
+        }
+      } else {
+        const response = await axios.post("/api/complete-questions", {
+          type: question.type,
+          attemptId: attemptId,
+          questionId: question.id,
+          userToken: userToken,
+          correctChoices: question.correctChoices,
+        });
 
-          const response = await axios.post("/api/complete-questions", {
-            type: question.type,
-            attemptId: attemptId,
-            questionId: question.id,
-            userToken: userToken,
-            openEndedBody: question.body,
-            openEndedAnswer: openEndedAns,
+        count -= 1;
+
+        if (count == 0) {
+          setIsLoading(false);
+          toast({
+            title: "Completed assignment.",
+            description: "We've submitted the answers for you.",
+            status: "success",
+            duration: 9000,
+            isClosable: true,
           });
-
-          count -= 1;
-
-          if (count == 0) {
-            setIsLoading(false);
-            toast({
-              title: "Completed assignment.",
-              description: "We've submitted the answers for you.",
-              status: "success",
-              duration: 9000,
-              isClosable: true,
-            });
-          }
-
-          if (response.error) {
-            noError = false;
-          }
-        } else {
-          // ** NEED TO UNCOMMENT LATER WORKS
-          const response = await axios.post("/api/complete-questions", {
-            type: question.type,
-            attemptId: attemptId,
-            questionId: question.id,
-            userToken: userToken,
-            correctChoices: question.correctChoices,
-          });
-
-          count -= 1;
-
-          if (count == 0) {
-            setIsLoading(false);
-            toast({
-              title: "Completed assignment.",
-              description: "We've submitted the answers for you.",
-              status: "success",
-              duration: 9000,
-              isClosable: true,
-            });
-          }
         }
       }
-
-    //   if (noError) {
-    //     toast({
-    //       title: 'Completed assignment.',
-    //       description: "We've submitted the answers for you.",
-    //       status: 'success',
-    //       duration: 9000,
-    //       isClosable: true,
-    //     })
-    //   } else {
-    //     toast({
-    //       title: 'Error completing assignment',
-    //       description: "Unfortunately, we ran into an error.",
-    //       status: 'error',
-    //       duration: 9000,
-    //       isClosable: true,
-    //     })
-    //   }
+      arrayRefCount += 1;
+    }
   };
+
+  const returnOpenEnded = () => {
+    for(const answerEl of elRefs) {
+      const openEndedTextVal = answerEl.getElementsByClassName('chakra-textarea')[0]
+      if (typeof(openEndedTextVal) != "undefined") {
+        console.log(openEndedTextVal.value)
+      }
+    }
+
+  }
 
   return (
     <>
@@ -294,9 +289,9 @@ export default function Assignment({
 
           <VStack spacing={-5}>
             <Button
-              onClick={submitAnswers}
+              onClick={() => submitAnswers()}
               m={10}
-              loadingText={"Submitting answers..."}
+              loadingText={"Submiting answers..."}
               isLoading={isLoading}
               w={answers.length > 0 ? "40%" : "100%"}
               minW={"250px"}
@@ -313,14 +308,17 @@ export default function Assignment({
             </Button>
 
             <VStack spacing={0}>
-              {answers.length > 0 &&
-                answers.map((question, index) => (
+              {answers.map((question, index) => (
+
+
+                <div ref={el => elRefs[index] = el}>
                   <QuestionAnswerCard
+
                     key={index}
                     question={question}
-                    length={question.length}
                   />
-                ))}
+                </div>
+              ))}
             </VStack>
           </VStack>
         </VStack>
