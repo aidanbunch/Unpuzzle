@@ -1,6 +1,7 @@
 import React, { createRef, useEffect, useState } from "react";
 import axios from "axios";
 import QuestionAnswerCard from "../../components/QuestionAnswerCard.js";
+import { removeBackslashes, replaceHTMLTags } from "../../utils/replace-text.js";
 
 import {
   Box,
@@ -20,17 +21,6 @@ import {
 import BackButton from "../../components/BackButton";
 import Head from "next/head";
 
-function removeBackslashes(str) {
-  return str.replace(/\\/g, "");
-}
-
-function replaceHTMLTags(string) {
-  return string
-    .replace(/(<([^>]+)>)/gi, "")
-    .replace(/\&nbsp;/g, "")
-    .replace(/(&quot\;)/g, '"')
-    .replace(/\&#39;/g, "");
-}
 
 export async function getServerSideProps(context) {
   // var answersJSON = [];
@@ -252,9 +242,9 @@ export default function Assignment({
   };
 
   const returnOpenEnded = () => {
-    for(const answerEl of elRefs) {
+    for (const answerEl of elRefs) {
       const openEndedTextVal = answerEl.getElementsByClassName('chakra-textarea')[0]
-      if (typeof(openEndedTextVal) != "undefined") {
+      if (typeof (openEndedTextVal) != "undefined") {
         console.log(openEndedTextVal.value)
       }
     }
