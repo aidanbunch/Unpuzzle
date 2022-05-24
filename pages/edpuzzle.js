@@ -56,7 +56,7 @@ export default function Edpuzzle() {
           return p.toString() === "[object SafariRemoteNotification]";
         })(
           !window["safari"] ||
-            (typeof safari !== "undefined" && window["safari"].pushNotification)
+          (typeof safari !== "undefined" && window["safari"].pushNotification)
         );
       if (isSafari) {
         window

@@ -14,12 +14,3 @@ const theme = extendTheme({ config });
 
 export default theme;
 
-
-{/* <Script
-  id="Adsense-id"
-  data-ad-client="ca-pub-4915743237608302"
-  async="true"
-  strategy="beforeInteractive"
-  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-/> */}
-

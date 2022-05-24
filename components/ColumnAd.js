@@ -6,10 +6,10 @@ import {
 export default function ColumnAd({
 }) {
     return (
-            <Box height={"100vh"} width={"20vw"} //bg={"gray.200"}
-            >
-                <Center>
-                    {/* <ins
+        <Box height={"100vh"} width={"20vw"} //bg={"gray.200"}
+        >
+            <Center>
+                {/* <ins
                         className="adsbygoogle"
                         style={{ display: "block" }}
                         data-ad-client="ca-pub-4915743237608302"
@@ -20,7 +20,7 @@ export default function ColumnAd({
                     <script>
                         (adsbygoogle = window.adsbygoogle || []).push({ });
                     </script> */}
-                </Center>
-            </Box>
+            </Center>
+        </Box>
     );
 }
