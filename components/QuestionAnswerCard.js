@@ -98,7 +98,10 @@ export default function QuestionAnswerCard({ question }) {
         <Box bg={useColorModeValue("gray.100", "gray.900")} px={6} py={10}>
           <Center>
             {questionType === "open-ended" ? (
-              <Textarea defaultValue={frq}></Textarea>
+              <Textarea defaultValue={frq} 
+              value={frq} 
+              onChange={(e) => {setFrq(e.target.value)}}
+              />
             ) : (
               <List spacing={3}>
                 {question.correctChoices.map((choice, index) => (
