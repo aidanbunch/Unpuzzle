@@ -311,7 +311,7 @@ export default function Assignment({
               {answers.map((question, index) => (
 
 
-                <div ref={el => elRefs[index] = el}>
+                <div key={index} ref={el => elRefs[index] = el}>
                   <QuestionAnswerCard
 
                     key={index}
