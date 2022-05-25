@@ -30,7 +30,7 @@ export async function getServerSideProps(context) {
   const attemptId = context.query.attemptId;
   const userToken = context.query.userToken;
   const classroomID = context.query.classroomID;
-  const assignmentID = context.query.assignmentID
+  const assignmentID = context.query.assignmentID;
 
   // const teacherToken =
   //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjY2ZTk5MzFlZDFiMjQyZjBiNWMxYmUiLCJyb2xlIjoidGVhY2hlciIsInJlZ2lzdGVyZWRBdCI6MTY1MDkxMTYzNSwiaXNBZG1pbiI6ZmFsc2UsImJlY29tZVRoaXNVc2VyIjpmYWxzZSwidXNlcklkQmVjb21pbmdUaGlzVXNlciI6IiIsImlzT3BlbkNsYXNzcm9vbVVzZXIiOmZhbHNlLCJpc0x0aVVzZXIiOmZhbHNlLCJpc1VzZXJVc2luZ1RoaXJkUGFydHlBcHBsaWNhdGlvbiI6ZmFsc2UsImlhdCI6MTY1MTYyMDYwMCwiZXhwIjoxNjUyMjI1NDAwLCJqdGkiOiI2MjcxYmFmODYyNWMzMzQyZDZlMDI2ZTYifQ.kHLwvReWTEMOTu4-H9MTe2k1rz0voIKL-wxASucdQYQ";
@@ -53,12 +53,10 @@ export async function getServerSideProps(context) {
 
     medias.forEach((media) => {
       if (assignmentID === media._id) {
-        var openEndedCount = 0;
         media.questions.forEach((question) => {
 
           if (question.type === "open-ended") {
             // no answer -> need openai
-            openEndedCount += 1;
             const questionObj = {};
 
             const openEndedAnswer = "";
@@ -90,16 +88,16 @@ export async function getServerSideProps(context) {
 
                 correctChoices.push(choiceObj);
               }
-            })
+            });
 
             questionObj["correctChoices"] = correctChoices;
-            questionJSON.push(questionObj)
+            questionJSON.push(questionObj);
           }
         });
 
 
       }
-    })
+    });
     return {
       props: {
         answers: questionJSON,
@@ -116,7 +114,7 @@ export async function getServerSideProps(context) {
         color: color,
         assignmentTitle: "error",
       }
-    }
+    };
   }
 
 }
@@ -155,25 +153,23 @@ export default function Assignment({
       userToken: userToken,
     }).catch(function (error) {
       noError = false;
-    })
+    });
 
     const count = answers.length;
-    if (count === 0) {
-      if (noError) {
-        setIsLoading(false);
-        toast({
-          title: "Completed assignment.",
-          description: "We've submitted the answers for you.",
-          status: "success",
-          duration: 9000,
-          isClosable: true,
-        });
-      }
+    if (count == 0 && noError) {
+      setIsLoading(false);
+      toast({
+        title: "Completed assignment.",
+        description: "We've submitted the answers for you.",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
     }
 
     for (let question of answers) {
       if (question.type === "open-ended") {
-        const openEndedAns = elRefs[arrayRefCount].getElementsByClassName('chakra-textarea')[0].value
+        const openEndedAns = elRefs[arrayRefCount].getElementsByClassName('chakra-textarea')[0].value;
 
         const response = await axios.post("/api/complete-questions", {
           type: question.type,
@@ -184,26 +180,21 @@ export default function Assignment({
           openEndedAnswer: openEndedAns,
         }).catch(function (error) {
           noError = false;
-        })
+        });
 
         count -= 1;
 
-        if (count == 0) {
-          if (noError) {
-            setIsLoading(false);
-            toast({
-              title: "Completed assignment.",
-              description: "We've submitted the answers for you.",
-              status: "success",
-              duration: 9000,
-              isClosable: true,
-            });
-          }
+        if (count == 0 && noError) {
+          setIsLoading(false);
+          toast({
+            title: "Completed assignment.",
+            description: "We've submitted the answers for you.",
+            status: "success",
+            duration: 9000,
+            isClosable: true,
+          });
         }
 
-        if (response.error) {
-          noError = false;
-        }
       } else {
         const response = await axios.post("/api/complete-questions", {
           type: question.type,
@@ -213,27 +204,25 @@ export default function Assignment({
           correctChoices: question.correctChoices,
         }).catch(function (error) {
           noError = false;
-        })
+        });
 
         count -= 1;
 
-        if (count == 0) {
-          if (noError) {
-            setIsLoading(false);
-            toast({
-              title: "Completed assignment.",
-              description: "We've submitted the answers for you.",
-              status: "success",
-              duration: 9000,
-              isClosable: true,
-            });
-          }
+        if (count == 0 && noError) {
+          setIsLoading(false);
+          toast({
+            title: "Completed assignment.",
+            description: "We've submitted the answers for you.",
+            status: "success",
+            duration: 9000,
+            isClosable: true,
+          });
         }
       }
       arrayRefCount += 1;
     }
     if (!noError) {
-      setIsLoading(false)
+      setIsLoading(false);
       toast({
         title: "Error submitting answers.",
         description: "Sorry, we ran into some trouble submitting your answers.",
