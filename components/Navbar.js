@@ -418,10 +418,10 @@ const NAV_ITEMS = [
       },
     ],
   },
-  {
-    label: "Donate",
-    href: "/donate",
-  },
+  // {
+  //   label: "Donate",
+  //   href: "/donate",
+  // },
 
   {
     label: "Login",

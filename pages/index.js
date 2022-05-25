@@ -11,6 +11,7 @@ import {
   createIcon,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import {AiFillChrome} from "react-icons/ai"
 import Footer from "../components/Footer";
 import Router from "next/router";
 import { useUser } from "../context/user";
@@ -49,11 +50,12 @@ export default function Home() {
           as={Box}
           textAlign={"center"}
           spacing={{ base: 8, md: 14 }}
-          py={20}
+          py={10}
         >
           <Heading
+            mt={3}
             fontWeight={700}
-            fontSize={{ base: "4xl", sm: "5xl", md: "7xl" }}
+            fontSize={{ base: "3xl", sm: "4xl", md: "7xl" }}
             lineHeight={"110%"}
           >
             Instant EdPuzzle <br />
@@ -89,8 +91,9 @@ export default function Home() {
                 Router.push("/edpuzzle");
               }}
             >
-              Get Started
+              Solve Edpuzzles
             </Button>
+
             <Button
               onClick={() =>
                 window
@@ -104,7 +107,8 @@ export default function Home() {
               colorScheme={"blue"}
               size={"medium"}
             >
-              Our Google Extension
+              <Icon boxSize={8} mr={3} as={AiFillChrome}/>
+              Download Chrome Extension
             </Button>
             <Box display={{ base: "none", md: "flex", lg: "flex" }}>
               <Icon
@@ -112,14 +116,14 @@ export default function Home() {
                 color={useColorModeValue("gray.800", "gray.300")}
                 w={71}
                 position={"absolute"}
-                right={"-130px"}
+                right={"-150px"}
                 top={"40px"}
               />
               <Text
                 fontSize={{ base: "lg", md: "xl" }}
                 fontFamily={"Caveat"}
                 position={"absolute"}
-                right={"-200px"}
+                right={"-220px"}
                 top={"10px"}
                 transform={"rotate(10deg)"}
               >

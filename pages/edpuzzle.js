@@ -1,6 +1,7 @@
 import Router, { createRouter } from "next/router";
 import Head from "next/head";
 import React, { useEffect } from "react";
+import {AiFillChrome} from "react-icons/ai"
 import {
   Flex,
   Center,
@@ -12,6 +13,7 @@ import {
   Stack,
   useColorModeValue,
   Text,
+  Icon,
   chakra,
   HStack,
   Link,
@@ -157,7 +159,9 @@ export default function Edpuzzle() {
               target={"_blank"}
             >
               {" "}
+            
               Chrome Extension
+              
             </Link>
           </Text>
         </VStack>
