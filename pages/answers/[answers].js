@@ -145,7 +145,7 @@ export default function Assignment({
   const submitAnswers = async () => {
     let arrayRefCount = 0;
 
-    var noError = true;
+    let noError = true;
     setIsLoading(true);
 
     console.log(attemptId);
@@ -153,18 +153,22 @@ export default function Assignment({
     const videoResponse = await axios.post("/api/complete-video", {
       attemptId: attemptId,
       userToken: userToken,
-    });
+    }).catch(function (error) {
+      noError = false;
+    })
 
     const count = answers.length;
     if (count === 0) {
-      setIsLoading(false);
-      toast({
-        title: "Completed assignment.",
-        description: "We've submitted the answers for you.",
-        status: "success",
-        duration: 9000,
-        isClosable: true,
-      });
+      if (noError) {
+        setIsLoading(false);
+        toast({
+          title: "Completed assignment.",
+          description: "We've submitted the answers for you.",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+      }
     }
 
     for (let question of answers) {
@@ -178,19 +182,23 @@ export default function Assignment({
           userToken: userToken,
           openEndedBody: question.body,
           openEndedAnswer: openEndedAns,
-        });
+        }).catch(function (error) {
+          noError = false;
+        })
 
         count -= 1;
 
         if (count == 0) {
-          setIsLoading(false);
-          toast({
-            title: "Completed assignment.",
-            description: "We've submitted the answers for you.",
-            status: "success",
-            duration: 9000,
-            isClosable: true,
-          });
+          if (noError) {
+            setIsLoading(false);
+            toast({
+              title: "Completed assignment.",
+              description: "We've submitted the answers for you.",
+              status: "success",
+              duration: 9000,
+              isClosable: true,
+            });
+          }
         }
 
         if (response.error) {
@@ -203,22 +211,36 @@ export default function Assignment({
           questionId: question.id,
           userToken: userToken,
           correctChoices: question.correctChoices,
-        });
+        }).catch(function (error) {
+          noError = false;
+        })
 
         count -= 1;
 
         if (count == 0) {
-          setIsLoading(false);
-          toast({
-            title: "Completed assignment.",
-            description: "We've submitted the answers for you.",
-            status: "success",
-            duration: 9000,
-            isClosable: true,
-          });
+          if (noError) {
+            setIsLoading(false);
+            toast({
+              title: "Completed assignment.",
+              description: "We've submitted the answers for you.",
+              status: "success",
+              duration: 9000,
+              isClosable: true,
+            });
+          }
         }
       }
       arrayRefCount += 1;
+    }
+    if (!noError) {
+      setIsLoading(false)
+      toast({
+        title: "Error submitting answers.",
+        description: "Sorry, we ran into some trouble submitting your answers.",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
     }
   };
 
