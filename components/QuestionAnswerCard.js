@@ -87,7 +87,7 @@ export default function QuestionAnswerCard({ question }) {
           align={"center"}
         >
           <Stack direction={"row"} align={"center"} justify={"center"}>
-            <Text fontSize={"2xl"} fontWeight={500} dangerouslySetInnerHTML={{ __html: question.bodyDisplay }}>
+            <Text key={new Date().getTime()} fontSize={"2xl"} fontWeight={500} dangerouslySetInnerHTML={{ __html: question.bodyDisplay }}>
             </Text>
             {/* <Text fontSize={"2xl"} fontWeight={500}>
               {question.body}
@@ -108,7 +108,7 @@ export default function QuestionAnswerCard({ question }) {
                   <ListItem key={index}>
                     <HStack>
                       <ListIcon as={CheckIcon} color="green.400" />
-                      <Text fontSize={"md"} dangerouslySetInnerHTML={{ __html: choice.choiceText }}></Text>
+                      <Text fontSize={"md"} key={new Date().getTime()} dangerouslySetInnerHTML={{ __html: choice.choiceText }}></Text>
                     </HStack>
 
                     {/* <ListIcon as={CheckIcon} color="green.400" />
