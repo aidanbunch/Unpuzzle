@@ -122,7 +122,7 @@ export default function ContactFormWithSocialButtons() {
           </GridItem>
           <GridItem colSpan={{ base: "auto", md: 4 }}>
             <Box as="form" mb={6} rounded="lg" shadow="xl"
-            onSubmit={(event) =>
+              onSubmit={(event) =>
               (insertMessageIntoDatabase(
                 event,
                 firstName,

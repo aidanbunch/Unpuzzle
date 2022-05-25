@@ -87,8 +87,10 @@ export default function QuestionAnswerCard({ question }) {
           align={"center"}
         >
           <Stack direction={"row"} align={"center"} justify={"center"}>
+
             <Text key={new Date().getTime()} fontSize={"2xl"} fontWeight={500} dangerouslySetInnerHTML={{ __html: question.bodyDisplay }}>
             </Text>
+
             {/* <Text fontSize={"2xl"} fontWeight={500}>
               {question.body}
             </Text> */}
@@ -98,9 +100,10 @@ export default function QuestionAnswerCard({ question }) {
         <Box bg={useColorModeValue("gray.100", "gray.900")} px={6} py={10}>
           <Center>
             {questionType === "open-ended" ? (
-              <Textarea defaultValue={frq} 
-              value={frq} 
-              onChange={(e) => {setFrq(e.target.value)}}
+              <Textarea
+                defaultValue={frq}
+                value={frq}
+                onChange={(e) => { setFrq(e.target.value) }}
               />
             ) : (
               <List spacing={3}>
@@ -108,7 +111,9 @@ export default function QuestionAnswerCard({ question }) {
                   <ListItem key={index}>
                     <HStack>
                       <ListIcon as={CheckIcon} color="green.400" />
+
                       <Text fontSize={"md"} key={new Date().getTime()} dangerouslySetInnerHTML={{ __html: choice.choiceText }}></Text>
+
                     </HStack>
 
                     {/* <ListIcon as={CheckIcon} color="green.400" />

@@ -162,11 +162,10 @@ export default function User({
               <Spacer />
 
               <Heading size="2xl">
-                {`Hello, ${
-                  userProfileData.isOpenClassroomUser
+                {`Hello, ${userProfileData.isOpenClassroomUser
                     ? userProfileData.nickname
                     : userProfileData.firstName
-                }`}
+                  }`}
               </Heading>
 
               <Spacer />

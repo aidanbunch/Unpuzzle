@@ -23,7 +23,6 @@ import Head from "next/head";
 
 
 export async function getServerSideProps(context) {
-  // var answersJSON = [];
 
   var questionJSON = [];
   const color = context.query.color;
@@ -143,24 +142,6 @@ export default function Assignment({
   const [isLoading, setIsLoading] = React.useState(false);
   const toast = useToast();
 
-  async function getOpenEndedAnswer(question) {
-    if (question.type === "open-ended") {
-      const response = await fetch("/api/get-answer", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ prompt: question.body }),
-      });
-
-      const data = await response.json();
-      return data.answer;
-    }
-  }
-
-
-
-
   const submitAnswers = async () => {
     let arrayRefCount = 0;
 
@@ -241,16 +222,6 @@ export default function Assignment({
     }
   };
 
-  const returnOpenEnded = () => {
-    for (const answerEl of elRefs) {
-      const openEndedTextVal = answerEl.getElementsByClassName('chakra-textarea')[0]
-      if (typeof (openEndedTextVal) != "undefined") {
-        console.log(openEndedTextVal.value)
-      }
-    }
-
-  }
-
   return (
     <>
       <Head>
@@ -281,7 +252,7 @@ export default function Assignment({
             <Button
               onClick={() => submitAnswers()}
               m={10}
-              loadingText={"Submiting answers..."}
+              loadingText={"Submitting answers..."}
               isLoading={isLoading}
               w={answers.length > 0 ? "40%" : "100%"}
               minW={"250px"}
@@ -299,11 +270,8 @@ export default function Assignment({
 
             <VStack spacing={0}>
               {answers.map((question, index) => (
-
-
                 <div key={index} ref={el => elRefs[index] = el}>
                   <QuestionAnswerCard
-
                     key={index}
                     question={question}
                   />

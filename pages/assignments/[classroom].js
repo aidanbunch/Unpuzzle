@@ -59,7 +59,7 @@ export async function getServerSideProps(context) {
       });
       assignmentsJSON.push(assignmentsObj);
     });
-     // return assignmentsJSON; attempts[6]._id
+    // return assignmentsJSON; attempts[6]._id
     return {
       props: {
         assignmentsData: assignmentsJSON,

@@ -78,7 +78,7 @@ export default function SignupCard() {
         minH={"100vh"}
         align={"top"}
         justify={"center"}
-        // bg={useColorModeValue('white',)}
+      // bg={useColorModeValue('white',)}
       >
         <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
           <Stack align={"center"}>

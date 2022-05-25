@@ -60,6 +60,7 @@ export default function AssignmentCard({
                     borderRadius={"md"}
                     title='Assignment Thumbnail URL'
                     src={thumbnailURL}
+                    alt='Assignment Thumbnail'
                     allowFullScreen
                   />
                 }
