@@ -20,7 +20,7 @@ import {
 } from "@chakra-ui/react";
 import BackButton from "../../components/BackButton";
 import Head from "next/head";
-
+import { returnIndex } from "../../utils/return-index.js";
 
 export async function getServerSideProps(context) {
 
@@ -285,6 +285,7 @@ export default function Assignment({
                   <QuestionAnswerCard
                     key={index}
                     question={question}
+                    number={returnIndex(index + 1, 3)}
                   />
                 </div>
               ))}

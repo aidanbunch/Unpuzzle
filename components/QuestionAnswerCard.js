@@ -15,22 +15,22 @@ import {
 import { CheckIcon } from "@chakra-ui/icons";
 import React from "react";
 
-export default function QuestionAnswerCard({ question }) {
+export default function QuestionAnswerCard({ question, number }) {
   const [frq, setFrq] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(true);
 
-  async function getOpenEndedAnswer(question) {
+  async function getOpenEndedAnswer(question, number) {
     if (question.type === "open-ended") {
       const response = await fetch("/api/get-answer/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt: question.body }),
+        body: JSON.stringify({ prompt: question.body, number: number }),
       });
 
       const data = await response.json();
-      // console.log(data.answer);  
+      // console.log(data.answer);
       setFrq(data.answer);
       setIsLoading(false);
     }
@@ -38,7 +38,7 @@ export default function QuestionAnswerCard({ question }) {
 
   const handleClick = () => {
     setIsLoading(!isLoading);
-    getOpenEndedAnswer(question);
+    getOpenEndedAnswer(question, number);
   };
 
   const questionType = question.type;
@@ -63,9 +63,9 @@ export default function QuestionAnswerCard({ question }) {
 
   React.useEffect(() => {
     // on appear
-    console.log(question.body)
+    console.log(question.body);
     if (questionType === "open-ended") {
-      getOpenEndedAnswer(question);
+      getOpenEndedAnswer(question, number);
     }
   }, []);
 
@@ -87,9 +87,12 @@ export default function QuestionAnswerCard({ question }) {
           align={"center"}
         >
           <Stack direction={"row"} align={"center"} justify={"center"}>
-
-            <Text key={new Date().getTime()} fontSize={"2xl"} fontWeight={500} dangerouslySetInnerHTML={{ __html: question.bodyDisplay }}>
-            </Text>
+            <Text
+              key={new Date().getTime()}
+              fontSize={"2xl"}
+              fontWeight={500}
+              dangerouslySetInnerHTML={{ __html: question.bodyDisplay }}
+            ></Text>
 
             {/* <Text fontSize={"2xl"} fontWeight={500}>
               {question.body}
@@ -101,9 +104,10 @@ export default function QuestionAnswerCard({ question }) {
           <Center>
             {questionType === "open-ended" ? (
               <Textarea
-                defaultValue={frq}
                 value={frq}
-                onChange={(e) => { setFrq(e.target.value) }}
+                onChange={(e) => {
+                  setFrq(e.target.value);
+                }}
               />
             ) : (
               <List spacing={3}>
@@ -112,8 +116,11 @@ export default function QuestionAnswerCard({ question }) {
                     <HStack>
                       <ListIcon as={CheckIcon} color="green.400" />
 
-                      <Text fontSize={"md"} key={new Date().getTime()} dangerouslySetInnerHTML={{ __html: choice.choiceText }}></Text>
-
+                      <Text
+                        fontSize={"md"}
+                        key={new Date().getTime()}
+                        dangerouslySetInnerHTML={{ __html: choice.choiceText }}
+                      ></Text>
                     </HStack>
 
                     {/* <ListIcon as={CheckIcon} color="green.400" />

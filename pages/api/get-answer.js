@@ -3,12 +3,6 @@ import { Configuration, OpenAIApi } from "openai";
 import dotenv from "dotenv";
 dotenv.config();
 
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
-const openai = new OpenAIApi(configuration);
-
 function appendQuestionMarkToPrompt(question) {
   if (question.slice(-1) === "?") {
     return question;
@@ -18,6 +12,12 @@ function appendQuestionMarkToPrompt(question) {
 }
 
 export default async function handler(req, res) {
+  const configuration = new Configuration({
+    apiKey: process.env["OPENAI_API_KEY" + req.body.number],
+  });
+  
+  const openai = new OpenAIApi(configuration);
+
   const questionPrompt = appendQuestionMarkToPrompt(req.body.prompt);
 
   const completion = await openai.createCompletion("text-davinci-002", {
