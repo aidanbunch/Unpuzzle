@@ -15,7 +15,7 @@ export default async function handler(req, res) {
   const configuration = new Configuration({
     apiKey: process.env["OPENAI_API_KEY" + req.body.number],
   });
-  
+
   const openai = new OpenAIApi(configuration);
 
   const questionPrompt = appendQuestionMarkToPrompt(req.body.prompt);
