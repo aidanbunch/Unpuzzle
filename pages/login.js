@@ -25,6 +25,7 @@ import GithubAuthButton from "../components/GithubAuthButton";
 import DiscordAuthButton from "../components/DiscordAuthButton";
 import { useToast } from "@chakra-ui/react";
 import { user, useUser } from "../context/user";
+import Head from "next/head";
 
 export default function SignupCard() {
   const [showPassword, setShowPassword] = useState(false);
@@ -65,6 +66,10 @@ export default function SignupCard() {
   };
 
   return (
+    <>
+    <Head>
+        <title>Log In</title>
+      </Head>
     <Box
       minHeight={{
         base: ["-webkit-fill-available", "fill-available", "-moz-available"],
@@ -154,5 +159,6 @@ export default function SignupCard() {
       </Flex>
       <Footer />
     </Box>
+    </>
   );
 }
