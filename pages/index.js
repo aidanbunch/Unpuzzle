@@ -9,6 +9,7 @@ import {
   Icon,
   useColorModeValue,
   createIcon,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import {AiFillChrome} from "react-icons/ai"
@@ -85,7 +86,7 @@ export default function Home() {
                 bg: "blue.500",
               }}
               h={"8vh"}
-              w={"170%"}
+              w={useBreakpointValue({ base: "100%", md: "170%"})}
               onClick={(event) => {
                 event.preventDefault();
                 Router.push("/edpuzzle");

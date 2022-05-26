@@ -7,6 +7,18 @@ import BackButton from "../../components/BackButton";
 import InstantAlertDialog from "../../components/InstantAlertDialog";
 import Head from "next/head";
 import ColumnAd from "../../components/ColumnAd";
+import { returnIndex } from "../../utils/return-index";
+
+const backgroundColors = [
+
+    "blue.500",
+    "red.500",
+    "green.500",
+    "orange.500",
+    "purple.500",
+    "teal.500",
+    "brown.500",
+  ];
 
 export async function getServerSideProps(context) {
   const userToken = context.params.user;
@@ -121,15 +133,7 @@ export default function User({
   userToken,
   error,
 }) {
-  const backgroundColors = [
-    "blue.500",
-    "red.500",
-    "green.500",
-    "orange.500",
-    "purple.500",
-    "teal.500",
-    "brown.500",
-  ];
+
 
   if (error) {
     return (
@@ -180,7 +184,7 @@ export default function User({
                       key={index}
                       className={classroom.className}
                       teacherName={classroom.teacherName}
-                      backgroundColorName={backgroundColors[(index > backgroundColors.length - 1 ? index - backgroundColors.length : index)]}
+                      backgroundColorName={backgroundColors[returnIndex(index + 1, backgroundColors.length)]}
                       id={classroom.classId}
                       userToken={userToken}
                     />
