@@ -13,6 +13,7 @@
     "@chakra-ui/react": "^1.8.8",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "@stripe/stripe-js": "^1.30.0",
     "@supabase/supabase-js": "^1.35.3",
     "axios": "^0.27.2",
     "dotenv": "^16.0.0",

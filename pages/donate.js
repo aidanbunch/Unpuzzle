@@ -11,11 +11,16 @@ import {
   ListIcon,
   Button,
 } from "@chakra-ui/react";
-import { FaCheckCircle } from "react-icons/fa";
+import { useEffect } from "react";
+import { FaCheckCircle, FaRegArrowAltCircleRight } from "react-icons/fa";
 import Footer from "../components/Footer";
 import { useUser } from "../context/user";
 import Router from "next/router";
 import Head from "next/head";
+import axios from "axios";
+import { loadStripe } from "@stripe/stripe-js";
+
+loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 
 function PriceWrapper({ children }) {
   return (
@@ -34,6 +39,40 @@ function PriceWrapper({ children }) {
 
 export default function Pricing() {
   const { user } = useUser();
+
+  const sendCheckoutPostRequest = async () => {
+    // await axios.post("/api/checkout-sessions", {}).then((response) => {
+    //   console.log(response);
+    // });
+    // const response = await fetch("/api/checkout-sessions", {
+    //   method: "POST",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //   },
+    // });
+    const res = await fetch("api/checkout-sessions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const body = await res.json();
+    window.location.href = body.url;
+  };
+
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+    if (query.get("success")) {
+      console.log("Order placed! You will receive an email confirmation.");
+    }
+
+    if (query.get("canceled")) {
+      console.log(
+        "Order canceled -- continue to shop around and checkout when you’re ready."
+      );
+    }
+  }, []);
 
   let buyButton;
 
@@ -56,6 +95,17 @@ export default function Pricing() {
       </Button>
     );
   }
+  buyButton = (
+    <Button
+      onClick={() => {
+        sendCheckoutPostRequest();
+      }}
+      w="full"
+      colorScheme="blue"
+    >
+      Buy
+    </Button>
+  );
 
   return (
     <>
