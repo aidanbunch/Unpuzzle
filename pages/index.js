@@ -19,7 +19,6 @@ import Router from "next/router";
 import { supabase } from "../utils/supabaseClient";
 import { useUser } from "../context/user";
 import { useEffect } from "react";
-import { supabase } from "../utils/supabaseClient";
 import React from "react";
 import AnimatedNumber from "animated-number-react";
 
