@@ -90,7 +90,7 @@ export default function Home({ edpuzzlesSolved }) {
           <Heading
             mt={3}
             fontWeight={700}
-            fontSize={{ base: "3xl", sm: "4xl", md: "7xl" }}
+            fontSize={useBreakpointValue({ base: "5xl", md: "7xl" })}
             lineHeight={"110%"}
           >
             Instant EdPuzzle <br />
@@ -99,10 +99,8 @@ export default function Home({ edpuzzlesSolved }) {
             </Text>
           </Heading>
           <Text color={"gray.500"} fontSize={"xl"}>
-            Finish your assignments on time by getting solutions instantly (we
-            even generate answers to open ended questions)! We provide unique
-            insights on problems in order to aid students in learning the
-            material!
+            Finish your assignments on time by getting solutions instantly
+            (unique open-ended answers with AI)!
           </Text>
           <Stack
             direction={"column"}
@@ -164,7 +162,7 @@ export default function Home({ edpuzzlesSolved }) {
                 transform={"rotate(10deg)"}
               >
                 <HStack>
-                  <AnimatedNumber 
+                  <AnimatedNumber
                     value={num}
                     duration={1000}
                     formatValue={(value) => value.toFixed(0)}
