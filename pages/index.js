@@ -10,17 +10,49 @@ import {
   useColorModeValue,
   createIcon,
   useBreakpointValue,
+  HStack,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import {AiFillChrome} from "react-icons/ai"
+import { AiFillChrome } from "react-icons/ai";
 import Footer from "../components/Footer";
 import Router from "next/router";
 import { supabase } from "../utils/supabaseClient";
 import { useUser } from "../context/user";
 import { useEffect } from "react";
+import React from "react";
+import AnimatedNumber from "animated-number-react";
 
-export default function Home() {
+export async function getServerSideProps(context) {
+  let edpuzzlesSolved = 0;
+
+  try {
+    const { data: stats } = await supabase
+      .from("stats")
+      .select("*")
+      .eq("id", 1)
+      .single();
+
+    edpuzzlesSolved = stats.ep_solved;
+
+    return {
+      props: {
+        edpuzzlesSolved: edpuzzlesSolved,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: {
+        edpuzzlesSolved: "Error loading Edpuzzles solved.",
+      },
+    };
+  }
+}
+
+export default function Home({ edpuzzlesSolved }) {
   const user = useUser();
+  const [num, setNum] = React.useState(edpuzzlesSolved);
+
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
@@ -31,6 +63,7 @@ export default function Home() {
       }
     }
   });
+
   return (
     <Box
       minHeight={{
@@ -57,7 +90,7 @@ export default function Home() {
           <Heading
             mt={3}
             fontWeight={700}
-            fontSize={{ base: "3xl", sm: "4xl", md: "7xl" }}
+            fontSize={useBreakpointValue({ base: "5xl", md: "7xl" })}
             lineHeight={"110%"}
           >
             Instant EdPuzzle <br />
@@ -66,10 +99,8 @@ export default function Home() {
             </Text>
           </Heading>
           <Text color={"gray.500"} fontSize={"xl"}>
-            Finish your assignments on time by getting solutions instantly (we
-            even generate answers to open ended questions)! We provide unique
-            insights on problems in order to aid students in learning the
-            material!
+            Finish your assignments on time by getting solutions instantly
+            (unique open-ended answers with AI)!
           </Text>
           <Stack
             direction={"column"}
@@ -87,7 +118,7 @@ export default function Home() {
                 bg: "blue.500",
               }}
               h={"8vh"}
-              w={useBreakpointValue({ base: "100%", md: "170%"})}
+              w={useBreakpointValue({ base: "100%", md: "170%" })}
               onClick={(event) => {
                 event.preventDefault();
                 Router.push("/edpuzzle");
@@ -109,27 +140,35 @@ export default function Home() {
               colorScheme={"blue"}
               size={"medium"}
             >
-              <Icon boxSize={8} mr={3} as={AiFillChrome}/>
+              <Icon boxSize={8} mr={3} as={AiFillChrome} />
               Download Chrome Extension
             </Button>
             <Box display={{ base: "none", md: "flex", lg: "flex" }}>
               <Icon
                 as={Arrow}
+                boxSize={"70"}
                 color={useColorModeValue("gray.800", "gray.300")}
                 w={71}
                 position={"absolute"}
-                right={"-150px"}
-                top={"40px"}
+                right={"-180px"}
+                top={"10px"}
               />
               <Text
-                fontSize={{ base: "lg", md: "xl" }}
+                fontSize={"4xl"}
                 fontFamily={"Caveat"}
                 position={"absolute"}
-                right={"-220px"}
-                top={"10px"}
+                right={"-310px"}
+                top={"-20px"}
                 transform={"rotate(10deg)"}
               >
-                get answers now!
+                <HStack>
+                  <AnimatedNumber
+                    value={num}
+                    duration={1000}
+                    formatValue={(value) => value.toFixed(0)}
+                  />
+                  <Text fontSize={"2xl"}>edpuzzles solved!</Text>
+                </HStack>
               </Text>
             </Box>
           </Stack>
