@@ -11,11 +11,16 @@ import {
   ListIcon,
   Button,
 } from "@chakra-ui/react";
-import { FaCheckCircle } from "react-icons/fa";
+import { useEffect } from "react";
+import { FaCheckCircle, FaRegArrowAltCircleRight } from "react-icons/fa";
 import Footer from "../components/Footer";
 import { useUser } from "../context/user";
 import Router from "next/router";
 import Head from "next/head";
+import axios from "axios";
+import { loadStripe } from "@stripe/stripe-js";
+
+loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 
 function PriceWrapper({ children }) {
   return (
@@ -35,27 +40,43 @@ function PriceWrapper({ children }) {
 export default function Pricing() {
   const { user } = useUser();
 
-  let buyButton;
+  const sendCheckoutPostRequest = async (planID) => {
+    // await axios.post("/api/checkout-sessions", {}).then((response) => {
+    //   console.log(response);
+    // });
+    // const response = await fetch("/api/checkout-sessions", {
+    //   method: "POST",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //   },
+    // });
+    const res = await fetch("api/checkout-sessions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        planID: planID,
+        stripeCustomerID: user.stripe_customer,
+      }),
+    });
+    const body = await res.json();
+    window.location.href = body.url;
+  };
 
-  if (user) {
-    buyButton = (
-      <Button w="full" colorScheme="blue">
-        Buy
-      </Button>
-    );
-  } else {
-    buyButton = (
-      <Button
-        onClick={() => {
-          Router.push("/login");
-        }}
-        w="full"
-        colorScheme="blue"
-      >
-        Log in First
-      </Button>
-    );
-  }
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+    if (query.get("success")) {
+      console.log("Order placed! You will receive an email confirmation.");
+    }
+
+    if (query.get("canceled")) {
+      console.log(
+        "Order canceled -- continue to shop around and checkout when you’re ready."
+      );
+    }
+  }, []);
 
   return (
     <>
@@ -98,7 +119,7 @@ export default function Pricing() {
                       $
                     </Text>
                     <Text fontSize="5xl" fontWeight="900">
-                      1.99
+                      4.99
                     </Text>
                   </HStack>
                 </Box>
@@ -121,7 +142,29 @@ export default function Pricing() {
                     <ListItem opacity={"0.0"}>Placeholder</ListItem>
                   </List>
                   <Box w="80%" pt={7}>
-                    {buyButton}
+                    {user ? (
+                      <Button
+                        onClick={() => {
+                          sendCheckoutPostRequest(
+                            "price_1L3vVbKCwqQTCCtFlJsmcfnb"
+                          );
+                        }}
+                        w="full"
+                        colorScheme="blue"
+                      >
+                        Buy
+                      </Button>
+                    ) : (
+                      <Button
+                        onClick={() => {
+                          Router.push("/login");
+                        }}
+                        w="full"
+                        colorScheme="blue"
+                      >
+                        Log in First
+                      </Button>
+                    )}
                   </Box>
                 </VStack>
               </PriceWrapper>
@@ -156,7 +199,7 @@ export default function Pricing() {
                         $
                       </Text>
                       <Text fontSize="5xl" fontWeight="900">
-                        4.99
+                        9.99
                       </Text>
                     </HStack>
                   </Box>
@@ -188,7 +231,29 @@ export default function Pricing() {
                       </ListItem>
                     </List>
                     <Box w="80%" pt={7}>
-                      {buyButton}
+                      {user ? (
+                        <Button
+                          onClick={() => {
+                            sendCheckoutPostRequest(
+                              "price_1Kz5X5KCwqQTCCtFIPGQL9L6"
+                            );
+                          }}
+                          w="full"
+                          colorScheme="blue"
+                        >
+                          Buy
+                        </Button>
+                      ) : (
+                        <Button
+                          onClick={() => {
+                            Router.push("/login");
+                          }}
+                          w="full"
+                          colorScheme="blue"
+                        >
+                          Log in First
+                        </Button>
+                      )}
                     </Box>
                   </VStack>
                 </Box>
@@ -203,7 +268,7 @@ export default function Pricing() {
                       $
                     </Text>
                     <Text fontSize="5xl" fontWeight="900">
-                      9.99
+                      14.99
                     </Text>
                   </HStack>
                 </Box>
@@ -233,7 +298,29 @@ export default function Pricing() {
                     </ListItem>
                   </List>
                   <Box w="80%" pt={7}>
-                    {buyButton}
+                    {user ? (
+                      <Button
+                        onClick={() => {
+                          sendCheckoutPostRequest(
+                            "price_1Kz5XqKCwqQTCCtFOfkN5qqs"
+                          );
+                        }}
+                        w="full"
+                        colorScheme="blue"
+                      >
+                        Buy
+                      </Button>
+                    ) : (
+                      <Button
+                        onClick={() => {
+                          Router.push("/login");
+                        }}
+                        w="full"
+                        colorScheme="blue"
+                      >
+                        Log in First
+                      </Button>
+                    )}
                   </Box>
                 </VStack>
               </PriceWrapper>
