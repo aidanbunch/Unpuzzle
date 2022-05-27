@@ -40,7 +40,7 @@ function PriceWrapper({ children }) {
 export default function Pricing() {
   const { user } = useUser();
 
-  const sendCheckoutPostRequest = async () => {
+  const sendCheckoutPostRequest = async (planID) => {
     // await axios.post("/api/checkout-sessions", {}).then((response) => {
     //   console.log(response);
     // });
@@ -56,6 +56,10 @@ export default function Pricing() {
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        planID: planID,
+        stripeCustomerID: user.stripe_customer,
+      }),
     });
     const body = await res.json();
     window.location.href = body.url;
@@ -73,39 +77,6 @@ export default function Pricing() {
       );
     }
   }, []);
-
-  let buyButton;
-
-  if (user) {
-    buyButton = (
-      <Button w="full" colorScheme="blue">
-        Buy
-      </Button>
-    );
-  } else {
-    buyButton = (
-      <Button
-        onClick={() => {
-          Router.push("/login");
-        }}
-        w="full"
-        colorScheme="blue"
-      >
-        Log in First
-      </Button>
-    );
-  }
-  buyButton = (
-    <Button
-      onClick={() => {
-        sendCheckoutPostRequest();
-      }}
-      w="full"
-      colorScheme="blue"
-    >
-      Buy
-    </Button>
-  );
 
   return (
     <>
@@ -148,7 +119,7 @@ export default function Pricing() {
                       $
                     </Text>
                     <Text fontSize="5xl" fontWeight="900">
-                      1.99
+                      4.99
                     </Text>
                   </HStack>
                 </Box>
@@ -171,7 +142,29 @@ export default function Pricing() {
                     <ListItem opacity={"0.0"}>Placeholder</ListItem>
                   </List>
                   <Box w="80%" pt={7}>
-                    {buyButton}
+                    {user ? (
+                      <Button
+                        onClick={() => {
+                          sendCheckoutPostRequest(
+                            "price_1L3vVbKCwqQTCCtFlJsmcfnb"
+                          );
+                        }}
+                        w="full"
+                        colorScheme="blue"
+                      >
+                        Buy
+                      </Button>
+                    ) : (
+                      <Button
+                        onClick={() => {
+                          Router.push("/login");
+                        }}
+                        w="full"
+                        colorScheme="blue"
+                      >
+                        Log in First
+                      </Button>
+                    )}
                   </Box>
                 </VStack>
               </PriceWrapper>
@@ -206,7 +199,7 @@ export default function Pricing() {
                         $
                       </Text>
                       <Text fontSize="5xl" fontWeight="900">
-                        4.99
+                        9.99
                       </Text>
                     </HStack>
                   </Box>
@@ -238,7 +231,29 @@ export default function Pricing() {
                       </ListItem>
                     </List>
                     <Box w="80%" pt={7}>
-                      {buyButton}
+                      {user ? (
+                        <Button
+                          onClick={() => {
+                            sendCheckoutPostRequest(
+                              "price_1Kz5X5KCwqQTCCtFIPGQL9L6"
+                            );
+                          }}
+                          w="full"
+                          colorScheme="blue"
+                        >
+                          Buy
+                        </Button>
+                      ) : (
+                        <Button
+                          onClick={() => {
+                            Router.push("/login");
+                          }}
+                          w="full"
+                          colorScheme="blue"
+                        >
+                          Log in First
+                        </Button>
+                      )}
                     </Box>
                   </VStack>
                 </Box>
@@ -253,7 +268,7 @@ export default function Pricing() {
                       $
                     </Text>
                     <Text fontSize="5xl" fontWeight="900">
-                      9.99
+                      14.99
                     </Text>
                   </HStack>
                 </Box>
@@ -283,7 +298,29 @@ export default function Pricing() {
                     </ListItem>
                   </List>
                   <Box w="80%" pt={7}>
-                    {buyButton}
+                    {user ? (
+                      <Button
+                        onClick={() => {
+                          sendCheckoutPostRequest(
+                            "price_1Kz5XqKCwqQTCCtFOfkN5qqs"
+                          );
+                        }}
+                        w="full"
+                        colorScheme="blue"
+                      >
+                        Buy
+                      </Button>
+                    ) : (
+                      <Button
+                        onClick={() => {
+                          Router.push("/login");
+                        }}
+                        w="full"
+                        colorScheme="blue"
+                      >
+                        Log in First
+                      </Button>
+                    )}
                   </Box>
                 </VStack>
               </PriceWrapper>

@@ -8,12 +8,12 @@ export default async function handler(req, res) {
         line_items: [
           {
             // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-            price: "price_1Kz5WSKCwqQTCCtFaspNvhDU",
+            price: req.body.planID,
             quantity: 1,
           },
         ],
         // customer_email: "derekyhsieh@gmail.com",
-        customer: "cus_LgLgGU5n7de8vR",
+        customer: req.body.stripeCustomerID,
 
         payment_method_types: ["card"],
         mode: "payment",
