@@ -47,12 +47,9 @@ export default async function handler(req, res) {
       
       .eq("stripe_customer", stripeCustomerID);
 
+    await supabase.rpc('append_plans', { new_element: planName, stripe_customer_id: stripeCustomerID})
 
-
-      await supabase.rpc('increment_total_paid_amount', { stripe_customer_id: stripeCustomerID, amt_paid: amountSubtotal})
-
-    
-
+    await supabase.rpc('increment_total_paid_amount', { stripe_customer_id: stripeCustomerID, amt_paid: amountSubtotal})
 
     res.send(data);
   } else {
