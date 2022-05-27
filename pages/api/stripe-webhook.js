@@ -25,6 +25,7 @@ export default async function handler(req, res) {
 
     // user has successfully paid for a plan and need to update supabase now
     // problem: stripe webhook doesn't show us what product was purchased so need to go off of amount subtotal
+
     const stripeCustomerID = event.data.object.customer;
     const amountSubtotal = event.data.object.amount_subtotal;
     let planName;
@@ -41,11 +42,6 @@ export default async function handler(req, res) {
         break;
     }
 
-    const { data } = await supabase
-      .from("profile")
-      .update({ plan_name: planName })
-      
-      .eq("stripe_customer", stripeCustomerID);
 
     await supabase.rpc('append_plans', { new_element: planName, stripe_customer_id: stripeCustomerID})
 

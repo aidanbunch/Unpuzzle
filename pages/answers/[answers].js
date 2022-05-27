@@ -2,6 +2,8 @@ import React, { createRef, useEffect, useState } from "react";
 import axios from "axios";
 import QuestionAnswerCard from "../../components/QuestionAnswerCard.js";
 import { removeBackslashes, replaceHTMLTags } from "../../utils/replace-text.js";
+import { supabase } from "../../utils/supabaseClient.js";
+
 
 import {
   Box,
@@ -147,6 +149,8 @@ export default function Assignment({
     setIsLoading(true);
 
     console.log(attemptId);
+
+    await supabase.rpc('increment_solved_edpuzzles')
 
     const videoResponse = await axios.post("/api/complete-video", {
       attemptId: attemptId,
