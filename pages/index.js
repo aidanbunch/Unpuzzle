@@ -16,6 +16,7 @@ import Link from "next/link";
 import { AiFillChrome } from "react-icons/ai";
 import Footer from "../components/Footer";
 import Router from "next/router";
+import { supabase } from "../utils/supabaseClient";
 import { useUser } from "../context/user";
 import { useEffect } from "react";
 import { supabase } from "../utils/supabaseClient";
