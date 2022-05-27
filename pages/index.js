@@ -15,12 +15,17 @@ import Link from "next/link";
 import {AiFillChrome} from "react-icons/ai"
 import Footer from "../components/Footer";
 import Router from "next/router";
+import { supabase } from "../utils/supabaseClient";
 import { useUser } from "../context/user";
 import { useEffect } from "react";
 
 export default function Home() {
   const user = useUser();
   useEffect(() => {
+
+
+
+
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
     if (!params["noredirect"]) {

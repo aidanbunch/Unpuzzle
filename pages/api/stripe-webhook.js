@@ -44,7 +44,15 @@ export default async function handler(req, res) {
     const { data } = await supabase
       .from("profile")
       .update({ plan_name: planName })
+      
       .eq("stripe_customer", stripeCustomerID);
+
+
+
+      await supabase.rpc('increment_total_paid_amount', { stripe_customer_id: stripeCustomerID, amt_paid: amountSubtotal})
+
+    
+
 
     res.send(data);
   } else {
