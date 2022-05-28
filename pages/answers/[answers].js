@@ -1,9 +1,11 @@
 import React, { createRef, useEffect, useState } from "react";
 import axios from "axios";
 import QuestionAnswerCard from "../../components/QuestionAnswerCard.js";
-import { removeBackslashes, replaceHTMLTags } from "../../utils/replace-text.js";
+import {
+  removeBackslashes,
+  replaceHTMLTags,
+} from "../../utils/replace-text.js";
 import { supabase } from "../../utils/supabaseClient.js";
-
 
 import {
   Box,
@@ -25,7 +27,6 @@ import Head from "next/head";
 import { returnIndex } from "../../utils/return-index.js";
 
 export async function getServerSideProps(context) {
-
   var questionJSON = [];
   const color = context.query.color;
   const assignmentTitle = context.query.assignmentTitle;
@@ -52,17 +53,17 @@ export async function getServerSideProps(context) {
     );
     const medias = response.data.medias;
 
-
     medias.forEach((media) => {
       if (assignmentID === media._id) {
         media.questions.forEach((question) => {
-
           if (question.type === "open-ended") {
             // no answer -> need openai
             const questionObj = {};
 
             const openEndedAnswer = "";
-            questionObj["bodyDisplay"] = removeBackslashes(question.body[0].html);
+            questionObj["bodyDisplay"] = removeBackslashes(
+              question.body[0].html
+            );
             questionObj["body"] = replaceHTMLTags(question.body[0].html);
             questionObj["type"] = question.type;
             questionObj["id"] = question._id;
@@ -73,7 +74,9 @@ export async function getServerSideProps(context) {
           } else {
             // is multiple choice
             const questionObj = {};
-            questionObj["bodyDisplay"] = removeBackslashes(question.body[0].html);
+            questionObj["bodyDisplay"] = removeBackslashes(
+              question.body[0].html
+            );
             questionObj["body"] = replaceHTMLTags(question.body[0].html);
             questionObj["type"] = question.type;
             questionObj["id"] = question._id;
@@ -96,8 +99,6 @@ export async function getServerSideProps(context) {
             questionJSON.push(questionObj);
           }
         });
-
-
       }
     });
     return {
@@ -115,10 +116,9 @@ export async function getServerSideProps(context) {
         answers: [],
         color: color,
         assignmentTitle: "error",
-      }
+      },
     };
   }
-
 }
 
 export default function Assignment({
@@ -128,15 +128,11 @@ export default function Assignment({
   attemptId,
   userToken,
 }) {
-
   const [elRefs, setElRefs] = useState([]);
   console.log(elRefs);
 
   useEffect(() => {
-    setElRefs((elRefs) =>
-      answers
-        .map((_, i) => elRefs[i] || createRef())
-    );
+    setElRefs((elRefs) => answers.map((_, i) => elRefs[i] || createRef()));
   }, []);
 
   const [isLoading, setIsLoading] = React.useState(false);
@@ -150,13 +146,14 @@ export default function Assignment({
 
     console.log(attemptId);
 
-
-    const videoResponse = await axios.post("/api/complete-video", {
-      attemptId: attemptId,
-      userToken: userToken,
-    }).catch(function (error) {
-      noError = false;
-    });
+    const videoResponse = await axios
+      .post("/api/complete-video", {
+        attemptId: attemptId,
+        userToken: userToken,
+      })
+      .catch(function (error) {
+        noError = false;
+      });
 
     const count = answers.length;
     if (count == 0 && noError) {
@@ -172,18 +169,22 @@ export default function Assignment({
 
     for (let question of answers) {
       if (question.type === "open-ended") {
-        const openEndedAns = elRefs[arrayRefCount].getElementsByClassName('chakra-textarea')[0].value;
+        const openEndedAns =
+          elRefs[arrayRefCount].getElementsByClassName("chakra-textarea")[0]
+            .value;
 
-        const response = await axios.post("/api/complete-questions", {
-          type: question.type,
-          attemptId: attemptId,
-          questionId: question.id,
-          userToken: userToken,
-          openEndedBody: question.body,
-          openEndedAnswer: openEndedAns,
-        }).catch(function (error) {
-          noError = false;
-        });
+        const response = await axios
+          .post("/api/complete-questions", {
+            type: question.type,
+            attemptId: attemptId,
+            questionId: question.id,
+            userToken: userToken,
+            openEndedBody: question.body,
+            openEndedAnswer: openEndedAns,
+          })
+          .catch(function (error) {
+            noError = false;
+          });
 
         count -= 1;
 
@@ -196,20 +197,19 @@ export default function Assignment({
             duration: 9000,
             isClosable: true,
           });
-
-          await supabase.rpc('increment_solved_edpuzzles')
         }
-
       } else {
-        const response = await axios.post("/api/complete-questions", {
-          type: question.type,
-          attemptId: attemptId,
-          questionId: question.id,
-          userToken: userToken,
-          correctChoices: question.correctChoices,
-        }).catch(function (error) {
-          noError = false;
-        });
+        const response = await axios
+          .post("/api/complete-questions", {
+            type: question.type,
+            attemptId: attemptId,
+            questionId: question.id,
+            userToken: userToken,
+            correctChoices: question.correctChoices,
+          })
+          .catch(function (error) {
+            noError = false;
+          });
 
         count -= 1;
 
@@ -222,7 +222,6 @@ export default function Assignment({
             duration: 9000,
             isClosable: true,
           });
-          await supabase.rpc('increment_solved_edpuzzles')
         }
       }
       arrayRefCount += 1;
@@ -237,6 +236,7 @@ export default function Assignment({
         isClosable: true,
       });
     }
+    await supabase.rpc("increment_solved_edpuzzles");
   };
 
   return (
@@ -287,7 +287,7 @@ export default function Assignment({
 
             <VStack spacing={0}>
               {answers.map((question, index) => (
-                <div key={index} ref={el => elRefs[index] = el}>
+                <div key={index} ref={(el) => (elRefs[index] = el)}>
                   <QuestionAnswerCard
                     key={index}
                     question={question}
@@ -302,4 +302,3 @@ export default function Assignment({
     </>
   );
 }
-

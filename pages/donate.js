@@ -38,8 +38,7 @@ function PriceWrapper({ children }) {
 }
 
 export default function Pricing() {
-  // const { user } = useUser();
-  const user = true;
+  const { user } = useUser();
 
   const sendCheckoutPostRequest = async (planID) => {
     // await axios.post("/api/checkout-sessions", {}).then((response) => {
@@ -130,23 +129,20 @@ export default function Pricing() {
                   borderBottomRadius={"xl"}
                 >
                   <List spacing={3} textAlign="start" px={12}>
-                    <ListItem opacity={"0.0"}>Placeholder</ListItem>
                     <ListItem>
                       <ListIcon as={FaCheckCircle} color="green.500" />
-                      No Ads
+                      Bronze Sponsor Badge
                     </ListItem>
 
-                    <ListItem>
-                      <ListIcon as={FaCheckCircle} color="green.500" />
-                      Special Sponsor Badge
-                    </ListItem>
                     <ListItem opacity={"0.0"}>Placeholder</ListItem>
                   </List>
                   <Box w="80%" pt={7}>
                     {user ? (
                       <Button
                         onClick={() => {
-                          sendCheckoutPostRequest("prod_Lm68JvN6GwNlCA");
+                          sendCheckoutPostRequest(
+                            "price_1L4XvvKCwqQTCCtFve0Av7nF"
+                          );
                         }}
                         w="full"
                         colorScheme="blue"
@@ -214,26 +210,17 @@ export default function Pricing() {
                       </ListItem>
                       <ListItem>
                         <ListIcon as={FaCheckCircle} color="green.500" />
-                        Special Sponsor Badge
+                        Gold Sponsor Badge
                       </ListItem>
-                      <ListItem>
-                        <ListIcon as={FaCheckCircle} color="green.500" />
-                        Customer Support
-                      </ListItem>
-                      <ListItem>
-                        <ListIcon as={FaCheckCircle} color="green.500" />
-                        Early access to Features
-                      </ListItem>
-                      <ListItem>
-                        <ListIcon as={FaCheckCircle} color="green.500" />1 free
-                        Essay per week
-                      </ListItem>
+                      <ListItem opacity={"0.0"}>Placeholder</ListItem>
                     </List>
                     <Box w="80%" pt={7}>
                       {user ? (
                         <Button
                           onClick={() => {
-                            sendCheckoutPostRequest("prod_Lm66TNfiAAsA8n");
+                            sendCheckoutPostRequest(
+                              "price_1L4XueKCwqQTCCtFPIwHrWof"
+                            );
                           }}
                           w="full"
                           colorScheme="blue"
@@ -277,28 +264,21 @@ export default function Pricing() {
                   <List spacing={3} textAlign="start" px={12}>
                     <ListItem>
                       <ListIcon as={FaCheckCircle} color="green.500" />
-                      Same Benefits as Gold
+                      No Ads
                     </ListItem>
 
                     <ListItem>
                       <ListIcon as={FaCheckCircle} color="green.500" />
-                      Special Platinum Badge
-                    </ListItem>
-                    <ListItem>
-                      <ListIcon as={FaCheckCircle} color="green.500" />
-                      Name on Landing page
-                    </ListItem>
-
-                    <ListItem>
-                      <ListIcon as={FaCheckCircle} color="green.500" />
-                      Unlimited Essays
+                      Platinum Sponsor Badge
                     </ListItem>
                   </List>
                   <Box w="80%" pt={7}>
                     {user ? (
                       <Button
                         onClick={() => {
-                          sendCheckoutPostRequest("prod_Lm64W4jMr1DYUo");
+                          sendCheckoutPostRequest(
+                            "price_1L4XueKCwqQTCCtFPIwHrWof"
+                          );
                         }}
                         w="full"
                         colorScheme="blue"
