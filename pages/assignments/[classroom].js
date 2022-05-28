@@ -48,14 +48,18 @@ export async function getServerSideProps(context) {
       titles.forEach((title) => {
         if (assignment.contentId === title._id) {
           assignmentsObj["assignmentTitle"] = title.title;
-          assignmentsObj["thumbnailURL"] = title.thumbnailURL
+          assignmentsObj["thumbnailURL"] = title.thumbnailURL;
         }
       });
       attempts.forEach((attempt) => {
         if (assignment._id === attempt.teacherAssignmentId) {
           assignmentsObj["attemptId"] = attempt._id;
 
-          if(attempt.timeIntervals[10].views > 0 && attempt.numberOfQuestions === attempt.analytics.questionsAnswered) {
+          if (
+            attempt.timeIntervals[10].views > 0 &&
+            attempt.numberOfQuestions === attempt.analytics.questionsAnswered &&
+            attempt.turnedIn !== ""
+          ) {
             assignmentsObj["isComplete"] = true;
           } else {
             assignmentsObj["isComplete"] = false;
@@ -120,22 +124,22 @@ export default function Classroom({
 
             <Spacer />
           </Flex>
-            <VStack spacing={5}>
-              {assignmentsData.length > 0 &&
-                assignmentsData.map((assignment, index) => (
-                  <AssignmentCard
-                    key={index}
-                    color={color}
-                    thumbnailURL={assignment.thumbnailURL}
-                    assignmentTitle={assignment.assignmentTitle}
-                    assignmentID={assignment.assignmentTeacherId}
-                    attemptId={assignment.attemptId}
-                    userToken={userToken}
-                    classroomID={classroomID}
-                    isComplete={assignment.isComplete}
-                  />
-                ))}
-            </VStack>
+          <VStack spacing={5}>
+            {assignmentsData.length > 0 &&
+              assignmentsData.map((assignment, index) => (
+                <AssignmentCard
+                  key={index}
+                  color={color}
+                  thumbnailURL={assignment.thumbnailURL}
+                  assignmentTitle={assignment.assignmentTitle}
+                  assignmentID={assignment.assignmentTeacherId}
+                  attemptId={assignment.attemptId}
+                  userToken={userToken}
+                  classroomID={classroomID}
+                  isComplete={assignment.isComplete}
+                />
+              ))}
+          </VStack>
         </VStack>
       </Box>
     </>
