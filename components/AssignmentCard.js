@@ -13,7 +13,11 @@ import {
   Button,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { BsCheckCircleFill } from "react-icons/bs";
+import {
+  BsCheck,
+  BsCheckCircleFill,
+  BsFillCheckCircleFill,
+} from "react-icons/bs";
 
 export default function AssignmentCard({
   color,
@@ -59,8 +63,8 @@ export default function AssignmentCard({
             >
               <VStack>
                 {isComplete ? (
-                  <Icon boxSize={8} color={"green.200"} alignSelf={"flex-end"}>
-                    <BsCheckCircleFill></BsCheckCircleFill>
+                  <Icon boxSize={8} color={"white"} alignSelf={"flex-end"}>
+                    <BsFillCheckCircleFill />
                   </Icon>
                 ) : (
                   blankComponent
