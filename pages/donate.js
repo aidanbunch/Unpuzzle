@@ -12,12 +12,11 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { FaCheckCircle, FaRegArrowAltCircleRight } from "react-icons/fa";
+import { FaCheckCircle } from "react-icons/fa";
 import Footer from "../components/Footer";
 import { useUser } from "../context/user";
 import Router from "next/router";
 import Head from "next/head";
-import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
 
 loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
@@ -25,9 +24,11 @@ loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 function PriceWrapper({ children }) {
   return (
     <Box
+    maxWidth={"300px"}
       mb={4}
       shadow="base"
       borderWidth="1px"
+      // p={5}
       alignSelf={{ base: "center", lg: "flex-start" }}
       borderColor={useColorModeValue("gray.200", "gray.500")}
       borderRadius={"xl"}
@@ -41,16 +42,7 @@ export default function Pricing() {
   const { user } = useUser();
 
   const sendCheckoutPostRequest = async (planID) => {
-    // await axios.post("/api/checkout-sessions", {}).then((response) => {
-    //   console.log(response);
-    // });
-    // const response = await fetch("/api/checkout-sessions", {
-    //   method: "POST",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json",
-    //   },
-    // });
+
     const res = await fetch("api/checkout-sessions", {
       method: "POST",
       headers: {
@@ -108,6 +100,7 @@ export default function Pricing() {
               justify="center"
               spacing={{ base: 4, lg: 10 }}
               py={10}
+              flex={1}
             >
               <PriceWrapper>
                 <Box py={4} px={12}>
@@ -129,15 +122,10 @@ export default function Pricing() {
                   borderBottomRadius={"xl"}
                 >
                   <List spacing={3} textAlign="start" px={12}>
-                    <ListItem opacity={"0.0"}>Placeholder</ListItem>
-                    <ListItem>
-                      <ListIcon as={FaCheckCircle} color="green.500" />
-                      No Ads
-                    </ListItem>
 
                     <ListItem>
                       <ListIcon as={FaCheckCircle} color="green.500" />
-                      Special Sponsor Badge
+                      Bronze Badge
                     </ListItem>
                     <ListItem opacity={"0.0"}>Placeholder</ListItem>
                   </List>
@@ -215,20 +203,9 @@ export default function Pricing() {
                       </ListItem>
                       <ListItem>
                         <ListIcon as={FaCheckCircle} color="green.500" />
-                        Special Sponsor Badge
+                        Gold Badge
                       </ListItem>
-                      <ListItem>
-                        <ListIcon as={FaCheckCircle} color="green.500" />
-                        Customer Support
-                      </ListItem>
-                      <ListItem>
-                        <ListIcon as={FaCheckCircle} color="green.500" />
-                        Early access to Features
-                      </ListItem>
-                      <ListItem>
-                        <ListIcon as={FaCheckCircle} color="green.500" />1 free
-                        Essay per week
-                      </ListItem>
+                    <ListItem opacity={"0.0"}>Placeholder</ListItem>
                     </List>
                     <Box w="80%" pt={7}>
                       {user ? (
@@ -280,22 +257,14 @@ export default function Pricing() {
                   <List spacing={3} textAlign="start" px={12}>
                     <ListItem>
                       <ListIcon as={FaCheckCircle} color="green.500" />
-                      Same Benefits as Gold
+                      No Ads
                     </ListItem>
 
                     <ListItem>
                       <ListIcon as={FaCheckCircle} color="green.500" />
-                      Special Platinum Badge
-                    </ListItem>
-                    <ListItem>
-                      <ListIcon as={FaCheckCircle} color="green.500" />
-                      Name on Landing page
+                       Platinum Badge
                     </ListItem>
 
-                    <ListItem>
-                      <ListIcon as={FaCheckCircle} color="green.500" />
-                      Unlimited Essays
-                    </ListItem>
                   </List>
                   <Box w="80%" pt={7}>
                     {user ? (
