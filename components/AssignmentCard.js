@@ -61,6 +61,7 @@ export default function AssignmentCard({
               transition="transform 200ms ease-in-out"
               _hover={{ transform: "scale(1.05)" }}
             >
+
               <VStack>
                 {isComplete ? (
                   <Icon boxSize={8} color={"white"} alignSelf={"flex-end"}>
@@ -82,6 +83,7 @@ export default function AssignmentCard({
                       allowFullScreen
                     />
                   )}
+
 
                   <Spacer />
                   <Heading
