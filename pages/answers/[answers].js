@@ -150,7 +150,6 @@ export default function Assignment({
 
     console.log(attemptId);
 
-    await supabase.rpc('increment_solved_edpuzzles')
 
     const videoResponse = await axios.post("/api/complete-video", {
       attemptId: attemptId,
@@ -197,6 +196,8 @@ export default function Assignment({
             duration: 9000,
             isClosable: true,
           });
+
+          await supabase.rpc('increment_solved_edpuzzles')
         }
 
       } else {
@@ -221,6 +222,7 @@ export default function Assignment({
             duration: 9000,
             isClosable: true,
           });
+          await supabase.rpc('increment_solved_edpuzzles')
         }
       }
       arrayRefCount += 1;
