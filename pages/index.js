@@ -1,4 +1,4 @@
-import Head from "next/head";
+import "@fontsource/caveat/700.css"
 import {
   Box,
   Heading,
@@ -67,13 +67,6 @@ export default function Home({ edpuzzlesSolved }) {
       display="flex"
       flexDirection="column"
     >
-      <Head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
-
       <Container>
         <Stack
           as={Box}
@@ -149,7 +142,7 @@ export default function Home({ edpuzzlesSolved }) {
               />
               <Text
                 fontSize={"4xl"}
-                fontFamily={"Caveat"}
+                fontFamily={"caveat"}
                 position={"absolute"}
                 right={"-310px"}
                 top={"-20px"}
