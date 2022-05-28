@@ -12,11 +12,12 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { FaCheckCircle } from "react-icons/fa";
+import { FaCheckCircle, FaRegArrowAltCircleRight } from "react-icons/fa";
 import Footer from "../components/Footer";
 import { useUser } from "../context/user";
 import Router from "next/router";
 import Head from "next/head";
+import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
 
 loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
@@ -24,11 +25,9 @@ loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 function PriceWrapper({ children }) {
   return (
     <Box
-      maxWidth={"300px"}
       mb={4}
       shadow="base"
       borderWidth="1px"
-      // p={5}
       alignSelf={{ base: "center", lg: "flex-start" }}
       borderColor={useColorModeValue("gray.200", "gray.500")}
       borderRadius={"xl"}
@@ -39,9 +38,20 @@ function PriceWrapper({ children }) {
 }
 
 export default function Pricing() {
-  const { user } = useUser();
+  // const { user } = useUser();
+  const user = true;
 
   const sendCheckoutPostRequest = async (planID) => {
+    // await axios.post("/api/checkout-sessions", {}).then((response) => {
+    //   console.log(response);
+    // });
+    // const response = await fetch("/api/checkout-sessions", {
+    //   method: "POST",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //   },
+    // });
     const res = await fetch("api/checkout-sessions", {
       method: "POST",
       headers: {
@@ -99,7 +109,6 @@ export default function Pricing() {
               justify="center"
               spacing={{ base: 4, lg: 10 }}
               py={10}
-              flex={1}
             >
               <PriceWrapper>
                 <Box py={4} px={12}>
@@ -121,9 +130,15 @@ export default function Pricing() {
                   borderBottomRadius={"xl"}
                 >
                   <List spacing={3} textAlign="start" px={12}>
+                    <ListItem opacity={"0.0"}>Placeholder</ListItem>
                     <ListItem>
                       <ListIcon as={FaCheckCircle} color="green.500" />
-                      Bronze Badge
+                      No Ads
+                    </ListItem>
+
+                    <ListItem>
+                      <ListIcon as={FaCheckCircle} color="green.500" />
+                      Special Sponsor Badge
                     </ListItem>
                     <ListItem opacity={"0.0"}>Placeholder</ListItem>
                   </List>
@@ -131,9 +146,7 @@ export default function Pricing() {
                     {user ? (
                       <Button
                         onClick={() => {
-                          sendCheckoutPostRequest(
-                            "price_1L4XvvKCwqQTCCtFve0Av7nF"
-                          );
+                          sendCheckoutPostRequest("prod_Lm68JvN6GwNlCA");
                         }}
                         w="full"
                         colorScheme="blue"
@@ -173,7 +186,7 @@ export default function Pricing() {
                       fontWeight="600"
                       rounded="xl"
                     >
-                      popular
+                      Best Deal
                     </Text>
                   </Box>
                   <Box py={4} px={12}>
@@ -201,17 +214,26 @@ export default function Pricing() {
                       </ListItem>
                       <ListItem>
                         <ListIcon as={FaCheckCircle} color="green.500" />
-                        Gold Badge
+                        Special Sponsor Badge
                       </ListItem>
-                      <ListItem opacity={"0.0"}>Placeholder</ListItem>
+                      <ListItem>
+                        <ListIcon as={FaCheckCircle} color="green.500" />
+                        Customer Support
+                      </ListItem>
+                      <ListItem>
+                        <ListIcon as={FaCheckCircle} color="green.500" />
+                        Early access to Features
+                      </ListItem>
+                      <ListItem>
+                        <ListIcon as={FaCheckCircle} color="green.500" />1 free
+                        Essay per week
+                      </ListItem>
                     </List>
                     <Box w="80%" pt={7}>
                       {user ? (
                         <Button
                           onClick={() => {
-                            sendCheckoutPostRequest(
-                              "price_1L4XueKCwqQTCCtFPIwHrWof"
-                            );
+                            sendCheckoutPostRequest("prod_Lm66TNfiAAsA8n");
                           }}
                           w="full"
                           colorScheme="blue"
@@ -255,21 +277,28 @@ export default function Pricing() {
                   <List spacing={3} textAlign="start" px={12}>
                     <ListItem>
                       <ListIcon as={FaCheckCircle} color="green.500" />
-                      No Ads
+                      Same Benefits as Gold
                     </ListItem>
 
                     <ListItem>
                       <ListIcon as={FaCheckCircle} color="green.500" />
-                      Platinum Badge
+                      Special Platinum Badge
+                    </ListItem>
+                    <ListItem>
+                      <ListIcon as={FaCheckCircle} color="green.500" />
+                      Name on Landing page
+                    </ListItem>
+
+                    <ListItem>
+                      <ListIcon as={FaCheckCircle} color="green.500" />
+                      Unlimited Essays
                     </ListItem>
                   </List>
                   <Box w="80%" pt={7}>
                     {user ? (
                       <Button
                         onClick={() => {
-                          sendCheckoutPostRequest(
-                            "price_1L4XsfKCwqQTCCtFdCpE0wAn"
-                          );
+                          sendCheckoutPostRequest("prod_Lm64W4jMr1DYUo");
                         }}
                         w="full"
                         colorScheme="blue"
