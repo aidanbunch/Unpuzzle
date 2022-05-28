@@ -6,7 +6,6 @@ import Link from "next/link";
 import BackButton from "../../components/BackButton";
 import InstantAlertDialog from "../../components/InstantAlertDialog";
 import Head from "next/head";
-import ColumnAd from "../../components/ColumnAd";
 import { returnIndex } from "../../utils/return-index";
 
 const backgroundColors = [
@@ -175,8 +174,6 @@ export default function User({
               <Spacer />
             </Flex>
 
-            <HStack spacing={"5vw"} alignItems={"start"}>
-              <ColumnAd />
               <VStack>
                 {classroomData.length > 0 &&
                   classroomData.map((classroom, index) => (
@@ -190,8 +187,6 @@ export default function User({
                     />
                   ))}
               </VStack>
-              <ColumnAd />
-            </HStack>
           </VStack>
         </Box>
       </>

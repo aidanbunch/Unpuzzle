@@ -13,7 +13,6 @@ import {
 } from "@chakra-ui/react";
 import AssignmentCard from "../../components/AssignmentCard";
 import BackButton from "../../components/BackButton";
-import ColumnAd from "../../components/ColumnAd";
 
 export async function getServerSideProps(context) {
   const classroomID = context.params.classroom;
@@ -49,12 +48,22 @@ export async function getServerSideProps(context) {
       titles.forEach((title) => {
         if (assignment.contentId === title._id) {
           assignmentsObj["assignmentTitle"] = title.title;
-          assignmentsObj["thumbnailURL"] = title.thumbnailURL
+          assignmentsObj["thumbnailURL"] = title.thumbnailURL;
         }
       });
       attempts.forEach((attempt) => {
         if (assignment._id === attempt.teacherAssignmentId) {
           assignmentsObj["attemptId"] = attempt._id;
+
+          if (
+            attempt.timeIntervals[10].views > 0 &&
+            attempt.numberOfQuestions === attempt.analytics.questionsAnswered &&
+            attempt.turnedIn !== ""
+          ) {
+            assignmentsObj["isComplete"] = true;
+          } else {
+            assignmentsObj["isComplete"] = false;
+          }
         }
       });
       assignmentsJSON.push(assignmentsObj);
@@ -115,25 +124,22 @@ export default function Classroom({
 
             <Spacer />
           </Flex>
-          <HStack spacing={"5vw"} alignItems={"start"}>
-            <ColumnAd />
-            <VStack spacing={5}>
-              {assignmentsData.length > 0 &&
-                assignmentsData.map((assignment, index) => (
-                  <AssignmentCard
-                    key={index}
-                    color={color}
-                    thumbnailURL={assignment.thumbnailURL}
-                    assignmentTitle={assignment.assignmentTitle}
-                    assignmentID={assignment.assignmentTeacherId}
-                    attemptId={assignment.attemptId}
-                    userToken={userToken}
-                    classroomID={classroomID}
-                  />
-                ))}
-            </VStack>
-            <ColumnAd />
-          </HStack>
+          <VStack spacing={5}>
+            {assignmentsData.length > 0 &&
+              assignmentsData.map((assignment, index) => (
+                <AssignmentCard
+                  key={index}
+                  color={color}
+                  thumbnailURL={assignment.thumbnailURL}
+                  assignmentTitle={assignment.assignmentTitle}
+                  assignmentID={assignment.assignmentTeacherId}
+                  attemptId={assignment.attemptId}
+                  userToken={userToken}
+                  classroomID={classroomID}
+                  isComplete={assignment.isComplete}
+                />
+              ))}
+          </VStack>
         </VStack>
       </Box>
     </>
