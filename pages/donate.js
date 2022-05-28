@@ -24,7 +24,7 @@ loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 function PriceWrapper({ children }) {
   return (
     <Box
-    maxWidth={"300px"}
+      maxWidth={"300px"}
       mb={4}
       shadow="base"
       borderWidth="1px"
@@ -42,7 +42,6 @@ export default function Pricing() {
   const { user } = useUser();
 
   const sendCheckoutPostRequest = async (planID) => {
-
     const res = await fetch("api/checkout-sessions", {
       method: "POST",
       headers: {
@@ -122,7 +121,6 @@ export default function Pricing() {
                   borderBottomRadius={"xl"}
                 >
                   <List spacing={3} textAlign="start" px={12}>
-
                     <ListItem>
                       <ListIcon as={FaCheckCircle} color="green.500" />
                       Bronze Badge
@@ -134,7 +132,7 @@ export default function Pricing() {
                       <Button
                         onClick={() => {
                           sendCheckoutPostRequest(
-                            "price_1L3vVbKCwqQTCCtFlJsmcfnb"
+                            "price_1L4XvvKCwqQTCCtFve0Av7nF"
                           );
                         }}
                         w="full"
@@ -175,7 +173,7 @@ export default function Pricing() {
                       fontWeight="600"
                       rounded="xl"
                     >
-                      Best Deal
+                      popular
                     </Text>
                   </Box>
                   <Box py={4} px={12}>
@@ -205,14 +203,14 @@ export default function Pricing() {
                         <ListIcon as={FaCheckCircle} color="green.500" />
                         Gold Badge
                       </ListItem>
-                    <ListItem opacity={"0.0"}>Placeholder</ListItem>
+                      <ListItem opacity={"0.0"}>Placeholder</ListItem>
                     </List>
                     <Box w="80%" pt={7}>
                       {user ? (
                         <Button
                           onClick={() => {
                             sendCheckoutPostRequest(
-                              "price_1Kz5X5KCwqQTCCtFIPGQL9L6"
+                              "price_1L4XueKCwqQTCCtFPIwHrWof"
                             );
                           }}
                           w="full"
@@ -262,16 +260,15 @@ export default function Pricing() {
 
                     <ListItem>
                       <ListIcon as={FaCheckCircle} color="green.500" />
-                       Platinum Badge
+                      Platinum Badge
                     </ListItem>
-
                   </List>
                   <Box w="80%" pt={7}>
                     {user ? (
                       <Button
                         onClick={() => {
                           sendCheckoutPostRequest(
-                            "price_1Kz5XqKCwqQTCCtFOfkN5qqs"
+                            "price_1L4XsfKCwqQTCCtFdCpE0wAn"
                           );
                         }}
                         w="full"

@@ -18,7 +18,7 @@ export default function AssignmentCard({
   assignmentID,
   attemptId,
   userToken,
-  classroomID
+  classroomID,
 }) {
   return (
     // <Link
@@ -33,13 +33,12 @@ export default function AssignmentCard({
           attemptId: `${attemptId}`,
           userToken: `${userToken}`,
           classroomID: `${classroomID}`,
-          assignmentID: `${assignmentID}`
+          assignmentID: `${assignmentID}`,
         },
       }}
       passHref
     >
       <Box maxW={"500px"} w="100%" alignItems="center">
-
         <Box w="100%">
           <Center py={6}>
             <Box
@@ -53,17 +52,18 @@ export default function AssignmentCard({
               _hover={{ transform: "scale(1.05)" }}
             >
               <HStack>
-                {thumbnailURL.includes("api") ?
-                  <Box h="90px"></Box> :
+                {thumbnailURL.includes("api") ? (
+                  <Box h="90px"></Box>
+                ) : (
                   <Image
                     h="90px"
                     borderRadius={"md"}
-                    title='Assignment Thumbnail URL'
+                    title="Assignment Thumbnail URL"
                     src={thumbnailURL}
-                    alt='Assignment Thumbnail'
+                    alt="Assignment Thumbnail"
                     allowFullScreen
                   />
-                }
+                )}
 
                 <Spacer />
                 <Heading
