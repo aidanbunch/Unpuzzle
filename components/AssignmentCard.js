@@ -6,8 +6,14 @@ import {
   Spacer,
   HStack,
   Image,
+  VStack,
+  Icon,
+  IconButton,
+  useColorModeValue,
+  Button,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { BsCheckCircleFill } from "react-icons/bs";
 
 export default function AssignmentCard({
   color,
@@ -19,6 +25,7 @@ export default function AssignmentCard({
   classroomID,
   isComplete,
 }) {
+  let blankComponent;
   return (
     // <Link
     //   href={`/assignments/${userToken}---${className}---${backgroundColorName}---${id}`}
@@ -50,31 +57,40 @@ export default function AssignmentCard({
               transition="transform 200ms ease-in-out"
               _hover={{ transform: "scale(1.05)" }}
             >
-              <HStack>
-                {thumbnailURL.includes("api") ? (
-                  <Box h="90px"></Box>
+              <VStack>
+                {isComplete ? (
+                  <Icon boxSize={8} color={"green.200"} alignSelf={"flex-end"}>
+                    <BsCheckCircleFill></BsCheckCircleFill>
+                  </Icon>
                 ) : (
-                  <Image
-                    h="90px"
-                    borderRadius={"md"}
-                    title="Assignment Thumbnail URL"
-                    src={thumbnailURL}
-                    alt="Assignment Thumbnail"
-                    allowFullScreen
-                  />
+                  blankComponent
                 )}
+                <HStack>
+                  {thumbnailURL.includes("api") ? (
+                    <Box h="90px"></Box>
+                  ) : (
+                    <Image
+                      h="90px"
+                      borderRadius={"md"}
+                      title="Assignment Thumbnail URL"
+                      src={thumbnailURL}
+                      alt="Assignment Thumbnail"
+                      allowFullScreen
+                    />
+                  )}
 
-                <Spacer />
-                <Heading
-                  textAlign="center"
-                  color={"white"}
-                  fontSize={"2xl"}
-                  fontFamily={"body"}
-                >
-                  {assignmentTitle}
-                </Heading>
-                <Spacer />
-              </HStack>
+                  <Spacer />
+                  <Heading
+                    textAlign="center"
+                    color={"white"}
+                    fontSize={"2xl"}
+                    fontFamily={"body"}
+                  >
+                    {assignmentTitle}
+                  </Heading>
+                  <Spacer />
+                </HStack>
+              </VStack>
             </Box>
           </Center>
         </Box>
