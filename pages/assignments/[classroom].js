@@ -54,7 +54,21 @@ export async function getServerSideProps(context) {
       });
       attempts.forEach((attempt) => {
         if (assignment._id === attempt.teacherAssignmentId) {
+          let timeFlag = false;
+          let questionsFlag = false;
+
           assignmentsObj["attemptId"] = attempt._id;
+          if(attempt.timeIntervals.length === 11) {
+            timeFlag = true;
+          }
+          if(attempt.numberOfQuestions === attempt.analytics.questionsAnswered) {
+            questionsFlag = true;
+          }
+          if(timeFlag && questionsFlag) {
+            assignmentsObj["isComplete"] = true;
+          } else {
+            assignmentsObj["isComplete"] = false;
+          }
         }
       });
       assignmentsJSON.push(assignmentsObj);
@@ -129,6 +143,7 @@ export default function Classroom({
                     attemptId={assignment.attemptId}
                     userToken={userToken}
                     classroomID={classroomID}
+                    isComplete={assignment.isComplete}
                   />
                 ))}
             </VStack>
