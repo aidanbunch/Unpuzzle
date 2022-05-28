@@ -13,7 +13,6 @@ import {
 } from "@chakra-ui/react";
 import AssignmentCard from "../../components/AssignmentCard";
 import BackButton from "../../components/BackButton";
-import ColumnAd from "../../components/ColumnAd";
 
 export async function getServerSideProps(context) {
   const classroomID = context.params.classroom;
@@ -129,8 +128,6 @@ export default function Classroom({
 
             <Spacer />
           </Flex>
-          <HStack spacing={"5vw"} alignItems={"start"}>
-            <ColumnAd />
             <VStack spacing={5}>
               {assignmentsData.length > 0 &&
                 assignmentsData.map((assignment, index) => (
@@ -147,8 +144,6 @@ export default function Classroom({
                   />
                 ))}
             </VStack>
-            <ColumnAd />
-          </HStack>
         </VStack>
       </Box>
     </>
