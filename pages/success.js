@@ -4,13 +4,27 @@ import Confetti from 'react-confetti'
 import { Stack, VStack, Heading, Button, Flex, useColorModeValue, Box, Center, Text } from "@chakra-ui/react"
 import { CheckCircleIcon } from '@chakra-ui/icons'
 import Footer from '../components/Footer'
+import { useRouter } from 'next/router';
 
 
 function Success() {
 
-    const {width, height} = useWindowSize()
+    const router = useRouter()
 
-   
+    const [width, setWidth] = useState(0);
+    const [height, setHeight] = useState(0);
+    useEffect(() => {
+        setWidth(window.innerWidth);
+        setHeight(window.innerHeight);
+    });
+
+    const handleClick = () => {
+
+        router.push("/")
+
+    }
+
+
 
     return (
         <>
@@ -61,8 +75,9 @@ function Success() {
 
             </Box>
             <Confetti
-                height={height} width={width}
-                tweenDuration={30}
+                tweenDuration={10}
+                width={width}
+                height={height}
             />
         </>
     )

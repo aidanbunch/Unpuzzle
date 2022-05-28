@@ -3,9 +3,17 @@ import { Stack, VStack, Heading, Button, Flex, useColorModeValue, Box, Center, T
 import { CloseIcon } from '@chakra-ui/icons'
 import Footer from '../components/Footer'
 import {BsFillXCircleFill} from "react-icons/bs"
+import {useRouter} from "next/router"
 
 
 function Canceled() {
+    const router = useRouter()
+
+    const handleClick = () => {
+
+        router.push("/")
+
+    }
     return (
         <Box
             minHeight={{
