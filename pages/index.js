@@ -25,28 +25,22 @@ import AnimatedNumber from "animated-number-react";
 export async function getServerSideProps(context) {
   let edpuzzlesSolved = 0;
 
-  try {
-    const { data: stats } = await supabase
-      .from("stats")
-      .select("*")
-      .eq("id", 1)
-      .single();
+  const { data: stats, error } = await supabase
+    .from("stats")
+    .select("*")
+    .eq("id", 1)
+    .single();
 
+  if (error) {
+    edpuzzlesSolved = 0;
+  } else {
     edpuzzlesSolved = stats.ep_solved;
-
-    return {
-      props: {
-        edpuzzlesSolved: edpuzzlesSolved,
-      },
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      props: {
-        edpuzzlesSolved: "Error loading Edpuzzles solved.",
-      },
-    };
   }
+  return {
+    props: {
+      edpuzzlesSolved: edpuzzlesSolved,
+    },
+  };
 }
 
 export default function Home({ edpuzzlesSolved }) {
