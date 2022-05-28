@@ -7,6 +7,9 @@ import { extendTheme } from "@chakra-ui/react";
 const config = {
   initialColorMode: "light",
   useSystemColorMode: false,
+  fonts: {
+    caveat: `'Caveat', sans-serif`,
+  },
 };
 
 // 3. extend the theme
