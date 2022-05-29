@@ -18,7 +18,12 @@ import { useState, useEffect } from "react";
 
 function Success() {
   const router = useRouter();
-  const { width, height } = useWindowSize();
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+  useEffect(() => {
+    setWidth(window.innerWidth);
+    setHeight(window.innerHeight);
+  });
 
   const handleClick = () => {
     router.push("/");
@@ -81,7 +86,7 @@ function Success() {
         </Flex>
         <Footer />
       </Box>
-      <Confetti width={width} height={height} />
+      <Confetti tweenDuration={10} width={width} height={height} />
     </>
   );
 }
