@@ -46,9 +46,11 @@ function Canceled() {
                         </Heading>
                         <Text fontWeight={"bold"} fontSize={"2xl"} color="red.400" textAlign="center">Donations help Unpuzzle stay accessible for everyone!</Text>
                         <Button
-                            bgGradient='linear(to-r, red.300, red.600)'
+                            background={'linear-gradient(90deg, #FC8181, #C53030 51%, #FC8181) var(--x, 0)/ 200%'}
                             size="lg"
-                            color="white"
+                            textColor="white"
+                            transition="0.5s"
+                            _hover={{ "--x": "100%" }}
 
                             width="200px"
                             onClick={(e) => handleClick(e)}
