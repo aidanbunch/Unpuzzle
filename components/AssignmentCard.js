@@ -61,42 +61,38 @@ export default function AssignmentCard({
               transition="transform 200ms ease-in-out"
               _hover={{ transform: "scale(1.05)" }}
             >
-
-              <VStack>
+              <HStack>
                 {isComplete ? (
-                  <Icon boxSize={8} color={"white"} alignSelf={"flex-end"}>
+                  <Icon boxSize={8} color={"white"} mr={6} mt={2}>
                     <BsFillCheckCircleFill />
                   </Icon>
                 ) : (
                   blankComponent
                 )}
-                <HStack>
-                  {thumbnailURL.includes("api") ? (
-                    <Box h="90px"></Box>
-                  ) : (
-                    <Image
-                      h="90px"
-                      borderRadius={"md"}
-                      title="Assignment Thumbnail URL"
-                      src={thumbnailURL}
-                      alt="Assignment Thumbnail"
-                      allowFullScreen
-                    />
-                  )}
+                {thumbnailURL.includes("api") ? (
+                  <Box h="90px"></Box>
+                ) : (
+                  <Image
+                    h="90px"
+                    borderRadius={"md"}
+                    title="Assignment Thumbnail URL"
+                    src={thumbnailURL}
+                    alt="Assignment Thumbnail"
+                    allowFullScreen
+                  />
+                )}
 
-
-                  <Spacer />
-                  <Heading
-                    textAlign="center"
-                    color={"white"}
-                    fontSize={"2xl"}
-                    fontFamily={"body"}
-                  >
-                    {assignmentTitle}
-                  </Heading>
-                  <Spacer />
-                </HStack>
-              </VStack>
+                <Spacer />
+                <Heading
+                  textAlign="center"
+                  color={"white"}
+                  fontSize={"2xl"}
+                  fontFamily={"body"}
+                >
+                  {assignmentTitle}
+                </Heading>
+                <Spacer />
+              </HStack>
             </Box>
           </Center>
         </Box>
