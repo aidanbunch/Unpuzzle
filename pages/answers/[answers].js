@@ -151,7 +151,7 @@ export default function Assignment({
         attemptId: attemptId,
         userToken: userToken,
       })
-      .catch(function (error) {
+      .catch((error) => {
         noError = false;
       });
 
@@ -182,7 +182,7 @@ export default function Assignment({
             openEndedBody: question.body,
             openEndedAnswer: openEndedAns,
           })
-          .catch(function (error) {
+          .catch((error) => {
             noError = false;
           });
 
@@ -207,7 +207,7 @@ export default function Assignment({
             userToken: userToken,
             correctChoices: question.correctChoices,
           })
-          .catch(function (error) {
+          .catch((error) => {
             noError = false;
           });
 
