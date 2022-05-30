@@ -277,7 +277,7 @@ export default function Pricing() {
                       <Button
                         onClick={() => {
                           sendCheckoutPostRequest(
-                            "price_1L4XueKCwqQTCCtFPIwHrWof"
+                            "price_1L4XsfKCwqQTCCtFdCpE0wAn"
                           );
                         }}
                         w="full"
