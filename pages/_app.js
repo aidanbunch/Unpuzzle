@@ -53,6 +53,7 @@ function MyApp({ Component, pageProps }) {
         <link rel="manifest" href="/manifest.json" />
       </Head>
       <ChakraProvider theme={theme}>
+        <UserProvider>
         <NextSeo
           title="Unpuzzle"
           description="Finish your assignments on time by getting Edpuzzle solutions instantly (we even generate answers to open ended questions)! We provide unique insights on problems in order to aid students in learning the material!"
@@ -74,7 +75,6 @@ function MyApp({ Component, pageProps }) {
           }}
         />
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-        <UserProvider>
           <Navbar />
           <NextNProgress options={{ showSpinner: false }} />
           <Component {...pageProps} />

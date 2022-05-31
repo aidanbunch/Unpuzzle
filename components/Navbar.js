@@ -71,7 +71,7 @@ export default function WithSubnavigation({ currentPage }) {
   const planBadgeColor = (highestPlan) => {
     switch (highestPlan) {
       case "Platinum":
-        return "whiteAlpha";
+        return "gray";
       case "Gold":
         return "yellow";
       case "Bronze":
@@ -206,15 +206,21 @@ export default function WithSubnavigation({ currentPage }) {
                     <Badge
                       variant="outline"
                       colorScheme={planBadgeColor(
-                        user.plans_array.sort((a, b) => a.localeCompare(b))[
-                          user.plans_array.length - 1
-                        ]
+                      
+                       (typeof user.plans_array !== "undefined") ?  (user.plans_array.sort((a, b) => a.localeCompare(b))[
+                        user.plans_array.length - 1
+                      ]) : []
+                      
                       )}
                     >
+                      // use context is undefined first few seconds before updating - check for null 
                       {
-                        user.plans_array.sort((a, b) => a.localeCompare(b))[
-                          user.plans_array.length - 1
-                        ]
+                        (typeof user.plans_array !== "undefined") ? (
+                          user.plans_array.sort((a, b) => a.localeCompare(b))[
+                            user.plans_array.length - 1
+                          ]
+                        ) : ("")
+                       
                       }
                     </Badge>
                   </Center>

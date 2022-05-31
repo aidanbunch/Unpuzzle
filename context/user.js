@@ -11,6 +11,7 @@ const Provider = ({ children }) => {
   useEffect(() => {
     const getUserProfile = async () => {
       const sessionUser = supabase.auth.user();
+      console.log("GET USER PROFILE")
 
       if (sessionUser) {
         const { data: profile } = await supabase
@@ -28,7 +29,8 @@ const Provider = ({ children }) => {
 
     getUserProfile();
 
-    supabase.auth.onAuthStateChange(() => {
+    supabase.auth.onAuthStateChange((event, session) => {
+      console.log(event)
       getUserProfile();
     });
   }, []);
