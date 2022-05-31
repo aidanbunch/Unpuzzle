@@ -6,7 +6,8 @@ export const config = {
     bodyParser: false,
   },
 };
-const endpointSecret = "whsec_EdVORXGfF4eL6vfRl85JDgt4hY9fO0PP";
+const endpointSecret = "whsec_zEeG05WMIT2fORam8aOzEjK4gjERK5AM";
+
 
 const stripe = new Stripe(endpointSecret);
 
