@@ -24,6 +24,9 @@ import {
   Center,
   MenuDivider,
   MenuItem,
+  Badge,
+  HStack,
+  Wrap,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -63,6 +66,17 @@ export default function WithSubnavigation({ currentPage }) {
 
   const goToLogin = (event) => {
     Router.push("/login");
+  };
+
+  const planBadgeColor = (highestPlan) => {
+    switch (highestPlan) {
+      case "Platinum":
+        return "whiteAlpha";
+      case "Gold":
+        return "yellow";
+      case "Bronze":
+        return "orange";
+    }
   };
 
   return (
@@ -186,6 +200,23 @@ export default function WithSubnavigation({ currentPage }) {
                   <br />
                   <Center>
                     <p>{user.user_metadata.name}</p>
+                  </Center>
+                  <br />
+                  <Center>
+                    <Badge
+                      variant="outline"
+                      colorScheme={planBadgeColor(
+                        user.plans_array.sort((a, b) => a.localeCompare(b))[
+                          user.plans_array.length - 1
+                        ]
+                      )}
+                    >
+                      {
+                        user.plans_array.sort((a, b) => a.localeCompare(b))[
+                          user.plans_array.length - 1
+                        ]
+                      }
+                    </Badge>
                   </Center>
                   <br />
                   <MenuDivider />
