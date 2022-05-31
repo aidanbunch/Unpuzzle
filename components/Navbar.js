@@ -213,7 +213,7 @@ export default function WithSubnavigation({ currentPage }) {
                       
                       )}
                     >
-                      // use context is undefined first few seconds before updating - check for null 
+                      {/* // use context is undefined first few seconds before updating - check for null  */}
                       {
                         (typeof user.plans_array !== "undefined") ? (
                           user.plans_array.sort((a, b) => a.localeCompare(b))[
