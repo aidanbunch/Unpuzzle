@@ -206,22 +206,19 @@ export default function WithSubnavigation({ currentPage }) {
                     <Badge
                       variant="outline"
                       colorScheme={planBadgeColor(
-                      
-                       (typeof user.plans_array !== "undefined") ?  (user.plans_array.sort((a, b) => a.localeCompare(b))[
-                        user.plans_array.length - 1
-                      ]) : []
-                      
+                        user.plans_array == null
+                          ? []
+                          : user.plans_array.sort((a, b) => a.localeCompare(b))[
+                              user.plans_array.length - 1
+                            ]
                       )}
                     >
                       {/* // use context is undefined first few seconds before updating - check for null  */}
-                      {
-                        (typeof user.plans_array !== "undefined") ? (
-                          user.plans_array.sort((a, b) => a.localeCompare(b))[
+                      {user.plans_array == null
+                        ? ""
+                        : user.plans_array.sort((a, b) => a.localeCompare(b))[
                             user.plans_array.length - 1
-                          ]
-                        ) : ("")
-                       
-                      }
+                          ]}
                     </Badge>
                   </Center>
                   <br />
