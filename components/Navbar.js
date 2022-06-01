@@ -79,6 +79,8 @@ export default function WithSubnavigation({ currentPage }) {
     }
   };
 
+  let blankComponent;
+
   return (
     <Box justifyContent="center">
       <Flex
@@ -221,7 +223,8 @@ export default function WithSubnavigation({ currentPage }) {
                           ]}
                     </Badge>
                   </Center>
-                  <br />
+                  {/* remove unnecessary breaks if plan badge isn't rendered*/}
+                  {user.plans_array == null ? blankComponent : <br />}
                   <MenuDivider />
                   <MenuItem
                     onClick={() => {
