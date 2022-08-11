@@ -146,6 +146,7 @@ export default function Assignment({
 
     console.log(attemptId);
 
+    // auto complete video
     const videoResponse = await axios
       .post("/api/complete-video", {
         attemptId: attemptId,
