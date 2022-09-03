@@ -151,7 +151,7 @@ export default function Home({ edpuzzlesSolved }) {
                 <HStack>
                   <AnimatedNumber
                     value={num}
-                    duration={1000}
+                    duration={700}
                     formatValue={(value) => value.toFixed(0)}
                   />
                   <Text fontSize={"2xl"}>edpuzzles solved!</Text>
