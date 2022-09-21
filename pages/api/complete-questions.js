@@ -31,7 +31,8 @@ export default async function handler(req, res) {
             },
             {
                 headers: {
-                    'Cookie': `token=${req.body.userToken}`
+                    'Cookie': `token=${req.body.userToken}; edpuzzleCSRF=123`,
+                    'x-csrf-token': `${req.body.csrf}`,
                 }
             }
         )
@@ -59,7 +60,8 @@ export default async function handler(req, res) {
             {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Cookie': `token=${req.body.userToken}`
+                    'Cookie': `token=${req.body.userToken}; edpuzzleCSRF=123`,
+                    'x-csrf-token': `${req.body.csrf}`,
                 }
             });
         console.log(open_response.data)
