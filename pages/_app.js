@@ -51,6 +51,7 @@ function MyApp({ Component, pageProps }) {
         <title>Unpuzzle</title>
         <link rel="icon" type="image/png" href="/logo.png" />
         <link rel="manifest" href="/manifest.json" />
+        <meta name="a.validate.02" content="t6UZxG31Tb13Jyo1XrEjclTPEDLkFfnRcmLv" />
       </Head>
       <ChakraProvider theme={theme}>
         <UserProvider>
