@@ -144,17 +144,22 @@ export default function Assignment({
     let noError = true;
     setIsLoading(true);
 
+    var csrf = "blank";
+
     console.log(attemptId);
 
     // auto complete video
-    const videoResponse = await axios
+
+    await axios.post("/api/get-csrf", {userToken: userToken}).then(async (response) => {
+      csrf = response.data.CSRFToken;
+      await axios
       .post("/api/complete-video", {
         attemptId: attemptId,
         userToken: userToken,
+        csrf: csrf,
       })
-      .catch((error) => {
-        noError = false;
-      });
+    })
+    
 
     const count = answers.length;
     if (count == 0 && noError) {
@@ -180,6 +185,7 @@ export default function Assignment({
             attemptId: attemptId,
             questionId: question.id,
             userToken: userToken,
+            csrf: csrf,
             openEndedBody: question.body,
             openEndedAnswer: openEndedAns,
           })
@@ -207,6 +213,7 @@ export default function Assignment({
             questionId: question.id,
             userToken: userToken,
             correctChoices: question.correctChoices,
+            csrf: csrf
           })
           .catch((error) => {
             noError = false;

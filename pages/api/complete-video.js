@@ -9,7 +9,8 @@ export default async function handler(req, res) {
         { "timeIntervalNumber": 10 },
         {
             headers: {
-                'Cookie': `token=${req.body.userToken}`
+                'Cookie': `token=${req.body.userToken}; edpuzzleCSRF=123`,
+                'x-csrf-token': `${req.body.csrf}`,
             }
         })
 
