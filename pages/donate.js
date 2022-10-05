@@ -135,6 +135,7 @@ export default function Pricing() {
                     </ListItem>
 
                     <ListItem opacity={"0.0"}>Placeholder</ListItem>
+                    <ListItem opacity={"0.0"}>Placeholder</ListItem>
                   </List>
                   <Box w="80%" pt={7}>
                     {user ? (
@@ -270,6 +271,11 @@ export default function Pricing() {
                     <ListItem>
                       <ListIcon as={FaCheckCircle} color="green.500" />
                       Platinum Sponsor Badge
+                    </ListItem>
+
+                    <ListItem>
+                      <ListIcon as={FaCheckCircle} color="green.500" />
+                      Unpuzzle API Access
                     </ListItem>
                   </List>
                   <Box w="80%" pt={7}>
