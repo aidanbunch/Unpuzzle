@@ -455,10 +455,6 @@ const NAV_ITEMS = [
       },
     ],
   },
-  {
-    label: "Donate",
-    href: "/donate",
-  },
 
   {
     label: "Login",
