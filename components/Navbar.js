@@ -451,9 +451,13 @@ const NAV_ITEMS = [
       {
         label: "Other Projects",
         subLabel: "",
-        href: "#",
+        href: "https://chrome.google.com/webstore/detail/unpuzzle/bkhmfdnoifikoinnhgbalpejgdakdlpc?",
       },
     ],
+  },
+  {
+    label: "Unblock School Wifi",
+    href: "https://unblocked.unpuzzle.net"
   },
 
   {
