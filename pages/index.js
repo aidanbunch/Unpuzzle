@@ -56,7 +56,7 @@ export default function Home({ edpuzzlesSolved }) {
         Router.push("/edpuzzle");
       }
     }
-  });
+  }, [user.user]);
 
   return (
     <Box

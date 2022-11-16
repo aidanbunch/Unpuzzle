@@ -23,7 +23,7 @@ function Success() {
   useEffect(() => {
     setWidth(window.innerWidth);
     setHeight(window.innerHeight);
-  });
+  }, []);
 
   const handleClick = () => {
     router.push("/");
