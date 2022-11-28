@@ -20,7 +20,7 @@ export default async function handler(req, res) {
 
   const questionPrompt = appendQuestionMarkToPrompt(req.body.prompt);
 
-  const completion = await openai.createCompletion("text-davinci-002", {
+  const completion = await openai.createCompletion("text-davinci-003", {
     prompt: questionPrompt,
     temperature: 1.0,
     max_tokens: 70,
