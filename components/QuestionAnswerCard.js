@@ -14,10 +14,13 @@ import {
 } from "@chakra-ui/react";
 import { CheckIcon } from "@chakra-ui/icons";
 import React from "react";
+import { returnIndex } from "../utils/return-index.js";
 
 export default function QuestionAnswerCard({ question, number }) {
   const [frq, setFrq] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(true);
+
+  let errorFlag = 0;
 
   async function getOpenEndedAnswer(question, number) {
     if (question.type === "open-ended") {
@@ -29,10 +32,21 @@ export default function QuestionAnswerCard({ question, number }) {
         body: JSON.stringify({ prompt: question.body, number: number }),
       });
 
-      const data = await response.json();
-      // console.log(data.answer);
-      setFrq(data.answer);
-      setIsLoading(false);
+      const status = await response.status;
+
+      if(status !== 200) {
+        errorFlag++;
+        if (errorFlag >= 3) {
+          setFrq("Error: Unable to generate response");
+          setIsLoading(false);
+          return;
+        }
+        getOpenEndedAnswer(question, returnIndex((number === 0 ? 3 : number), 3));
+      } else {
+        const data = await response.json();
+        setFrq(data.answer);
+        setIsLoading(false);
+      }
     }
   }
 
