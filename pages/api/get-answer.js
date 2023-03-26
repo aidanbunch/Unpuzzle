@@ -20,7 +20,8 @@ export default async function handler(req, res) {
 
   const questionPrompt = appendQuestionMarkToPrompt(req.body.prompt);
 
-  const completion = await openai.createCompletion("text-davinci-003", {
+  const completion = await openai.createCompletion({
+    model: "text-davinci-003",
     prompt: questionPrompt,
     temperature: 1.0,
     max_tokens: 70,
@@ -28,5 +29,11 @@ export default async function handler(req, res) {
 
   const answerString = completion.data.choices[0].text.replace(/\n/g, "");
 
-  res.status(200).json({ answer: answerString });
+  // truncate all strings after the last period
+  const answerStringTruncated = answerString.slice(
+    0,
+    answerString.lastIndexOf(".") + 1
+  );
+
+  res.status(200).json({ answer: answerStringTruncated });
 }
