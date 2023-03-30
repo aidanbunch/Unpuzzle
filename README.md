@@ -25,7 +25,7 @@ Unpuzzle has several features that make it a powerful tool for helping students 
 
 - Stripe payment processing: Unpuzzle offers a subscription-based service for students, with Stripe handling the payment processing securely and efficiently.
 
-- Google Chrome extension: Unpuzzle offers a Google Chrome extension that simplifies the process of getting the Edpuzzle session token for students, making it easy to get started using the app. You can access it ![here.](https://chrome.google.com/webstore/detail/unpuzzle/bkhmfdnoifikoinnhgbalpejgdakdlpc?)
+- Google Chrome extension: Unpuzzle offers a Google Chrome extension that simplifies the process of getting the Edpuzzle session token for students, making it easy to get started using the app. You can access it [here.](https://chrome.google.com/webstore/detail/unpuzzle/bkhmfdnoifikoinnhgbalpejgdakdlpc?)
 
 <img width="1493" alt="extension" src="https://user-images.githubusercontent.com/44245721/228968600-ac049b9b-c542-4083-8faa-36c0a20db686.png">
 
@@ -34,10 +34,10 @@ To get started with Unpuzzle, follow these steps:
 
 1. Clone the repository to your local machine.
 2. Install dependencies by running `npm i`.
-3. Set up a ![Supabase](https://supabase.com/) project and save your Supabase credentials, including the URL and API key.
-4. Set up a ![Stripe](https://stripe.com/) account and save your API keys and secret API route.
-5. Set up as many as 3 ![OpenAI](https://openai.com/) accounts and save their API keys.
-6. Set up ![Google Analytics](https://analytics.google.com/) and save the ID as well as the ad client number.
+3. Set up a [Supabase](https://supabase.com/) project and save your Supabase credentials, including the URL and API key.
+4. Set up a [Stripe](https://stripe.com/) account and save your API keys and secret API route.
+5. Set up as many as 3 [OpenAI](https://openai.com/) accounts and save their API keys.
+6. Set up [Google Analytics](https://analytics.google.com/) and save the ID as well as the ad client number.
 5. Run the development server by running `npm run dev`.
 6. Navigate to http://localhost:3000 to view the application.
 7. Add the following environment variables to your .env.local file:
