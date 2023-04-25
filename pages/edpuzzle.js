@@ -24,11 +24,11 @@ import { useUser } from "../context/user";
 
 export default function Edpuzzle() {
   const { user } = useUser();
-  // useEffect(() => {
-  //   if (user == null) {
-  //     Router.push("/");
-  //   }
-  // });
+  useEffect(() => {
+    if (user == null) {
+      Router.push("/");
+    }
+  });
 
   const [userToken, setUserToken] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);

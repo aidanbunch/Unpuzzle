@@ -456,10 +456,9 @@ const NAV_ITEMS = [
     ],
   },
   {
-    label: "Unblock School Wifi",
-    href: "https://unblocked.unpuzzle.net"
+    label: "Donate",
+    href: "/donate",
   },
-
   {
     label: "Login",
     href: "/login",
