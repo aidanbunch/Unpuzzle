@@ -26,7 +26,7 @@ export default function Edpuzzle() {
   const { user } = useUser();
   useEffect(() => {
     if (user == null) {
-      Router.push("/");
+      Router.push("/login");
     }
   });
 
