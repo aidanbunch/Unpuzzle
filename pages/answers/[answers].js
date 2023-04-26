@@ -299,6 +299,7 @@ export default function Assignment({
                   <QuestionAnswerCard
                     key={index}
                     question={question}
+                    assignmentTitle={assignmentTitle}
                     number={returnIndex(index + 1, 3)}
                   />
                 </div>

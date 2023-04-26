@@ -16,7 +16,7 @@ import { CheckIcon } from "@chakra-ui/icons";
 import React from "react";
 import { returnIndex } from "../utils/return-index.js";
 
-export default function QuestionAnswerCard({ question, number }) {
+export default function QuestionAnswerCard({ question, number, assignmentTitle }) {
   const [frq, setFrq] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(true);
 
@@ -29,7 +29,7 @@ export default function QuestionAnswerCard({ question, number }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt: question.body, number: number }),
+        body: JSON.stringify({ prompt: question.body, number: number, assignmentTitle: assignmentTitle }),
       });
 
       const status = await response.status;
