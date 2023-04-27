@@ -25,6 +25,7 @@ import {
 import BackButton from "../../components/BackButton";
 import Head from "next/head";
 import { returnIndex } from "../../utils/return-index.js";
+import { useUser } from "../../context/user.js";
 
 export async function getServerSideProps(context) {
   var questionJSON = [];
@@ -129,7 +130,7 @@ export default function Assignment({
   userToken,
 }) {
   const [elRefs, setElRefs] = useState([]);
-  console.log(elRefs);
+  const { user } = useUser();
 
   useEffect(() => {
     setElRefs((elRefs) => answers.map((_, i) => elRefs[i] || createRef()));
@@ -245,6 +246,11 @@ export default function Assignment({
       });
     }
     await supabase.rpc("increment_solved_edpuzzles");
+    if (user) {
+			await supabase.rpc("increment_user_solved_edpuzzles", {
+				client_id: user.id,
+			});
+		}
   };
 
   return (
