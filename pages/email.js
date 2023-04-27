@@ -56,7 +56,7 @@ export default function ContactFormWithSocialButtons() {
     ]);
 
     if (error) {
-      console.log(error);
+      // console.log(error);
       setIsLoading(false);
       toast({
         title: "Error sending message.",

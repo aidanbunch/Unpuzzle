@@ -62,7 +62,7 @@ export default function WithSubnavigation({ currentPage }) {
   const goToSignUp = (event) => {
     Router.push("/signup");
   };
-  console.log(user);
+  // console.log(user);
 
   const goToLogin = (event) => {
     Router.push("/login");

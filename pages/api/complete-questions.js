@@ -3,7 +3,7 @@ import axios from "axios";
 
 export default async function handler(req, res) {
 
-    console.log(req)
+    // console.log(req)
     if (req.body.type === "multiple-choice") {
 
         const questionChoice = []
@@ -36,7 +36,7 @@ export default async function handler(req, res) {
                 }
             }
         )
-        console.log(multi_response.data)
+        // console.log(multi_response.data)
         res.send(multi_response.data);
 
         // }
@@ -64,7 +64,7 @@ export default async function handler(req, res) {
                     'x-csrf-token': `${req.body.csrf}`,
                 }
             });
-        console.log(open_response.data)
+        // console.log(open_response.data)
         res.send("GOOD OPEN ENDED")
 
     }

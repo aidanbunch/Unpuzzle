@@ -77,7 +77,7 @@ export default function QuestionAnswerCard({ question, number, assignmentTitle }
 
   React.useEffect(() => {
     // on appear
-    console.log(question.body);
+    // console.log(question.body);
     if (questionType === "open-ended") {
       getOpenEndedAnswer(question, number);
     }

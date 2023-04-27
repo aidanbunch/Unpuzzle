@@ -52,7 +52,7 @@ export default function Home({ edpuzzlesSolved }) {
     const params = Object.fromEntries(urlSearchParams.entries());
     if (!params["noredirect"]) {
       if (user.user !== null) {
-        console.log(user.user);
+        // console.log(user.user);
         Router.push("/edpuzzle");
       }
     }

@@ -147,7 +147,7 @@ export default function Assignment({
 
     var csrf = "blank";
 
-    console.log(attemptId);
+    // console.log(attemptId);
 
     // auto complete video
 
