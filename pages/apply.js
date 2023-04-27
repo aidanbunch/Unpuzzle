@@ -85,10 +85,11 @@ export default function Apply() {
                       <Text fontSize={"lg"} py="4" fontWeight="medium">Responsibilities</Text>
                       <UnorderedList spacing={"3"}>
                         <ListItem>
-                          Brainstorm and create engaging content that aligns with the company's brand and goals.
+                          {
+                          `Brainstorm and create engaging content that aligns with the company&apos;s brand and goals.`}
                         </ListItem>
                         <ListItem>
-                          Manage the account's posting schedule and ensure timely delivery of content.
+                          {`Manage the account&apos;s posting schedule and ensure timely delivery of content.`}
                         </ListItem>
                         <ListItem>
                           Respond to user comments and messages in a timely and professional manner
