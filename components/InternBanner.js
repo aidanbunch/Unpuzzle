@@ -44,9 +44,9 @@ export const InternBanner = ({ setShowBanner }) => {
             spacing={{ base: '0.5', md: '1.5' }}
             pe={{ base: '4', sm: '0' }}
           >
-            <Text fontWeight="medium">{`
-            We&apos;re looking for interns!`
-}</Text>
+            <Text fontWeight="medium">
+            We&apos;re looking for interns!
+</Text>
             <Text color="muted">Read more about open positions</Text>
           </Stack>
         </Stack>
