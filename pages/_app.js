@@ -1,4 +1,4 @@
-import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
+import { ChakraProvider, ColorModeScript, Container, Stack } from "@chakra-ui/react";
 import UserProvider from "../context/user";
 import theme from "../theme.js";
 import Head from "next/head";
@@ -6,12 +6,21 @@ import Navbar from "../components/Navbar";
 import Script from 'next/script'
 import { useRouter } from 'next/router'
 import * as gtag from '../lib/gtag'
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { NextSeo } from "next-seo"
 import NextNProgress from "nextjs-progressbar";
+import { InternBanner } from "../components/InternBanner";
 
 function MyApp({ Component, pageProps }) {
   const G_CLIENT = process.env.G_AD_CLIENT
+
+  const [showInternBanner, setShowInternBanner] = useState(true)
+
+  useEffect(() => {
+
+    console.log(showInternBanner)
+
+  }, [showInternBanner])
 
   const router = useRouter()
   useEffect(() => {
@@ -55,30 +64,42 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <ChakraProvider theme={theme}>
         <UserProvider>
-        <NextSeo
-          title="Unpuzzle"
-          description="Finish your assignments on time by getting Edpuzzle solutions instantly (we even generate answers to open ended questions)! We provide unique insights on problems in order to aid students in learning the material!"
-          openGraph={{
-            url: 'https://unpuzzle.net',
-            title: 'Unpuzzle',
-            description:
-              'Finish your assignments on time by getting Edpuzzle solutions instantly (we even generate answers to open ended questions)! We provide unique insights on problems in order to aid students in learning the material!',
-            locale: 'en_US',
-            images: [
-              {
-                url: 'https://unpuzzle.net/logo.png',
-                width: 1200,
-                height: 630,
-                alt: 'unpuzzle',
-                type: 'image/png',
-              },
-            ],
-          }}
-        />
-        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-          <Navbar />
-          <NextNProgress options={{ showSpinner: false }} />
-          <Component {...pageProps} />
+          <NextSeo
+            title="Unpuzzle"
+            description="Finish your assignments on time by getting Edpuzzle solutions instantly (we even generate answers to open ended questions)! We provide unique insights on problems in order to aid students in learning the material!"
+            openGraph={{
+              url: 'https://unpuzzle.net',
+              title: 'Unpuzzle',
+              description:
+                'Finish your assignments on time by getting Edpuzzle solutions instantly (we even generate answers to open ended questions)! We provide unique insights on problems in order to aid students in learning the material!',
+              locale: 'en_US',
+              images: [
+                {
+                  url: 'https://unpuzzle.net/logo.png',
+                  width: 1200,
+                  height: 630,
+                  alt: 'unpuzzle',
+                  type: 'image/png',
+                },
+              ],
+            }}
+          />
+
+          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+          <Stack spacing={"0"}>
+            {
+              showInternBanner ? (
+                <InternBanner setShowBanner={setShowInternBanner} />
+              ) : (
+                <></>
+              )
+
+            }
+
+            <Navbar />
+            <NextNProgress options={{ showSpinner: false }} />
+            <Component {...pageProps} />
+          </Stack>
         </UserProvider>
       </ChakraProvider>
     </>
