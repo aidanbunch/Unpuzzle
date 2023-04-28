@@ -90,6 +90,7 @@ export default function WithSubnavigation({ currentPage }) {
         minH={"90px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
+        mb={10}
         borderBottom={1}
         borderStyle={"solid"}
         borderColor={useColorModeValue("gray.200", "gray.900")}

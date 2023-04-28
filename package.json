@@ -15,6 +15,7 @@
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@fontsource/caveat": "^4.5.7",
+    "@fontsource/inter": "^4.5.15",
     "@react-hook/window-size": "^3.0.7",
     "@stripe/stripe-js": "^1.30.0",
     "@supabase/supabase-js": "^1.35.3",

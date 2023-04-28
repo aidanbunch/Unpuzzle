@@ -3,6 +3,8 @@
 // 1. import `extendTheme` function
 import { theme as proTheme } from '@chakra-ui/pro-theme'
 import { extendTheme, theme as baseTheme } from '@chakra-ui/react'
+import '@fontsource/inter/variable.css'
+
 // 2. Add your color mode config
 const config = {
   initialColorMode: "light",
