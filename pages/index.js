@@ -86,7 +86,7 @@ export default function Home({ edpuzzlesSolved }) {
             </Text>
           </Heading>
           <Text color={"gray.500"} fontSize={"xl"}>
-            Study and and retain information from EdPuzzle videos faster
+            Study and and retain information from Edpuzzles faster
             (unique open-ended answers)!
           </Text>
           <Stack
