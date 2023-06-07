@@ -25,9 +25,9 @@ import { useUser } from "../context/user";
 export default function Edpuzzle() {
   const { user } = useUser();
   useEffect(() => {
-    if (user == null) {
-      Router.push("/login");
-    }
+    // if (user == null) {
+    //   Router.push("/login");
+    // }
   });
 
   const [userToken, setUserToken] = React.useState("");

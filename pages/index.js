@@ -86,8 +86,8 @@ export default function Home({ edpuzzlesSolved }) {
             </Text>
           </Heading>
           <Text color={"gray.500"} fontSize={"xl"}>
-            Finish your assignments on time by getting solutions instantly
-            (unique open-ended answers with AI)!
+            Study and and retain information from EdPuzzle videos faster
+            (unique open-ended answers)!
           </Text>
           <Stack
             direction={"column"}
@@ -154,7 +154,7 @@ export default function Home({ edpuzzlesSolved }) {
                     duration={700}
                     formatValue={(value) => value.toFixed(0)}
                   />
-                  <Text fontSize={"2xl"}>edpuzzles solved!</Text>
+                  <Text fontSize={"2xl"}>edpuzzles studied!</Text>
                 </HStack>
               </Text>
             </Box>

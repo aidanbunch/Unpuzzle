@@ -87,14 +87,14 @@ function MyApp({ Component, pageProps }) {
 
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <Stack spacing={"0"}>
-            {
+            {/* {
               showInternBanner ? (
                 <InternBanner setShowBanner={setShowInternBanner} />
               ) : (
                 <></>
               )
 
-            }
+            } */}
 
             <Navbar />
             <NextNProgress options={{ showSpinner: false }} />

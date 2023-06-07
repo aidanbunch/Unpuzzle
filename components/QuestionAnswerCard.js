@@ -19,6 +19,8 @@ import { returnIndex } from "../utils/return-index.js";
 export default function QuestionAnswerCard({ question, number, assignmentTitle }) {
   const [frq, setFrq] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(true);
+  
+  const [showAnswer, setShowAnswer] = React.useState(false);
 
   let errorFlag = 0;
 
@@ -124,10 +126,14 @@ export default function QuestionAnswerCard({ question, number, assignmentTitle }
                 }}
               />
             ) : (
-              <List spacing={3}>
+
+              
+              showAnswer ? (
+                <List spacing={3}>
                 {question.correctChoices.map((choice, index) => (
                   <ListItem key={index}>
                     <HStack>
+        
                       <ListIcon as={CheckIcon} color="green.400" />
 
                       <Text
@@ -142,6 +148,16 @@ export default function QuestionAnswerCard({ question, number, assignmentTitle }
                   </ListItem>
                 ))}
               </List>
+              ) : (
+                <Button
+                onClick={() => {
+                  setShowAnswer(!showAnswer);
+                }}
+              >
+                Show Answer
+              </Button>
+              )
+            
             )}
           </Center>
 
