@@ -1,7 +1,7 @@
 # Unpuzzle
 Welcome to Unpuzzle, a web application designed to help students complete their Edpuzzle assignments quickly and efficiently using OpenAI's GPT-3 model. This application is built using TypeScript, Next.js, and styled with Chakra UI, with a backend implemented using Supabase and Stripe for payment processing.
 
-https://github.com/UnpuzzledSoftware/FusionRedwood/assets/44245721/3d5db6c3-839e-4352-a8e5-b3e8fa574c42
+[https://github.com/UnpuzzledSoftware/FusionRedwood/assets/44245721/3d5db6c3-839e-4352-a8e5-b3e8fa574c42](https://github.com/aidanbunch/Unpuzzle/assets/44245721/653eb16c-0273-488d-b20d-a8b5b99ea1d2)
 
 
 Unpuzzle has accumulated over 15,000 users and over 80,000 Edpuzzles solved, which reflects the usefulness and value of our application to students.
