@@ -28,6 +28,7 @@ export default function AssignmentCard({
   userToken,
   classroomID,
   isComplete,
+  contentId,
 }) {
   let blankComponent;
   return (
@@ -44,6 +45,7 @@ export default function AssignmentCard({
           userToken: `${userToken}`,
           classroomID: `${classroomID}`,
           assignmentID: `${assignmentID}`,
+          contentId: `${contentId}`,
         },
       }}
       passHref

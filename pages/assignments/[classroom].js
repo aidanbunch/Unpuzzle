@@ -45,6 +45,7 @@ export async function getServerSideProps(context) {
       const assignmentsObj = {};
       assignmentsObj["assignmentTeacherId"] = assignment.contentId;
       assignmentsObj["assignmentId"] = assignment._id;
+      assignmentsObj["contentId"] = assignment.contentId;
       titles.forEach((title) => {
         if (assignment.contentId === title._id) {
           assignmentsObj["assignmentTitle"] = title.title;
@@ -137,6 +138,7 @@ export default function Classroom({
                   userToken={userToken}
                   classroomID={classroomID}
                   isComplete={assignment.isComplete}
+                  contentId={assignment.contentId}
                 />
               ))}
           </VStack>
